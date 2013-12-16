@@ -17,11 +17,11 @@ class Resource < ActiveRecord::Base
    .includes(:tags)
    .where(type: resource.humanize)
    .where('categories.name = ?', category.humanize).references(:categories)
-   .where('? = "t" or tags.tag IN (?)', tags.nil?, tags).references(:tags)
+   .where('? or tags.tag in (?)', tags.nil? ? "TRUE" : "FALSE", tags).references(:tags)
    .paging(page, page_size) }
   
   scope :text_search, ->(term, page, page_size) {
-    where('name like ? OR description like ?', "%#{term}%", "%#{term}%")
+    where('name like ? OR description ilike ?', "%#{term}%", "%#{term}%")
    .paging(page, page_size) }
   
   scope :paging, ->(page, page_size) {

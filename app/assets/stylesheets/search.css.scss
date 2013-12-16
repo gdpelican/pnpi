@@ -62,10 +62,12 @@ header.search-form {
         font-weight: bold; }
   }
   
+}
+
+main#results {
   .no-results {
     text-align: center;
     font-size: .8em;
     padding: 1.5em 0;
   }
-  
 }
