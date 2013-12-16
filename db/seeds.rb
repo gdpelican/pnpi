@@ -41,8 +41,8 @@ places = Place.create!([
 puts 'Venues created'
 
 things = Thing.create!([
-  { name: 'Ubu Mask', description: 'A mask for Ubu', categories: [rent], details: { price: 3.5 } },
-  { name: 'That victrola we bought once', description: 'It was overpriced. It was worth it.', categories: [rent, borrow], details: { price: 25 } },
+  { name: 'Ubu Mask', description: 'A mask for Ubu', categories: [borrow] },
+  { name: 'That victrola we bought once', description: 'It was overpriced. It was worth it.', categories: [rent], details: { price: "25" } },
   { name: 'A Projector', description: 'A projector', categories: [borrow] }
 ])
 puts 'Props created'

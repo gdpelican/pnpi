@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20131215192222) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "categories", force: true do |t|
     t.string "name"
     t.string "type"
@@ -23,19 +26,8 @@ ActiveRecord::Schema.define(version: 20131215192222) do
     t.integer "category_id"
   end
 
-  create_table "people", force: true do |t|
-    t.string   "email"
-    t.string   "phone"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "props", force: true do |t|
-    t.decimal  "price"
-    t.integer  "person_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "categories_resources", ["category_id"], name: "index_categories_resources_on_category_id", using: :btree
+  add_index "categories_resources", ["resource_id"], name: "index_categories_resources_on_resource_id", using: :btree
 
   create_table "resources", force: true do |t|
     t.string   "name"
@@ -55,6 +47,9 @@ ActiveRecord::Schema.define(version: 20131215192222) do
     t.integer "resource_id"
   end
 
+  add_index "resources_tags", ["resource_id"], name: "index_resources_tags_on_resource_id", using: :btree
+  add_index "resources_tags", ["tag_id"], name: "index_resources_tags_on_tag_id", using: :btree
+
   create_table "samples", force: true do |t|
     t.integer  "categories_resource_id"
     t.string   "sample_file_name"
@@ -65,6 +60,8 @@ ActiveRecord::Schema.define(version: 20131215192222) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "samples", ["categories_resource_id"], name: "index_samples_on_categories_resource_id", using: :btree
 
   create_table "tags", force: true do |t|
     t.string "tag"
@@ -82,14 +79,6 @@ ActiveRecord::Schema.define(version: 20131215192222) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-
-  create_table "venues", force: true do |t|
-    t.string   "address"
-    t.integer  "latitude"
-    t.integer  "longitude"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

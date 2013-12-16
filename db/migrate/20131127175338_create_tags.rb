@@ -11,8 +11,8 @@ class CreateTags < ActiveRecord::Migration
       t.references :resource
     end
     
-    add_index :resource_tags, :tag_id
-    add_index :resource_tags, :resource_id
+    add_index :resources_tags, :tag_id
+    add_index :resources_tags, :resource_id
     
   end
 end
