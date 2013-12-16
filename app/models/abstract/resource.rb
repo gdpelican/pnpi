@@ -53,7 +53,7 @@ class Resource < ActiveRecord::Base
   end
     
   def default_url
-    "/assets/missing_#{self.type.downcase}.png"
+    "/images/missing_#{self.type.downcase}.png"
   end
     
   def as_json(options={})
