@@ -1,0 +1,7 @@
+<h1><%= @resource.name %> (<%= @type %>)</h1>
+
+<div><%= @resource.type %></div>
+<div><%= @resource.description %></div>
+
+<%= link_to 'Edit', @resource.url(:edit) %> |
+<%= link_to 'Back', @resource.url(:index) %>

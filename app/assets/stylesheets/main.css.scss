@@ -1,0 +1,23 @@
+body, html { margin: 0; padding: 0; }
+
+.admin-dashboard {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  
+  width: 100%;
+  background: black;
+  text-align: center;
+  
+  li { 
+    display: inline-block; 
+    a { 
+      color: white;
+      padding: .25em .5em;
+    }
+  }
+}

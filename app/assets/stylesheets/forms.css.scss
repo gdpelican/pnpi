@@ -1,0 +1,38 @@
+form.resource {
+  
+  ul, li, ol { list-style-type: none; padding: 0; margin: 0; }
+  
+  .fifth {          width: 20%; }
+  .two-fifth {      width: 40%; }
+  .half {           width: 50%; }
+  .half-pad {       width: 40%; margin-right: 10% !important; }
+  .full {           width: 100%; }
+  
+  fieldset { margin: 0; padding: 0; border: 0; }
+  
+  .block { 
+    display: inline-block; 
+    vertical-align: top; 
+    padding: 0; 
+    margin: 0 0 0 -3px;
+    box-sizing: border-box;
+    
+    input[type=text], 
+    input[type=file], 
+    input[type=number],
+    input[type=email],
+    input[type=tel],
+    textarea { width: 100%; }
+    
+    textarea { height: 15em; }
+    
+  }
+  
+  .block-padding {
+    width: 75%;
+    margin: auto;
+  }
+  
+  img { width: 100%;  }
+  
+}

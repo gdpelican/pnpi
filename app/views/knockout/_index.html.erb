@@ -1,0 +1,28 @@
+<header class="search-form">
+	
+	<h1 data-bind="appear: initialView">You want to make something?</h1>
+	<h2 data-bind="appear: initialView">We want to help.</h2>
+		
+	<span data-bind="text: leadText"></span>
+	<span data-bind="visible: filterView">
+		<select data-bind="options: resources, optionsText: 'name', optionsValue: 'value', optionsCaption: '', event: { change: fetchCategories } " class="resource selectpicker"></select>
+		<span 	data-bind="visible: showPredicate, text: predicate" class="predicate"></span>
+		<select data-bind="visible: showPredicate, value: category, options: categories, optionsText: 'name',  optionsValue: 'value', optionCaption: '', event: { change: fetchTags }" class="category selectpicker"></select>
+		<a 		data-bind="visible: showSubmit, click: search" href="javascript" class="search-button">Search</a>
+		<ul    	data-bind="template: { name: 'tagCheck', foreach: tag_list, templateOptions: { selections: tags } }" class="tags"></ul>
+		<div class="swap-search-view"> or <a data-bind="click: swapView">Search by text</a></div>
+	</span>
+	<span data-bind="visible: textView">
+		<input data-bind="value: term" type="text" placeholder="Search. . .">
+		<a     data-bind="click: search" class="search-button">Search</a>
+		<div class="swap-search-view"> or <a data-bind="click: swapView">Search by type</a></div>
+	</span>
+</header>
+
+<main id="results">
+	<div data-bind="visible: !initialView() && results().length == 0" class="no-results">No results found</div>
+	<ul data-bind="template: { name: 'resourcePreview', foreach: results }" class="previews"></ul>
+</main>
+
+<%= render partial: 'knockout/preview' %>
+<%= render partial: 'knockout/tag_check' %>
