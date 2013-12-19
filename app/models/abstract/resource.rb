@@ -21,7 +21,7 @@ class Resource < ActiveRecord::Base
    .paging(page, page_size) }
   
   scope :text_search, ->(term, page, page_size) {
-    where('name like ? OR description ilike ?', "%#{term}%", "%#{term}%")
+    where('name ilike ? OR description ilike ?', "%#{term}%", "%#{term}%")
    .paging(page, page_size) }
   
   scope :paging, ->(page, page_size) {
