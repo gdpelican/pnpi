@@ -14,7 +14,7 @@ PNPI::Application.routes.draw do
     post '/login' => 'devise/sessions#create', as: :user_session
     get  '/logout' => 'devise/sessions#destroy', as: :destroy_user_session
     get  '/people/:id/register' => 'registrations#new', as: :new_user_registration
-    post '/people/:id/register' => 'registrations#create', as: :registration
+    post '/people/register' => 'registrations#create', as: :registration
   end
   
   post '/search/text/:term/(:page)' => 'search#update'

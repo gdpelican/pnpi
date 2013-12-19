@@ -1,5 +1,7 @@
 class Thing < Resource
-  belongs_to :person
+
+  has_and_belongs_to_many :people
+  alias_attribute :owners, :people
 
   validates :price, numericality: { greater_than_or_equal_to: 0 }
   

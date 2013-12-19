@@ -1,20 +1,21 @@
 class User < ActiveRecord::Base
 
-  belongs_to :resource
+  belongs_to :person
+    
+  devise :database_authenticatable, :registerable, :validatable, :rememberable
   
-  attr_accessor :email
-  before_save :set_email
+  attr_accessor :email, :password
   
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-
+  def email
+    self.person.email if self.person
+  end
   
   def email_changed?
-    self.email != self.resource.email
+    false
   end
-    
-  def set_email
-    resource.update_column :email, self.email
+  
+  def self.find_by_person(person)
+    User.where(person_id: person.id).first
   end
   
 end

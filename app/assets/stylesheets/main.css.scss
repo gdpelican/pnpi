@@ -1,16 +1,53 @@
 body, html { margin: 0; padding: 0; }
 
+.flash {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 1em 0;
+  text-align: center;
+  color: white;
+}
+
+.notice { background: rgba(0, 255, 0, .5); }
+.alert { background: rgba(255, 0, 0, .5); }
+
+.user-dashboard,
 .admin-dashboard {
   position: fixed;
-  bottom: 0;
   right: 0;
   
   padding: 0;
   margin: 0;
   list-style-type: none;
   
-  width: 100%;
   background: black;
+  color: white;
+  
+}
+
+.user-dashboard {
+  top: 0;
+
+  .left {
+    padding: .35em;
+    float: left;
+  }
+  
+  .right {
+    float: right;
+  }
+  
+  img {
+    background: white;
+    width: 3em;
+  }
+}
+
+.admin-dashboard {
+  bottom: 0;
+  
+  width: 100%;
   text-align: center;
   
   li { 

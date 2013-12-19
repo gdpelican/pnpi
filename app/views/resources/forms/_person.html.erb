@@ -1,6 +1,5 @@
-<%= f.input :first_name, 	wrapper_html: { class: 'block half-pad' }, input_html: { placeholder: 'First name. . .' }, 		label: false %>
-<%= f.input :last_name,  	wrapper_html: { class: 'block half' }, input_html: { placeholder: 'Last name. . .' },  		label: false %>
-<%= f.input :email, 		wrapper_html: { class: 'block full' }, input_html: { placeholder: 'Email address. . .' }, 	label: false, as: :email %>
-<%= f.input :phone, 		wrapper_html: { class: 'block full' }, input_html: { placeholder: 'Phone number. . .' },  	label: false, as: :phone %>
-<%= f.input :description, 	wrapper_html: { class: 'block full' }, input_html: { placeholder: 'Enter description. . .'},label: false %>
-
+<%= string_input f, :first_name, :string, readonly, 'half-pad' %>
+<%= string_input f, :last_name, :string, readonly, 'half' %>
+<%= string_input f, :email, :email, readonly %>
+<%= string_input f, :phone, :phone, readonly %>
+<%= string_input f, :description, :text, readonly, 'full', 'Enter description. . .' %>

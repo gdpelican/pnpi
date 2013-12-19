@@ -1,7 +1,7 @@
 class ResourcesController < ApplicationController
   before_action :set_type
   before_action :set_resource, except: :index
-  before_action :set_collections, only: [:new, :edit]
+  before_action :set_collections, only: [:new, :edit, :show]
     
   # GET /resources
   # GET /resources.json

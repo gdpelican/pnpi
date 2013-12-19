@@ -8,11 +8,12 @@
 </head>
 <body>
 
-<%= content_tag :div, notice, class: 'notice' if notice %>
-<%= content_tag :div, alert,  class: 'alert'  if alert %>
+<%= content_tag :div, notice, class: 'flash notice' if notice %>
+<%= content_tag :div, alert,  class: 'flash alert'  if alert %>
 <%= yield %>
 
-<%= render partial: 'admin/dashboard' if true %>
+<%= render partial: 'users/dashboards/user'  if current_user %>
+<%= render partial: 'users/dashboards/admin' if current_user and current_user.admin? %>
 
 </body>
 </html>

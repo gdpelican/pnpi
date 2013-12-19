@@ -1,4 +1,5 @@
-<%= semantic_form_for @resource, url: @resource.url(:show) do |f| %>
+<% readonly = true if !defined? readonly %>
+<%= semantic_form_for @resource, url: @resource.url(:show), html: { class: "#{'readonly' if readonly }" } do |f| %>
 	<%= f.inputs :picture, class: 'block fifth' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
 			<%= image_tag f.object.picture.url %>
@@ -8,14 +9,14 @@
 	
 	<%= f.inputs :basic, class: 'block two-fifth' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
-			<%= render partial: "/resources/forms/#{f.object.type.downcase}", locals: { f: f } %>
+			<%= render partial: "/resources/forms/#{f.object.type.downcase}", locals: { f: f, readonly: readonly } %>
 		<% end %>
 	<% end %>
 	
 	<%= f.inputs :tags, class: 'block two-fifth' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
-			<%= f.object.thing? ? f.object.category_message : check_box_collection(f, :categories, @categories) %>
-			<%= check_box_collection f, :tags, @tags, :tag %>
+			<%= f.object.thing? ? f.object.category_message : check_box_collection(f, :categories, @categories, readonly) %>
+			<%= check_box_collection f, :tags, @tags, readonly, :tag %>
 		<% end %>
 	<% end %>
 	

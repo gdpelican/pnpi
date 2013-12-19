@@ -19,7 +19,7 @@ rent = Price.create!({ name: 'Rent' })
 borrow = Price.create({ name: 'Borrow' })
 puts 'Prices created'
 
-people = Person.create!({ name: 'Maura Krause', description: 'Hi, I\'m Maura', categories: [director, producer], tags: [kids] })
+people = Person.create!({ name: 'Maura Krause', description: 'Hi, I\'m Maura', categories: [director, producer], tags: [kids], details: { email: 'mkrause@interact.org'  } })
 
 james = Person.create!({ name: 'James Kiesel', description: 'Hi, I\'m James', tags: [combatant], details: { email: 'james.kiesel@gmail.com' } })
 james_acts = Skill.create!({ resource: james, category: actor })

@@ -1,3 +1,3 @@
-<%= f.input :name, wrapper_html: 		{ class: 'block full' }, input_html: { placeholder: 'Name. . .' }, 				label: false %>
-<%= f.input :price, wrapper_html: 		{ class: 'block full' }, input_html: { class: 'price', placeholder: 'Rental price. . . (leave blank if item can be borrowed free of charge)' }, as: :string, label: false %>
-<%= f.input :description, wrapper_html: { class: 'block full' }, input_html: { placeholder: 'Enter description. . .'}, 	label: false %>
+<%= string_input f, :name, :string, readonly %>
+<%= string_input f, :price, :string, readonly, 'full', 'Rental price. . . (leave blank if item can be borrowed free of charge)' %>
+<%= string_input f, :description, :text, readonly, 'full', 'Enter description. . .' %>

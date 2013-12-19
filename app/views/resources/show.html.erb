@@ -1,7 +1,5 @@
-<h1><%= @resource.name %> (<%= @type %>)</h1>
-
-<div><%= @resource.type %></div>
-<div><%= @resource.description %></div>
+<h1><%= @resource.name %></h1>
+<%= render partial: "/resources/forms/resource", locals: { readonly: true } %>
 
 <%= link_to 'Edit', @resource.url(:edit) %> |
 <%= link_to 'Back', @resource.url(:index) %>

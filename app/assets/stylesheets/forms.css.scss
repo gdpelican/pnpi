@@ -1,5 +1,15 @@
 form.resource {
   
+  &.readonly {
+    input[type=submit],
+    .file { display: none; }
+    .stringish input, 
+    .text textarea {
+      background: #FCFCFC;
+      border: 0;
+    }
+  }
+  
   ul, li, ol { list-style-type: none; padding: 0; margin: 0; }
   
   .fifth {          width: 20%; }
