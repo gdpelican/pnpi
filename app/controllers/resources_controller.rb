@@ -2,6 +2,9 @@ class ResourcesController < ApplicationController
   before_action :set_type
   before_action :set_resource, except: :index
   before_action :set_collections, only: [:new, :edit, :show]
+  before_action :require_admin, only: [:new, :create, :index, :destroy]
+  before_action :require_owner, only: [:edit, :update]
+  before_action :require_user,  only: [:show]
     
   # GET /resources
   # GET /resources.json
@@ -85,6 +88,21 @@ class ResourcesController < ApplicationController
     
     def model
       @type.constantize if @type
+    end
+    
+    def require_admin
+      boot_to_root
+    end
+  
+    def require_owner
+      boot_to_root current_user.present? &&
+                   @resource.present? &&
+                   @resource.person? &&
+                   @resource.id == current_user.person_id
+    end
+    
+    def require_user
+      boot_to_root current_user.present?
     end
 
 end

@@ -19,12 +19,14 @@ rent = Price.create!({ name: 'Rent' })
 borrow = Price.create({ name: 'Borrow' })
 puts 'Prices created'
 
-people = Person.create!({ name: 'Maura Krause', description: 'Hi, I\'m Maura', categories: [director, producer], tags: [kids], details: { email: 'mkrause@interact.org'  } })
+maura = Person.create!({ name: 'Maura Krause', preview: 'A short artistic statement about me', description: 'Hi, I\'m Maura', categories: [director, producer], tags: [kids], details: { email: 'mkrause@interact.org'  } })
+maura_account = User.create!({ person: maura, password: 'interact', encrypted_password: Devise.bcrypt(Devise, 'interact' ), admin: true })
 
 james = Person.create!({ name: 'James Kiesel', description: 'Hi, I\'m James', tags: [combatant], details: { email: 'james.kiesel@gmail.com' } })
 james_acts = Skill.create!({ resource: james, category: actor })
 james_directs = Skill.create!({ resource: james, category: director })
 james_choreos = Skill.create!({ resource: james, category: choreo })
+james_account = User.create!({ person: james, password: 'password', encrypted_password: Devise.bcrypt(Devise, 'password'), admin: false })
 sample = Sample.create!({ skill: james_acts, description: 'An acting resume!' })
 
 cubby = Person.create!({ name: 'Cubby Altobelli', description: 'It\'s Cubby!', tags: [clown], details: { email: 'cubby@cubby.com' } })

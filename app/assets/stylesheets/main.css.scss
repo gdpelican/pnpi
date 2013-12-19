@@ -7,6 +7,7 @@ body, html { margin: 0; padding: 0; }
   padding: 1em 0;
   text-align: center;
   color: white;
+  z-index: 9999;
 }
 
 .notice { background: rgba(0, 255, 0, .5); }
@@ -27,7 +28,10 @@ body, html { margin: 0; padding: 0; }
 }
 
 .user-dashboard {
-  top: 0;
+  top: 1em;
+  padding: .5em;
+  border: 1px solid white;
+  
 
   .left {
     padding: .35em;
@@ -42,6 +46,8 @@ body, html { margin: 0; padding: 0; }
     background: white;
     width: 3em;
   }
+  
+  a { color: white; }
 }
 
 .admin-dashboard {

@@ -1,9 +1,13 @@
 <%= content_tag :ul, class: 'user-dashboard' do %>
-	<%= content_tag :li, image_tag(current_user.person.picture.url(:tiny)), class: 'left' %>
-	<%= content_tag :li, '', class: 'right' do %>
-		<%= content_tag :div, current_user.person.name %>
-		<%= content_tag :div, current_user.person.email %>
-		<%= content_tag :div, link_to('Edit my profile', edit_person_path(current_user.person)) %>
-		<%= content_tag :div, link_to('Sign Out', destroy_user_session_path) %>
+	<% if current_user %>
+		<%= content_tag :li, image_tag(current_user.person.picture.url(:tiny)), class: 'left' %>
+		<%= content_tag :li, '', class: 'right' do %>
+			<%= content_tag :div, "#{current_user.person.name}#{' (admin)' if current_user.admin?}" %>
+			<%= content_tag :div, current_user.person.email %>
+			<%= content_tag :div, link_to('Edit my profile', edit_person_path(current_user.person)) %>
+			<%= content_tag :div, link_to('Sign Out', destroy_user_session_path) %>
+		<% end %>
+	<% else %>
+		<%= content_tag :li, link_to('Sign In', new_user_session_path) %>
 	<% end %>
 <% end %> 

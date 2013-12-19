@@ -1,7 +1,11 @@
 class Resource < ActiveRecord::Base
   has_and_belongs_to_many :tags
   has_and_belongs_to_many :categories
-    
+  has_and_belongs_to_many :owners, class_name: :people,
+                                   join_table: :owners_possessions,
+                                   association_foreign_key: :possession_id,
+                                   foreign_key: :owner_id
+                                   
   validates :name, length: { minimum: 3 }
   validates_associated :tags
   validates_associated :categories
@@ -86,7 +90,7 @@ class Resource < ActiveRecord::Base
   end
   
   def self.mass_fields
-    [:id, :description, :picture, tag_ids: [], category_ids: []] | self.details
+    [:id, :preview, :description, :picture, tag_ids: [], category_ids: []] | self.details
   end
   
 end

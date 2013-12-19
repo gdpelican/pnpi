@@ -12,7 +12,7 @@
 <%= content_tag :div, alert,  class: 'flash alert'  if alert %>
 <%= yield %>
 
-<%= render partial: 'users/dashboards/user'  if current_user %>
+<%= render partial: 'users/dashboards/user'unless devise_controller? %>
 <%= render partial: 'users/dashboards/admin' if current_user and current_user.admin? %>
 
 </body>

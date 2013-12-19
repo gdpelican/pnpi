@@ -29,6 +29,11 @@ ActiveRecord::Schema.define(version: 20131215192222) do
   add_index "categories_resources", ["category_id"], name: "index_categories_resources_on_category_id", using: :btree
   add_index "categories_resources", ["resource_id"], name: "index_categories_resources_on_resource_id", using: :btree
 
+  create_table "owners_possessions", id: false, force: true do |t|
+    t.integer "owner_id"
+    t.integer "possession_id"
+  end
+
   create_table "resources", force: true do |t|
     t.string   "name"
     t.string   "preview"

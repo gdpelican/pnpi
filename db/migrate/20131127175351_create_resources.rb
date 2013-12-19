@@ -10,5 +10,10 @@ class CreateResources < ActiveRecord::Migration
       t.timestamps
     end
     
+    create_table :owners_possessions, id: false do |t|
+      t.integer :owner_id
+      t.integer :possession_id
+    end
+    
   end
 end
