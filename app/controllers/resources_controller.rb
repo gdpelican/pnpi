@@ -97,8 +97,8 @@ class ResourcesController < ApplicationController
     def require_owner
       boot_to_root current_user.present? &&
                    @resource.present? &&
-                   @resource.person? &&
-                   @resource.id == current_user.person_id
+                  (@resource.person? && @resource.id == current_user.person_id || 
+                   @resource.owners.include?(current_user.person))
     end
     
     def require_user

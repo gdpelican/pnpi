@@ -6,68 +6,96 @@ header.search-form {
   text-align: right;
   
   h1 { font-family: Arial black; }
-  h2 { font-family: Arial; }
+  h2 { font-family: Arial; margin: 0; }
   
-  .select {
-    margin: 0 .5em;
-    display: inline-block;
-    border: 0;
-    width: 8em;
-    height: 1.25em;
-    border-bottom: 1px solid black;
-    overflow: hidden;
-    position: relative;
-    top: .25em;
-    padding-bottom: .1em;
+  .search-view {
     
-    select {
-      padding: 5px 8px;
-      display: inline;
-      border: none;
-      box-shadow: none;
-      width: 130%;
-      background-color: transparent;
-      background-image: none;
-      -webkit-appearance: none;
-         -moz-appearance: none;
-              appearance: none;
+    .search-view-div { padding-bottom: 1em; }
+    
+    padding-top: 1em;
+    
+    .select {
+      margin: 0 .5em;
+      display: inline-block;
+      border: 0;
+      width: 8em;
+      height: 1.25em;
+      border-bottom: 1px solid black;
+      overflow: hidden;
+      position: relative;
+      top: .25em;
+      padding-bottom: .1em;
       
-      &:hover { background-color: transparent; }
-      &:focus { outline: none; }
-      
-      option { text-align: center; }
-      
+      select {
+        padding: 5px 8px;
+        display: inline;
+        border: none;
+        box-shadow: none;
+        width: 130%;
+        background-color: transparent;
+        background-image: none;
+        -webkit-appearance: none;
+           -moz-appearance: none;
+                appearance: none;
+        
+        &:hover { background-color: transparent; }
+        &:focus { outline: none; }
+        
+        option { text-align: center; }
+        
+      }
     }
-  }
-  
-  .search-button {
-    background: white;
-    color: black;
-    padding: 0 .5em;
-    margin: .5em;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  .tags {
-    list-style-type: none;
-    > li { 
-      display: inline-block; 
-      padding-right: 1em;
+    
+    .search-button {
+      font-weight: bold;
+      width: 3em;
+      text-align: center;
+      background: white;
+      color: black;
+      padding: 0 .5em;
+      margin: .5em;
+      text-decoration: none;
+      cursor: pointer;
     }
-  }
-  
-  .swap-search-view {
-    font-size: .8em;
-    a { cursor: pointer;
-        font-weight: bold; }
-  }
-  
-  .lead-text {
-    display: inline-block;
-    padding-bottom: 1em;
-  }
-  
+    
+    .swap-search-view {
+      width: 10em;
+      margin-bottom: -2em;
+      position: relative;
+      bottom: 2em;
+      text-align: left;
+      font-size: .8em;
+      a { cursor: pointer;
+          font-weight: bold; }
+    }
+    
+    .lead-text {
+      display: inline-block;
+      padding-bottom: 1em;
+    }
+     
+    .tags-trigger {
+      padding: .25em .5em .5em;
+      &.selected {
+        color: black;
+        background: white;
+      }
+    }
+    
+    .tags {
+      list-style-type: none;
+      background: white;
+      color: black;
+      padding: .5em;
+      position: relative;
+      right: 1px;
+      margin: -1.55em 0 1em 0;
+      > li { 
+        display: inline-block; 
+        padding-right: 1em;
+      }
+    }
+  }  
 }
 
 main#results {

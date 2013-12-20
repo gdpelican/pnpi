@@ -6,6 +6,7 @@ class @KnockoutSearch
     
     @initialView = ko.observable(true)
     @searchView =  ko.observable("filter")
+    @tagView =     ko.observable(false)
   
     @resources =   ko.observableArray(json.resources or [])
     @categories =  ko.observableArray(json.categories or [])
@@ -16,7 +17,7 @@ class @KnockoutSearch
     
     @cache = {}
     
-    @tag_list =    ko.observableArray(json.tag_list or [])
+    @tag_list =    ko.observableArray(json.tag_list or [])    
     @errors =      ko.observableArray([])
 
     @leadText =       ko.computed => 
@@ -45,6 +46,11 @@ class @KnockoutSearch
       switch @searchView()
         when 'filter' then @searchView('text')
         when 'text'   then @searchView('filter')
+      
+    @swapTagView = (data, event) ->
+      $(event.currentTarget).toggleClass('selected')
+      @tagView(!@tagView())
+      @tags([])
     
     @fetchCategories = (data, event) ->
       @resource(event.currentTarget.value)

@@ -3,20 +3,26 @@
 	<h1 data-bind="appear: initialView">You want to make something?</h1>
 	<h2 data-bind="appear: initialView">We want to help.</h2>
 		
-	<span data-bind="text: leadText" class="lead-text"></span>
-	<span data-bind="visible: filterView">
-		<select data-bind="options: resources, optionsText: 'name', optionsValue: 'value', optionsCaption: '', event: { change: fetchCategories } " class="resource selectpicker"></select>
-		<span 	data-bind="visible: showPredicate, text: predicate" class="predicate"></span>
-		<select data-bind="visible: showPredicate, value: category, options: categories, optionsText: 'name',  optionsValue: 'value', optionCaption: '', event: { change: fetchTags }" class="category selectpicker"></select>
-		<a 		data-bind="visible: showSubmit, click: search" href="javascript" class="search-button">Search</a>
-		<ul    	data-bind="template: { name: 'tagCheck', foreach: tag_list, templateOptions: { selections: tags } }" class="tags"></ul>
-		<div class="swap-search-view"> or <a data-bind="click: swapView">Search by text</a></div>
-	</span>
-	<span data-bind="visible: textView">
-		<input data-bind="value: term" type="text" placeholder="Search. . .">
+	<div data-bind="appear: filterView" class="search-view">
+		<div class="search-view-div">
+			<span   data-bind="text: leadText" class="lead-text"></span>
+			<select data-bind="options: resources, optionsText: 'name', optionsValue: 'value', optionsCaption: '', event: { change: fetchCategories } " class="resource selectpicker"></select>
+			<span 	data-bind="visible: showPredicate, text: predicate" class="predicate"></span>
+			<select data-bind="visible: showPredicate, value: category, options: categories, optionsText: 'name',  optionsValue: 'value', optionCaption: '', event: { change: fetchTags }" class="category selectpicker"></select>
+			<span   data-bind="visible: showSubmit, click: swapTagView" class="tags-trigger"><i class="fa fa-tags"></i></span>
+		</div>
+		<ul    	data-bind="appear: tagView, template: { name: 'tagCheck', foreach: tag_list, templateOptions: { selections: tags } }" class="tags"></ul>
+		<a 		data-bind="visible: showSubmit, click: search" class="search-button">Search</a>
+		<div class="swap-search-view"><a data-bind="click: swapView">Search by text</a></div>
+	</div>
+	<div data-bind="appear: textView" class="search-view">
+		<div class="search-view-div">
+			<span data-bind="text: leadText" class="lead-text"></span>
+			<input data-bind="value: term" type="text" placeholder="Search. . .">
+		</div>
 		<a     data-bind="click: search" class="search-button">Search</a>
-		<div class="swap-search-view"> or <a data-bind="click: swapView">Search by type</a></div>
-	</span>
+		<div   class="swap-search-view"><a data-bind="click: swapView">Search by type</a></div>
+	</div>
 </header>
 
 <main id="results">
