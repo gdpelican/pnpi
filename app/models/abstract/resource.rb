@@ -1,10 +1,11 @@
 class Resource < ActiveRecord::Base
   has_and_belongs_to_many :tags
   has_and_belongs_to_many :categories
-  has_and_belongs_to_many :owners, class_name: :people,
-                                   join_table: :owners_possessions,
-                                   association_foreign_key: :possession_id,
-                                   foreign_key: :owner_id
+  has_and_belongs_to_many :owners, 
+    class_name:              'Person',
+    join_table:              :owners_possessions,
+    association_foreign_key: :owner_id,
+    foreign_key:             :possession_id
                                    
   validates :name, length: { minimum: 3 }
   validates_associated :tags

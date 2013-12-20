@@ -37,15 +37,15 @@ puts 'People-Skills created'
 
 places = Place.create!([
   { name: 'Plays and Players', description: 'We have Quigs!', categories: [performance, reading], details: { address: '1714 Delancey St' } },
-  { name: 'Adrienne Theater', description: 'Interact lives here', categories: [performance, reading] },
+  { name: 'Adrienne Theater', description: 'Interact lives here', categories: [performance, reading], owners: [maura] },
   { name: 'Community Education Center', description: '3500 Lancaster', categories: [reading, meeting] }
 ])
 puts 'Venues created'
 
 things = Thing.create!([
-  { name: 'Ubu Mask', description: 'A mask for Ubu', categories: [borrow] },
+  { name: 'Ubu Mask', description: 'A mask for Ubu', categories: [borrow], owners: [james] },
   { name: 'That victrola we bought once', description: 'It was overpriced. It was worth it.', categories: [rent], details: { price: "25" } },
-  { name: 'A Projector', description: 'A projector', categories: [borrow] }
+  { name: 'A Projector', description: 'A projector', categories: [borrow], owners: [james, cubby] }
 ])
 puts 'Props created'
 

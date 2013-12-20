@@ -1,5 +1,6 @@
 <% readonly = true if !defined? readonly %>
 <%= semantic_form_for @resource, url: @resource.url(:show), html: { class: "#{'readonly' if readonly }" } do |f| %>
+	<%= form_title %>
 	<%= f.inputs :picture, class: 'block fifth' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
 			<%= image_tag f.object.picture.url %>

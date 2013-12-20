@@ -6,14 +6,18 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="<%= controller_name %>">
 
 <%= content_tag :div, notice, class: 'flash notice' if notice %>
 <%= content_tag :div, alert,  class: 'flash alert'  if alert %>
-<%= yield %>
 
-<%= render partial: 'users/dashboards/user'unless devise_controller? %>
-<%= render partial: 'users/dashboards/admin' if current_user and current_user.admin? %>
+<%= content_tag :nav do %>
+	<%= render partial: 'menus/home' %>
+	<%= render partial: 'menus/admin' if admin? %>
+	<%= render partial: 'menus/user' %>
+<% end %>
+
+<%= yield %>
 
 </body>
 </html>

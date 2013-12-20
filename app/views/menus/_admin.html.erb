@@ -1,0 +1,11 @@
+<%= content_tag :div do %>
+	<%= font_icon 'gavel' %>
+	<%= content_tag :ul, class: 'admin-dashboard' do %>
+		<%= content_tag :li, link_to('Create a person', new_person_path) %>
+		<%= content_tag :li, link_to('Create a place', new_place_path) %>
+		<%= content_tag :li, link_to('Create a thing', new_thing_path) %>
+		<%= content_tag :li, link_to('View people', people_path) %>
+		<%= content_tag :li, link_to('View places', places_path) %>
+		<%= content_tag :li, link_to('View things', things_path) %>
+	<% end %> 
+<% end %>

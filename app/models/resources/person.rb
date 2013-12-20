@@ -2,10 +2,11 @@ class Person < Resource
   alias_attribute :jobs, :categories  
   attr_accessor :first_name, :last_name
   
-  has_and_belongs_to_many :possessions, class_name: :resources,
-                                        join_table: :owners_possessions,
-                                        foreign_key: :owner_id,
-                                        association_foreign_key: :possession_id
+  has_and_belongs_to_many :possessions, 
+    class_name:              'Resource',
+    join_table:              :owners_possessions,
+    association_foreign_key: :possession_id,
+    foreign_key:             :owner_id
                                         
   after_initialize :get_name
   before_validation :prepare_for_save

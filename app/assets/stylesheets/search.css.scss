@@ -3,6 +3,8 @@ header.search-form {
   background: black;
   color: white;
   
+  text-align: right;
+  
   h1 { font-family: Arial black; }
   h2 { font-family: Arial; }
   
@@ -57,9 +59,13 @@ header.search-form {
   
   .swap-search-view {
     font-size: .8em;
-    text-align: right;
     a { cursor: pointer;
         font-weight: bold; }
+  }
+  
+  .lead-text {
+    display: inline-block;
+    padding-bottom: 1em;
   }
   
 }

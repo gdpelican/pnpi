@@ -39,6 +39,7 @@ gem 'draper', '~> 1.3'
 gem 'aws-sdk' 
 gem 'arel'
 gem 'devise'
+gem 'font-awesome-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -1,5 +1,9 @@
 module FormHelper
   
+  def form_title
+    content_tag :h1, action_name == 'show' ? @resource.name : action_name.humanize + ' ' + @type
+  end
+  
   def registration_path(name)
     "/people/register"
   end

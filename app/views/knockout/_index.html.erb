@@ -3,7 +3,7 @@
 	<h1 data-bind="appear: initialView">You want to make something?</h1>
 	<h2 data-bind="appear: initialView">We want to help.</h2>
 		
-	<span data-bind="text: leadText"></span>
+	<span data-bind="text: leadText" class="lead-text"></span>
 	<span data-bind="visible: filterView">
 		<select data-bind="options: resources, optionsText: 'name', optionsValue: 'value', optionsCaption: '', event: { change: fetchCategories } " class="resource selectpicker"></select>
 		<span 	data-bind="visible: showPredicate, text: predicate" class="predicate"></span>

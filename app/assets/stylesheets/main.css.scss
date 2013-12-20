@@ -1,4 +1,33 @@
-body, html { margin: 0; padding: 0; }
+body, html, ul { margin: 0; padding: 0; }
+
+body.search nav ul { background: black; }
+body.resources nav ul { background: white; }
+body.search nav { div, i, a { color: white; } }
+body.resources nav { div, i, a { color: black; } }
+
+nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  padding: .5em 1em;
+
+  > div { 
+    vertical-align: top;
+    display: inline-block; 
+    padding: .5em;
+    position: relative;
+    
+    img { width: 1.3em; cursor: pointer; }
+    i { cursor: pointer }
+    
+    >ul {
+      position: absolute;
+      top: 2em;
+      display: none;
+    }
+    &:hover>ul { display: block; }
+  }
+}
 
 .flash {
   position: absolute;
@@ -14,53 +43,10 @@ body, html { margin: 0; padding: 0; }
 .alert { background: rgba(255, 0, 0, .5); }
 
 .user-dashboard,
-.admin-dashboard {
-  position: fixed;
-  right: 0;
-  
-  padding: 0;
+.admin-dashboard {  
+  padding: .5em;
   margin: 0;
   list-style-type: none;
-  
-  background: black;
-  color: white;
-  
-}
-
-.user-dashboard {
-  top: 1em;
-  padding: .5em;
-  border: 1px solid white;
-  
-
-  .left {
-    padding: .35em;
-    float: left;
-  }
-  
-  .right {
-    float: right;
-  }
-  
-  img {
-    background: white;
-    width: 3em;
-  }
-  
-  a { color: white; }
-}
-
-.admin-dashboard {
-  bottom: 0;
-  
-  width: 100%;
-  text-align: center;
-  
-  li { 
-    display: inline-block; 
-    a { 
-      color: white;
-      padding: .25em .5em;
-    }
-  }
+  min-width: 10em;
+  a { text-decoration: none; font-weight: bold; }
 }
