@@ -1,34 +1,8 @@
-<header class="search-form">
-	
-	<h1 data-bind="appear: initialView">You want to make something?</h1>
-	<h2 data-bind="appear: initialView">We want to help.</h2>
-		
-	<div data-bind="appear: filterView" class="search-view">
-		<div class="search-view-div">
-			<span   data-bind="text: leadText" class="lead-text"></span>
-			<select data-bind="options: resources, optionsText: 'name', optionsValue: 'value', optionsCaption: '', event: { change: fetchCategories } " class="resource selectpicker"></select>
-			<span 	data-bind="visible: showPredicate, text: predicate" class="predicate"></span>
-			<select data-bind="visible: showPredicate, value: category, options: categories, optionsText: 'name',  optionsValue: 'value', optionCaption: '', event: { change: fetchTags }" class="category selectpicker"></select>
-			<span   data-bind="visible: showSubmit, click: swapTagView" class="tags-trigger"><i class="fa fa-tags"></i></span>
-		</div>
-		<ul    	data-bind="appear: tagView, template: { name: 'tagCheck', foreach: tag_list, templateOptions: { selections: tags } }" class="tags"></ul>
-		<a 		data-bind="visible: showSubmit, click: search" class="search-button">Search</a>
-		<div class="swap-search-view"><a data-bind="click: swapView">Search by text</a></div>
-	</div>
-	<div data-bind="appear: textView" class="search-view">
-		<div class="search-view-div">
-			<span data-bind="text: leadText" class="lead-text"></span>
-			<input data-bind="value: term" type="text" placeholder="Search. . .">
-		</div>
-		<a     data-bind="click: search" class="search-button">Search</a>
-		<div   class="swap-search-view"><a data-bind="click: swapView">Search by type</a></div>
-	</div>
-</header>
 
-<main id="results">
-	<div data-bind="visible: !initialView() && results().length == 0" class="no-results">No results found</div>
-	<ul data-bind="template: { name: 'resourcePreview', foreach: results }" class="previews"></ul>
-</main>
+<header class="search-form" data-bind="template: { name: 'search', data: currSearch }"></header>
+<main class="results" data-bind="visible: !initialView(), template: { name: 'results', data: lastSearch }"></main>
 
-<%= render partial: 'knockout/preview' %>
+<%= render partial: 'knockout/search' %>
 <%= render partial: 'knockout/tag_check' %>
+<%= render partial: 'knockout/results' %>
+<%= render partial: 'knockout/preview' %>

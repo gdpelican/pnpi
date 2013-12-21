@@ -3,58 +3,72 @@ class Search
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   
-  PAGE_SIZE = 15
+  PAGE_SIZE = 5
   
-  attr_accessor :term, :do_search, :resource, :category, :tags, :page, :search_term
+  attr_accessor :type, :term, :resource, :category, :tags, :page
   
   def initialize(attributes = {})
     attributes.each do |name, value| send("#{name}=", value) end
   end
   
   def as_json(options = {})
-    super(options).merge!({ resources: self.resources, categories: self.categories, results: self.results, tag_list: self.tag_list })
-  end
-  
-  def resources
-    Resource.types
-  end
-    
-  def categories
-    append_blank(Category.filter(resource.humanize.constantize.category_type).sanitize(:name)) if resource.present?
-  end
-    
-  def tag_list
-    Tag.filter(resource, category).sanitize(:tag) if search_ready?
+    { type: type, results: results }.merge(doing_search? ? { page: page.to_i, max_page: max_page } : {})
   end
   
   def results
-    if  filter_search? 
-      Resource.search :filter, { resource: resource, category: category, page_size: PAGE_SIZE, page: page || 1, tags: humanized_tags }
-    elsif text_search?
-      Resource.search :text,   { term: term, page_size: PAGE_SIZE, page: page || 1 }
+    case type.to_sym
+    when :resources     then Resource.types
+    when :categories    then append_blank(Category.filter(category_type).sanitize(:name)) if resource.present?
+    when :tags          then Tag.filter(resource, category).sanitize(:tag)                if tag_ready?
+    when :text, :filter then Resource.search(search_hash)                                 if search_ready?
     end
+  end
+  
+  def max_page
+    ((Resource.count(search_hash) - 1) / PAGE_SIZE) + 1
   end
 
   private
   
+  def category_type
+    resource.humanize.constantize.category_type if resource.present?
+  end
+ 
+  def append_blank(array)
+    array.unshift({ id: '', name: '' })
+  end
+   
   def humanized_tags
     tags.map { |tag| tag.humanize } if tags.present? and tags.any?
   end
   
+  def search_hash
+    hash = case type.to_sym
+    when :filter then { search: :filter, resource: resource, category: category, tags: humanized_tags }
+    when :text   then { search: :text, term: term } 
+    else                    { search: :unknown } 
+    end
+    hash.merge({ page_size: PAGE_SIZE, page: page || 1 })
+  end
+  
+  def doing_search?
+    [:filter, :text].include? type.to_sym
+  end
+  
   def search_ready?
+    tag_ready? || text_search?
+  end  
+  
+  def tag_ready?
     resource.present? and category.present?
   end
   
-  def filter_search?
-    search_ready? and do_search
-  end
-  
   def text_search?
-    term.present? and not filter_search?
+    term.present? and not tag_ready?
   end
   
   def append_blank(array)
-    array.unshift({ id: '', name: '' })
+    array.unshift({ id: '', name: ''})
   end
 
 end

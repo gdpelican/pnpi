@@ -9,6 +9,7 @@ nav {
   position: fixed;
   top: 0;
   padding: .5em 1em;
+  z-index: 9999;
 
   > div { 
     vertical-align: top;

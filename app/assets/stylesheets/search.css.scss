@@ -90,7 +90,7 @@ header.search-form {
       position: relative;
       right: 1px;
       margin: -1.55em 0 1em 0;
-      > li { 
+      li { 
         display: inline-block; 
         padding-right: 1em;
       }
@@ -98,10 +98,19 @@ header.search-form {
   }  
 }
 
-main#results {
+main.results {
   .no-results {
     text-align: center;
     font-size: .8em;
     padding: 1.5em 0;
   }
+  
+  .page { 
+    margin: .5em;
+    padding: .5em;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+  .prev { float: left; }
+  .next { float: right; }
 }

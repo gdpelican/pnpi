@@ -17,17 +17,14 @@ class Resource < ActiveRecord::Base
   
   scope :named, ->(name) { where(name: name) }
   
-  scope :filter_search, ->(resource, category, page, page_size, tags) {  
+  scope :filter_search, ->(resource, category, tags) {  
     joins(:categories)
    .includes(:tags)
    .where(type: resource.humanize)
    .where('categories.name = ?', category.humanize).references(:categories)
-   .where('? or tags.tag in (?)', tags.nil? ? "TRUE" : "FALSE", tags).references(:tags)
-   .paging(page, page_size) }
+   .where('? or tags.tag in (?)', tags.nil? ? "TRUE" : "FALSE", tags).references(:tags) }
   
-  scope :text_search, ->(term, page, page_size) {
-    where('name ilike ? OR description ilike ?', "%#{term}%", "%#{term}%")
-   .paging(page, page_size) }
+  scope :text_search, ->(term) { where('name ilike ? OR description ilike ?', "%#{term}%", "%#{term}%") }
   
   scope :paging, ->(page, page_size) {
     limit(page_size)
@@ -79,10 +76,19 @@ class Resource < ActiveRecord::Base
     end
   end
   
-  def self.search(type, options = {})
-    case type
-    when :filter then filter_search(options[:resource], options[:category], options[:page], options[:page_size], options[:tags])
-    when :text   then text_search(options[:term], options[:page], options[:page_size])
+  def self.search(options = {})
+    Resource.retrieve(options).paging(options[:page], options[:page_size])
+  end
+  
+  def self.count(options = {})
+    Resource.retrieve(options).count
+  end
+  
+  def self.retrieve(options = {})
+    case options[:search]
+    when :filter then filter_search(options[:resource], options[:category], options[:tags])
+    when :text   then text_search(options[:term])
+    else              Resource.none
     end
   end
 

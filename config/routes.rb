@@ -16,9 +16,12 @@ PNPI::Application.routes.draw do
     get  '/people/:id/register' => 'registrations#new', as: :new_user_registration
     post '/people/register' => 'registrations#create', as: :registration
   end
-  
-  post '/search/text/:term/(:page)' => 'search#update'
-  post '/search/:resource/(:category/(:page))' => 'search#update'
+ 
+  post '/search/resources' => 'search#resources'
+  post '/search/categories/:resource' => 'search#categories'
+  post '/search/tags/:resource/:category' => 'search#tags'
+  post '/search/filter/:resource/:category/:page' => 'search#filter'
+  post '/search/text/:term/:page' => 'search#text'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

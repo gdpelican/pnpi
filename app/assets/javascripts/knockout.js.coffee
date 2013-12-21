@@ -1,5 +1,5 @@
 @Knockout =
-  initialize: (json) ->    
+  initialize: (json) ->
     ko.bindingHandlers.appear =
       init: (element, hidden) ->
         if ko.utils.unwrapObservable hidden()
@@ -12,7 +12,8 @@
           $(element).slideDown()
         else
           $(element).slideUp()
-          
-    model = new KnockoutSearch(json)  
-    ko.applyBindings model
+    
+    resources =
+      resources: json.results
+    ko.applyBindings new KnockoutSearch(resources)
 
