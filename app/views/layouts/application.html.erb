@@ -6,7 +6,7 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
-<body class="<%= controller_name %>">
+<body class="<%= controller_name %> texture-background">
 
 <%= content_tag :div, notice, class: 'flash notice' if notice %>
 <%= content_tag :div, alert,  class: 'flash alert'  if alert %>

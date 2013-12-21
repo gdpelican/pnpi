@@ -9,12 +9,13 @@
 			<span 	data-bind="visible: $root.showPredicate, text: $root.predicate" class="predicate"></span>
 			<select data-bind="visible: $root.showPredicate, value: category, options: $root.categories, optionsText: 'name',  optionsValue: 'value', optionCaption: '', event: { change: $root.fetchTags }" class="category selectpicker"></select>
 			<span   data-bind="visible: $root.showSubmit, click: $root.swapTagView, attr: { class: $root.tagClass }"><i class="fa fa-tags"></i></span>
+			<div data-bind="appear: $root.tagView" class="tags texture-background">
+				<div data-bind="visible: $root.tag_list().length == 0" class="no-results">No tags available</div>
+				<ul data-bind="visible: $root.tag_list().length > 0, template: { name: 'tagType', foreach: $root.tag_list, templateOptions: { selections: tags() } }" class="tag-type-list"></ul>
+			</div>
 		</div>
-		<div data-bind="appear: $root.tagView" class="tags">
-			<span data-bind="visible: $root.tag_list().length == 0">No tags available</span>
-			<ul data-bind="visible: $root.tag_list().length > 0, template: { name: 'tagCheck', foreach: $root.tag_list, templateOptions: { selections: tags() } }"></ul>
-		</div>
-		<a 		data-bind="visible: $root.showSubmit, click: $root.fetchResults" class="search-button">Search</a>
+		<div data-bind="appear: $root.initialView() && !$root.tagView()" class="search-view-spacer"></div>
+		<a 		data-bind="appear: $root.showSubmit, click: $root.fetchResults" class="search-button">Search</a>
 		<div class="swap-search-view"><a data-bind="click: $root.swapView">Search by text</a></div>
 	</div>
 	<div data-bind="appear: type() == 'text'" class="search-view">

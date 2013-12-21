@@ -69,10 +69,15 @@ ActiveRecord::Schema.define(version: 20131215192222) do
 
   add_index "samples", ["categories_resource_id"], name: "index_samples_on_categories_resource_id", using: :btree
 
-  create_table "tags", force: true do |t|
-    t.string "tag"
+  create_table "tag_types", force: true do |t|
+    t.string "name"
     t.string "resource"
     t.string "category"
+  end
+
+  create_table "tags", force: true do |t|
+    t.integer "tag_type_id"
+    t.string  "tag"
   end
 
   create_table "users", force: true do |t|

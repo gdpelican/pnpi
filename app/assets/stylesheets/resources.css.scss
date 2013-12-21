@@ -2,7 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body.resources { padding-top: 2em; }
+body.resources { 
+  padding-top: 2em; 
+  
+  .check_boxes .choices {
+    padding-bottom: 1em;
+    legend { font-weight: bold; }
+  }
+  
+}
 
 ul.previews {
   margin: 1em 0;

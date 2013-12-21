@@ -1,6 +1,6 @@
 <script type="text/html" id="results">
 	<div data-bind="visible: !hasResults()" class="no-results">No results found</div>
-	<ul data-bind="template: { name: 'resourcePreview', foreach: results }" class="previews"></ul>
+	<ul data-bind="visible: hasResults, template: { name: 'resourcePreview', foreach: results }" class="previews"></ul>
 	<div data-bind="visible: hasResults">
 		<a data-bind="visible: page() > 1, click: $root.prev" class="page prev">&laquo; Prev</a>
 		<a data-bind="visible: page() < maxPage(), click: $root.next" class="page next">Next &raquo;</a>

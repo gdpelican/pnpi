@@ -22,7 +22,7 @@ class Resource < ActiveRecord::Base
    .includes(:tags)
    .where(type: resource.humanize)
    .where('categories.name = ?', category.humanize).references(:categories)
-   .where('? or tags.tag in (?)', tags.nil? ? "TRUE" : "FALSE", tags).references(:tags) }
+   .where('? or tags.id in (?)', tags.nil? ? "TRUE" : "FALSE", tags).references(:tags) }
   
   scope :text_search, ->(term) { where('name ilike ? OR description ilike ?', "%#{term}%", "%#{term}%") }
   

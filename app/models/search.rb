@@ -18,9 +18,9 @@ class Search
   def results
     case type.to_sym
     when :resources     then Resource.types
-    when :categories    then append_blank(Category.filter(category_type).sanitize(:name)) if resource.present?
-    when :tags          then Tag.filter(resource, category).sanitize(:tag)                if tag_ready?
-    when :text, :filter then Resource.search(search_hash)                                 if search_ready?
+    when :categories    then filtered_categories          if resource.present?
+    when :tags          then sanitized_tags               if tag_ready?
+    when :text, :filter then Resource.search(search_hash) if search_ready?
     end
   end
   
@@ -37,9 +37,17 @@ class Search
   def append_blank(array)
     array.unshift({ id: '', name: '' })
   end
-   
+  
+  def filtered_categories
+    Category.filter(category_type).sanitize(:name).unshift({ id: '', name: ''})
+  end 
+  
   def humanized_tags
     tags.map { |tag| tag.humanize } if tags.present? and tags.any?
+  end
+  
+  def sanitized_tags
+    TagType.filter(resource, category).map { |type| { name: type[0], tags: type[1].map { |tag| { name: tag.tag, value: tag.id } } } }
   end
   
   def search_hash
@@ -65,10 +73,6 @@ class Search
   
   def text_search?
     term.present? and not tag_ready?
-  end
-  
-  def append_blank(array)
-    array.unshift({ id: '', name: ''})
   end
 
 end
