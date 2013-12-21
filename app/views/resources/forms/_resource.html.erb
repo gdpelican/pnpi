@@ -17,7 +17,9 @@
 	<%= f.inputs :tags, class: 'block two-fifth' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
 			<%= f.object.thing? ? f.object.category_message : check_box_collection(f, :categories, @categories, readonly) %>
-			<%= check_box_collection f, :tags, @tags, readonly, :tag %>
+			<% @tags.each do |tag| %>
+				<%= check_box_collection f, :tags, tag[1], readonly, tag[0], :tag %>
+			<% end %>
 		<% end %>
 	<% end %>
 	

@@ -19,7 +19,8 @@ class @KnockoutSearch
         else               ''
             
     @tagClass =       ko.computed =>
-      'tags-trigger' + if @tagView() then ' selected' else ''
+      'tags-trigger' + if @tagView() then ' selected texture-background' \
+                       else ''
 
     @showPredicate =  ko.computed => @currSearch().resource().length > 0
     @showSubmit =     ko.computed => @currSearch().resource().length > 0 and \
@@ -71,7 +72,9 @@ class @KnockoutSearch
     
     @setResults = (json) ->
       @initialView(false)
-      @lastSearch(new KnockoutSearchResult(@currSearch().json(), json.page, json.max_page))
+      @lastSearch(new KnockoutSearchResult(@currSearch().json(), \
+                                           json.page, \
+                                           json.max_page))
       @lastSearch().results(@wrapResults(json.results))
     
     @wrapResults = (results) ->

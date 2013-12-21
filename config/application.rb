@@ -24,6 +24,7 @@ module PNPI
     config.autoload_paths += %W(#{config.root}/app/models/abstract)    
     config.autoload_paths += %W(#{config.root}/app/models/resources)
     config.autoload_paths += %W(#{config.root}/app/models/categories)
+    config.autoload_paths += %W(#{config.root}/app/models/tags)
 
   end
 end

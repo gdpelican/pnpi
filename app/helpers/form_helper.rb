@@ -16,12 +16,13 @@ module FormHelper
                        as: type
   end
   
-  def check_box_collection(form, symbol, collection, readonly = false, name_field = :name, value_field = :id)
+  def check_box_collection(form, symbol, collection, readonly = false, label = symbol, name_field = :name, value_field = :id)
     form.input symbol, collection: collection, 
                        disabled: (collection.map { |f| f.send(value_field) } if readonly),
                        member_label: hash_field(name_field), 
                        member_value: hash_field(value_field),
-                       as: :check_boxes
+                       as: :check_boxes,
+                       label: label
   end
 
 end
