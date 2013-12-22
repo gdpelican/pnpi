@@ -1,5 +1,5 @@
 <script type="text/html" id="resourcePreview">
-	<div class="resource-wrapper">
+	<div class="resource-wrapper texture-background">
 		<div class="resource-image">
 			<img data-bind="attr: { src: picture_url }" />			
 		</div>
@@ -8,6 +8,12 @@
 			<div data-bind="text: preview"></div>
 			<a data-bind="attr: { href: show_url }">Learn more &raquo;</a>
 		</div>
-		<div class="resource-tags"></div>
+		<div class="resource-tags">
+			<ul data-bind="foreach: tags">
+				<li class="tag">
+					<a data-bind="click: $parents[2].fetchResults, text: $data.tag, attr: { 'data-tags': $data.id }" data-load="true" href="javascript:;"></a>
+				</li>
+			</ul>
+		</div>
 	</div>
 </script>

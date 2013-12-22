@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<div data-bind="appear: $root.initialView() && !$root.tagView()" class="search-view-spacer"></div>
-		<a 		data-bind="appear: $root.showSubmit, click: $root.fetchResults" class="search-button">Search</a>
+		<a 		data-bind="appear: $root.showSubmit, click: $root.fetchResults" class="search-button texture-background">Search</a>
 		<div class="swap-search-view"><a data-bind="click: $root.swapView">Search by text</a></div>
 	</div>
 	<div data-bind="appear: type() == 'text'" class="search-view">
@@ -23,7 +23,7 @@
 			<span data-bind="text: $root.leadText" class="lead-text"></span>
 			<input data-bind="value: term" type="text" placeholder="Search. . .">
 		</div>
-		<a     data-bind="click: $root.fetchResults" class="search-button">Search</a>
+		<a     data-bind="click: $root.fetchResults" class="search-button texture-background">Search</a>
 		<div   class="swap-search-view"><a data-bind="click: $root.swapView">Search by type</a></div>
 	</div>
 </script>

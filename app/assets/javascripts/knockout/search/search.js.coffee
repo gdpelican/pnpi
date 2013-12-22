@@ -56,16 +56,27 @@ class @KnockoutSearch
       else
         @currSearch().tags([])
         @currSearch().fetch 'tags', @update, @failure
-        
+       
     @fetchResults = (data, event) =>
-      @currSearch().fetch @currSearch().type(), @update, @failure
+      results = if $(event.currentTarget).data('load') \
+                then @elementSearch($(event.currentTarget)) \
+                else @currSearch()
+      results.fetch results.type(), @update, @failure
     
+    @elementSearch = (el) ->
+      new KnockoutSearchResult
+        type:     "#{el.data('type') || 'all'}"
+        resource: "#{el.data('resource') || ''}"
+        category: "#{el.data('category') || ''}"
+        term:     "#{el.data('term') || '*'}"
+        tags:     "#{el.data('tags')}".split ' '
+      
     @update = (json) =>
       switch(json.type)
-        when 'resources'     then @resources(json.results)
-        when 'categories'    then @categories(json.results)
-        when 'tags'          then @tag_list(json.results)
-        when 'filter','text' then @setResults(json)
+        when 'resources'            then @resources(json.results)
+        when 'categories'           then @categories(json.results)
+        when 'tags'                 then @tag_list(json.results)
+        when 'filter','text', 'all' then @setResults(json)
 
     @failure = (json) =>
       @errors(json.errors)

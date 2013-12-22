@@ -17,14 +17,19 @@ class Resource < ActiveRecord::Base
   
   scope :named, ->(name) { where(name: name) }
   
-  scope :filter_search, ->(resource, category, tags) {  
+  scope :filter_search, ->(resource = '', category = '') {  
     joins(:categories)
-   .includes(:tags)
    .where(type: resource.humanize)
-   .where('categories.name = ?', category.humanize).references(:categories)
-   .where('? or tags.id in (?)', tags.nil? ? "TRUE" : "FALSE", tags).references(:tags) }
+   .where('categories.name = ?', category.humanize).references(:categories) }  
+      
+  scope :text_search, ->(term = '%') { 
+    where('name ilike ? OR description ilike ?', "%#{term}%", "%#{term}%") }
   
-  scope :text_search, ->(term) { where('name ilike ? OR description ilike ?', "%#{term}%", "%#{term}%") }
+  scope :tag_search, ->(tags = nil) { 
+    joins(:tags)
+   .where('? or tags.id in (?)', (tags.nil? || tags.empty?) ? "TRUE" : "FALSE", tags)
+   .references(:tags)
+  }
   
   scope :paging, ->(page, page_size) {
     limit(page_size)
@@ -39,7 +44,7 @@ class Resource < ActiveRecord::Base
      :s3_credentials => "#{Rails.root}/config/s3.yml",
      :path => "/:style/:id/:filename",
      :bucket => 'PNPI-Resource'
-    
+  
   def assign_attributes(attr, options={})
     self.class.details.each do |detail|
       self.details[detail] = attr.delete detail
@@ -59,7 +64,8 @@ class Resource < ActiveRecord::Base
   end
     
   def as_json(options={})
-    super(options).merge!({ show_url: url(:show), picture_url: picture.url(:tiny) })
+    super(options.merge!({ only: [:id, :name, :description, :preview], include: :tags }))
+                 .merge!({ show_url: url(:show), picture_url: picture.url(:tiny) })
   end
   
   def url(path = :index)
@@ -85,11 +91,12 @@ class Resource < ActiveRecord::Base
   end
   
   def self.retrieve(options = {})
-    case options[:search]
-    when :filter then filter_search(options[:resource], options[:category], options[:tags])
-    when :text   then text_search(options[:term])
-    else              Resource.none
-    end
+    results = case options[:search]
+    when :filter then filter_search options[:resource], options[:category]
+    when :text   then text_search options[:term]
+    when :all    then Resource.all
+    else              Resource.none end
+    results.tag_search(options[:tags]).uniq
   end
 
   def self.types

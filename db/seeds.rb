@@ -37,21 +37,39 @@ lighting = Tag.create! tag: 'Has lighting grid', tag_type: tech
 support = Tag.create! tag: 'Provides tech support', tag_type: tech
 puts 'Tags created'
 
-maura = Person.create!({ name: 'Maura Krause', preview: 'A short artistic statement about me', description: 'Hi, I\'m Maura', categories: [director, producer], tags: [kids, interact, mech], details: { email: 'mkrause@interact.org'  } })
+maura = Person.create!({ name: 'Maura Krause', 
+                         preview: 'A short artistic statement about me', 
+                         description: 'Hi, I\'m Maura', 
+                         categories: [director, producer], 
+                         tags: [kids, interact, mech], 
+                         details: { email: 'mkrause@interact.org'  } })
 maura_account = User.create!({ person: maura, password: 'interact', encrypted_password: Devise.bcrypt(Devise, 'interact' ), admin: true })
 
-james = Person.create!({ name: 'James Kiesel', description: 'Hi, I\'m James', tags: [combatant, gdp], details: { email: 'james.kiesel@gmail.com' } })
+james = Person.create!({ name: 'James Kiesel', 
+                         description: 'Hi, I\'m James', 
+                         tags: [combatant, gdp], 
+                         details: { email: 'james.kiesel@gmail.com' } })
 james_acts = Skill.create!({ resource: james, category: actor })
 james_directs = Skill.create!({ resource: james, category: director })
 james_choreos = Skill.create!({ resource: james, category: choreo })
 james_account = User.create!({ person: james, password: 'password', encrypted_password: Devise.bcrypt(Devise, 'password'), admin: false })
 sample = Sample.create!({ skill: james_acts, description: 'An acting resume!' })
 
-cubby = Person.create!({ name: 'Cubby Altobelli', description: 'It\'s Cubby!', tags: [clown], details: { email: 'cubby@cubby.com' } })
+cubby = Person.create!({ name: 'Cubby Altobelli', 
+                         description: 'It\'s Cubby!', 
+                         tags: [clown, license], 
+                         details: { email: 'cubby@cubby.com' } })
 cubby_acts = Skill.create!({ resource: cubby, category: actor })
 cubby_writes = Skill.create!({ resource: cubby, category: playwright })
 cubbys_play = Sample.create!({ skill: cubby_writes, description: 'It\'s Cubby\s play!' })
 puts 'People-Skills created'
+
+oliver = Person.create!({ name: 'Oliver Donahue', 
+                          preview: 'Resident fight director for the 95 Runagates', 
+                          description: 'Oliver\'s bio', 
+                          categories: [actor, choreo], 
+                          tags: [gdp, license, combatant], 
+                          details: { email: 'oliver@donahue.com'} })
 
 places = Place.create!([
   { name: 'Plays and Players', description: 'We have Quigs!', categories: [performance, reading], tags: [small, support], details: { address: '1714 Delancey St' } },

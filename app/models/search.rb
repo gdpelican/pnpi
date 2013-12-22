@@ -17,15 +17,15 @@ class Search
   
   def results
     case type.to_sym
-    when :resources     then Resource.types
-    when :categories    then filtered_categories          if resource.present?
-    when :tags          then sanitized_tags               if tag_ready?
-    when :text, :filter then Resource.search(search_hash) if search_ready?
+    when :resources           then Resource.types
+    when :categories          then filtered_categories          if resource.present?
+    when :tags                then sanitized_tags               if resource.present? and category.present?
+    when :text, :filter, :all then Resource.search(search_hash).joins(:tags)
     end
   end
   
   def max_page
-    ((Resource.count(search_hash) - 1) / PAGE_SIZE) + 1
+    ((Resource.count(search_hash) - 1) / PAGE_SIZE) + 1 if doing_search?
   end
 
   private
@@ -33,13 +33,13 @@ class Search
   def category_type
     resource.humanize.constantize.category_type if resource.present?
   end
- 
-  def append_blank(array)
-    array.unshift({ id: '', name: '' })
-  end
   
   def filtered_categories
     Category.filter(category_type).sanitize(:name).unshift({ id: '', name: ''})
+  end
+  
+  def search_hash
+    { search: type.to_sym, resource: resource, category: category, term: term, tags: humanized_tags, page_size: PAGE_SIZE, page: page || 1 }
   end 
   
   def humanized_tags
@@ -50,29 +50,8 @@ class Search
     TagType.filter(resource, category).map { |type| { name: type[0], tags: type[1].map { |tag| { name: tag.tag, value: tag.id } } } }
   end
   
-  def search_hash
-    hash = case type.to_sym
-    when :filter then { search: :filter, resource: resource, category: category, tags: humanized_tags }
-    when :text   then { search: :text, term: term } 
-    else                    { search: :unknown } 
-    end
-    hash.merge({ page_size: PAGE_SIZE, page: page || 1 })
-  end
-  
   def doing_search?
-    [:filter, :text].include? type.to_sym
+    [:filter, :text, :all].include? type.to_sym
   end
   
-  def search_ready?
-    tag_ready? || text_search?
-  end  
-  
-  def tag_ready?
-    resource.present? and category.present?
-  end
-  
-  def text_search?
-    term.present? and not tag_ready?
-  end
-
 end

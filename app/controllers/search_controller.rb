@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   respond_to :html, :json
-  SEARCHES = [:categories, :tags, :filter, :text]
+  SEARCHES = [:categories, :tags, :filter, :text, :all]
   
   def initialize
     super

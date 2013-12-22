@@ -6,3 +6,4 @@ class @KnockoutResource
     @preview = json.preview
     @picture_url = json.picture_url
     @show_url = json.show_url
+    @tags = json.tags

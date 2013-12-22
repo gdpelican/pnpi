@@ -27,7 +27,7 @@ class @KnockoutSearchResult
     @nextPage = (success, failure) ->
       @page(@page() + 1)
       @fetch @type(), success, failure
-      
+
     @fetch = (type, success, failure) ->
       @methods.search type, @json(), success, failure
       

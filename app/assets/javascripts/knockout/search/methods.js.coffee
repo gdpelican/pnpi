@@ -21,6 +21,8 @@ class @KnockoutSearchMethods
           "#{method}/#{json.resource}/#{json.category}/#{json.page || 1}"
         when 'text'
           "#{method}/#{json.term}/#{json.page || 1}"
+        when 'all'
+          "#{method}/#{json.page || 1}"
         else
           ""
     
