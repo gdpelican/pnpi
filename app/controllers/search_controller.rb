@@ -2,6 +2,12 @@ class SearchController < ApplicationController
   respond_to :html, :json
   SEARCHES = [:categories, :tags, :filter, :text, :all]
   
+  def new
+    @search = Search.new type: :resources
+  end
+  
+  protected
+    
   def initialize
     super
     SEARCHES.each do |action| 
@@ -14,9 +20,7 @@ class SearchController < ApplicationController
     end
   end
   
-  def new
-    @search = Search.new type: :resources
-  end
+  private
   
   def search_params
     params.except(:controller, :action).merge({ type: action_name })

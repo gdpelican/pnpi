@@ -65,44 +65,36 @@ class ResourcesController < ApplicationController
 
   private
           
-    def set_type
-      @type = params[:type]
-    end
-    
-    def set_resource
-      @resource = ResourceDecorator.decorate resource
-    end
-    
-    def set_collections
-      @categories = Category.filter(model.category_type)
-      @tags = TagType.filter @type.downcase
-    end
-    
-    def resource
-      case action_name.to_sym
-      when :new    then model.new type: @type
-      when :create then model.new strong_type params, @type, :resource
-      else              model.find params[:id], include: [:tags, :categories]
-      end    
-    end
-    
-    def model
-      @type.constantize if @type
-    end
-    
-    def require_admin
-      boot_to_root
-    end
+  def set_type
+    @type = params[:type]
+  end
   
-    def require_owner
-      boot_to_root current_user.present? &&
-                   @resource.present? &&
-                  (@resource.person? && @resource.id == current_user.person_id || 
-                   @resource.owners.include?(current_user.person))
-    end
-    
-    def require_user
-      boot_to_root current_user.present?
-    end
+  def set_resource
+    @resource = ResourceDecorator.decorate resource
+  end
+  
+  def set_collections
+    @categories = Category.filter(model.category_type)
+    @tags = TagType.filter @type.downcase
+  end
+  
+  def resource
+    case action_name.to_sym
+    when :new    then model.new type: @type
+    when :create then model.new strong_type params, @type, :resource
+    else              model.find params[:id], include: [:tags, :categories]
+    end    
+  end
+  
+  def model
+    @type.constantize if @type
+  end
+
+  def require_owner
+    handle_auth current_user.present? &&
+                @resource.present? &&
+               (@resource.person? && @resource.id == current_user.person_id || 
+                @resource.owners.include?(current_user.person))
+  end
 
 end

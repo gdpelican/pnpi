@@ -11,6 +11,7 @@
 		<div class="resource-tags">
 			<ul data-bind="foreach: tags">
 				<li class="tag">
+					<span class="arrow texture-background"></span>
 					<a data-bind="click: $parents[2].fetchResults, text: $data.tag, attr: { 'data-tags': $data.id }" data-load="true" href="javascript:;"></a>
 				</li>
 			</ul>

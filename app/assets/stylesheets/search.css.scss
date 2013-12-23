@@ -47,7 +47,6 @@ header.search-form {
       border: 0;
       width: 8em;
       height: 1.25em;
-      border-bottom: 1px solid black;
       overflow: hidden;
       position: relative;
       top: .25em;
@@ -126,6 +125,7 @@ header.search-form {
       color: black;
       padding: .5em;
       margin: .5em 0;
+      text-align: center;
             
       .tag-type-list > li { 
         display: inline-block; 

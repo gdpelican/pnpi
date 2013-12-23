@@ -5,65 +5,66 @@
 body.resources { 
   padding-top: 2em; 
   
-  .check_boxes .choices {
-    padding-bottom: 1em;
-    legend { font-weight: bold; }
-  }
-  
-}
-
-ul.previews {
-  margin: 1em 0;
-  padding: 0;
-  text-align: center;
-  
-  .resource-wrapper {
-    vertical-align: top;
-    border: 1px solid black;
-    padding: .5em;
-    margin: 0 2.5% 1em 2.5%;
-    display: inline-block;
-    width: 23.5%;
-    filter: blur(6px);
-    
-    .resource-image {
-      float: left;
-      width: 25%;
-      img { 
-        width: 75%; 
-        padding: 12.5%;
-      }
-    }
-    
-    .resource-info {
-      text-align: left;
-      float: right;
-      width: 75%;
-    }
-    
-    .resource-tags {
-      clear: both;
-      .tag {
-        font-size: .7em;
+  form.resource {
+    .check_boxes .choices {
+      text-align: center;
+      padding-bottom: 1em;
+      legend { font-weight: bold; }
+      
+      .choice {
         position: relative;
-        display: inline-block;
-        background: #CCC;
-        margin-right: 1.5em;
-        padding: 0 .25em;
+        padding: 1em 1em 1em 3.5em;
+        margin-right: .5em;
+        border-radius: 1em;
+        background: rgba(255, 255, 255, .25);
         &:before {
-          content: '';
-          width: 0;
-          height: 0;
-          border-top: .66em solid transparent;
-          border-right: .7em solid #CCC;
-          border-bottom: .66em solid transparent;
-          display: block;
           position: absolute;
-          top: 0;
-          left: -.6em;
+          left: 0;
+          top: 50%;
+          margin: -10% 0 0 .5em;
+          padding: .5em;
+                  
+          content: "\f00c"; 
+          font-family: FontAwesome;
+          font-style: normal;
+          font-weight: normal;
+          
+          color: #CCC;
+          height: 1em;
+          width: 1em;
+          border: 2px solid #CCC;
+          border-radius: 100%;
+  
         }
+        
+        &.selected {
+          &:before { 
+            border-color: green;
+            color: green;
+          }
+        }
+        
+        input[type=checkbox] { display: none; }
+        
       }
       
     }
-  }
+      
+    &:not(.readonly) {
+      .choice {
+        width: 6.5em;
+        display: inline-block;
+        &:hover { background: rgba(255, 255, 255, .5); }
+      }      
+    }
+    
+    &.readonly {
+      .choice { 
+        display: none;
+        margin: .5em 0;
+        &:before { margin: -5% 0 0 .5em !important; }
+        &.selected { display: block; }
+      }
+    }
+  } 
 }

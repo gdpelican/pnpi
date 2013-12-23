@@ -13,8 +13,18 @@ class ApplicationController < ActionController::Base
     "<i class=\"icon-#{icon}\"></i>".html_safe
   end
   
-  def boot_to_root(condition = false, message = 'You must be logged in to complete this action')
-    redirect_to root_url, alert: message unless condition or admin?
+  protected
+  
+  def handle_auth(condition = false, message = 'You must be logged in to complete this action')
+    flash[:alert] = message and redirect_to root_url unless condition or admin?
+  end
+      
+  def require_admin
+    handle_auth
+  end
+    
+  def require_user
+    handle_auth current_user.present?
   end
   
   private

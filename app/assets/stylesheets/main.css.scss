@@ -8,7 +8,7 @@ body.resources nav { div, i, a { color: black; } }
 .texture-background { background: url('/images/texture.png') center center repeat; }
 
 nav {
-  position: fixed;
+  position: absolute;
   top: 0;
   padding: .5em 1em;
   z-index: 9999;

@@ -20,7 +20,7 @@ class Search
     when :resources           then Resource.types
     when :categories          then filtered_categories          if resource.present?
     when :tags                then sanitized_tags               if resource.present? and category.present?
-    when :text, :filter, :all then Resource.search(search_hash).joins(:tags)
+    when :text, :filter, :all then Resource.search search_hash
     end
   end
   
@@ -39,11 +39,17 @@ class Search
   end
   
   def search_hash
-    { search: type.to_sym, resource: resource, category: category, term: term, tags: humanized_tags, page_size: PAGE_SIZE, page: page || 1 }
+    { search: type.to_sym, 
+      resource: resource, 
+      category: category, 
+      term: term, 
+      tags: humanized_tags, 
+      page_size: PAGE_SIZE, 
+      page: page || 1 }
   end 
   
   def humanized_tags
-    tags.map { |tag| tag.humanize } if tags.present? and tags.any?
+    tags.map { |tag| tag.humanize } if tags.present?
   end
   
   def sanitized_tags

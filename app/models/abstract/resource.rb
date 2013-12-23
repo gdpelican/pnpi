@@ -8,6 +8,7 @@ class Resource < ActiveRecord::Base
     foreign_key:             :possession_id
                                    
   validates :name, length: { minimum: 3 }
+  validates :preview, length: { maximum: 140 }
   validates_associated :tags
   validates_associated :categories
   validates :type, inclusion: { in: ['Person', 'Place', 'Thing'] }
@@ -26,9 +27,9 @@ class Resource < ActiveRecord::Base
     where('name ilike ? OR description ilike ?', "%#{term}%", "%#{term}%") }
   
   scope :tag_search, ->(tags = nil) { 
-    joins(:tags)
+    joins('LEFT OUTER JOIN "resources_tags" on "resources_tags"."resource_id" = "resources"."id"')
+   .joins('LEFT OUTER JOIN "tags" on "resources_tags"."tag_id" = "tags"."id"')
    .where('? or tags.id in (?)', (tags.nil? || tags.empty?) ? "TRUE" : "FALSE", tags)
-   .references(:tags)
   }
   
   scope :paging, ->(page, page_size) {
@@ -36,8 +37,8 @@ class Resource < ActiveRecord::Base
    .offset(page_size * (page.to_i - 1)) }
   
   has_attached_file :picture,
-     :styles => { :original => ["1024x1024", :jpeg], 
                   :thumb => ["250x250", :jpeg], 
+     :styles => { :original => ["1024x1024", :jpeg], 
                   :tiny => ["100x100#", :jpeg] },
      :storage => :s3,
      :default_url => :default_url,
@@ -68,18 +69,13 @@ class Resource < ActiveRecord::Base
                  .merge!({ show_url: url(:show), picture_url: picture.url(:tiny) })
   end
   
-  def url(path = :index)
+  def url(action = :index)
     url = "/#{type.downcase.pluralize}/"
-    case path
-      when :show
-        url << "#{self.id}"
-      when :edit
-        url << "#{self.id}/edit"
-      when :new
-        url << "new"
-      when :index
-        url
-    end
+    case action
+    when :show  then url << "#{self.id}"
+    when :edit  then url << "#{self.id}/edit"
+    when :new   then url << "new"
+    when :index then url end
   end
   
   def self.search(options = {})
@@ -91,12 +87,13 @@ class Resource < ActiveRecord::Base
   end
   
   def self.retrieve(options = {})
-    results = case options[:search]
-    when :filter then filter_search options[:resource], options[:category]
-    when :text   then text_search options[:term]
-    when :all    then Resource.all
-    else              Resource.none end
-    results.tag_search(options[:tags]).uniq
+    results = case options[:search].to_sym
+              when :filter then filter_search options[:resource], options[:category]
+              when :text   then text_search options[:term]
+              when :all    then Resource.all
+              else              Resource.none end
+    results = results.tag_search options[:tags] if options[:tags]
+    results.uniq
   end
 
   def self.types
