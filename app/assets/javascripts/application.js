@@ -16,3 +16,8 @@
 //= require turbolinks
 //= require_tree ../../../vendor/assets/javascripts/.
 //= require_tree .
+
+for (var i = 0; i < window.loadEvents.length; i++) {
+	$(document).on('page:load', loadEvents[i]);
+	$(document).ready(loadEvents[i]);
+}

@@ -74,8 +74,8 @@ class ResourcesController < ApplicationController
   end
   
   def set_collections
-    @categories = Category.filter(model.category_type)
-    @tags = TagType.filter @type.downcase
+    @categories = Category.filter model.category_type 
+    @tags = TagType.filter        model.to_s.downcase
   end
   
   def resource

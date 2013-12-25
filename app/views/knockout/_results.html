@@ -1,5 +1,6 @@
 <script type="text/html" id="results">
-	<div data-bind="visible: !hasResults()" class="no-results">No results found</div>
+	<div data-bind="visible: loading" class="loading-results"><i class="fa fa-spinner fa-spin fa-3x"></i></div>
+	<div data-bind="visible: !hasResults() && !loading()" class="no-results">No results found</div>
 	<ul data-bind="visible: hasResults, template: { name: 'resourcePreview', foreach: results }" class="previews"></ul>
 	<div data-bind="visible: hasResults">
 		<a data-bind="visible: page() > 1, click: $root.prev" class="page prev">&laquo; Prev</a>

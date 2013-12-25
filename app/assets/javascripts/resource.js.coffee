@@ -1,7 +1,9 @@
-$ ->
+@loadEvents ||= []
+
+@loadEvents.push ->
   @Resource =
     initialize: ->
-      master = $('form.resource')      
+      master = $('form.resource')
       master.find('input.price').number(true, 2)
       master.find('.choice').each ->
         if $(@).find('input[checked=checked]').length > 0
