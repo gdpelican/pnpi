@@ -40,6 +40,8 @@ gem 'aws-sdk'
 gem 'arel'
 gem 'devise'
 gem 'font-awesome-rails'
+gem 'cocoon'
+gem 'compass-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

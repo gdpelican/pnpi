@@ -79,10 +79,10 @@ class @KnockoutSearch
         when 'filter','text', 'all' then @setResults(json)
 
     @failure = (json) =>
-      @errors(json.errors)
+      @errors json.errors
     
     @setResults = (json) ->
-      @initialView(false)
+      @initialView false
       @lastSearch(new KnockoutSearchResult(@currSearch().json(), \
                                            json.page, \
                                            json.max_page))
@@ -93,4 +93,3 @@ class @KnockoutSearch
     
     @next = => @lastSearch().nextPage(@update, @failure)
     @prev = => @lastSearch().prevPage(@update, @failure)
-    

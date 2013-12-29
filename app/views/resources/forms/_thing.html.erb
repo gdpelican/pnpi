@@ -1,4 +1,8 @@
-<%= string_input f, :name, :string, readonly %>
-<%= string_input f, :price, :string, readonly, 'full', 'Rental price. . . (leave blank if item can be borrowed free of charge)' %>
-<%= string_input f, :preview, :string, readonly, 'full', '140 character description. . .' %>
-<%= string_input f, :description, :text, readonly, 'full', 'Enter description. . .' %>
+<% partial ||= false %>
+
+<%= string_input f, :picture, :file, 'full', label: true if partial %>
+<%= string_input f, :name, :string %>
+<%= string_input f, :price, :string, 'full', placeholder: 'Rental price. . . (leave blank if item can be borrowed free of charge)' %>
+<%= string_input f, :preview, :string, 'full', placeholder: '140 character description. . .' %>
+<%= string_input f, :description, :text, 'full', placeholder: 'Enter description. . .' %>
+<%= string_input f, :_destroy, :boolean, 'fifth', css: 'choice', label: 'Destroy?' if partial and f.object.id.present? %>

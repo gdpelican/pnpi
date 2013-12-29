@@ -12,7 +12,7 @@
 <%= content_tag :div, alert,  class: 'flash alert'  if alert %>
 
 <%= content_tag :nav do %>
-	<%= render partial: 'menus/home' %>
+	<%= render partial: 'menus/home'  unless search? %>
 	<%= render partial: 'menus/admin' if admin? %>
 	<%= render partial: 'menus/user' %>
 <% end %>

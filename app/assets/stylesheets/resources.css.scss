@@ -2,7 +2,64 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body.resources { 
+@mixin choice($delete) {
+  position: relative;
+  display: inline-block;
+  padding: .5em;
+  margin: .5em;
+  border-radius: 1em;
+  background: rgba(255, 255, 255, .25);
+  width: 6.5em;
+  
+  @if $delete == true { padding-left: 2.5em; }
+  @else {               padding-left: 3.5em; }
+  
+  &:hover { background: rgba(255, 255, 255, .5); }
+  &:before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+
+    @if $delete == true {
+      content: "\f00d";
+      margin-top: -17%;
+      padding: .5em .4em .5em .6em; 
+    }
+    @else { 
+      content: "\f00c";
+      margin-top: -10%;
+      padding: .5em 
+    }
+            
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    
+    color: #CCC;
+    height: 1em;
+    width: 1em;
+    border: 2px solid #CCC;
+    border-radius: 100%;
+  }
+  
+  &.selected {
+    &:before { 
+      @if $delete == true { 
+        border-color: red;
+        color: red;
+      }
+      @else {
+        border-color: green;
+        color: green;
+      }
+    }
+  }
+  
+  input[type=checkbox],
+  input[type=radio] { display: none; }
+}
+
+body.resources {
   padding-top: 2em; 
   
   form.resource {
@@ -10,61 +67,62 @@ body.resources {
       text-align: center;
       padding-bottom: 1em;
       legend { font-weight: bold; }
+      .choice { @include choice(false) }
+    }
+    
+    .nested {
       
-      .choice {
-        position: relative;
-        padding: 1em 1em 1em 3.5em;
-        margin-right: .5em;
-        border-radius: 1em;
-        background: rgba(255, 255, 255, .25);
-        &:before {
-          position: absolute;
-          left: 0;
-          top: 50%;
-          margin: -10% 0 0 .5em;
-          padding: .5em;
-                  
-          content: "\f00c"; 
-          font-family: FontAwesome;
-          font-style: normal;
-          font-weight: normal;
-          
-          color: #CCC;
-          height: 1em;
-          width: 1em;
-          border: 2px solid #CCC;
-          border-radius: 100%;
-  
-        }
+      margin-bottom: 4em;
+      
+      .nested-menu>li { display: inline-block; }
+      .nested-menu-link {
+        display: inline-block;
+        padding: 1em;
+        color: #444;
+        font-family: arial black;
+        text-decoration: none;
+        &.selected { text-decoration: underline; } 
+      }
+      
+      .nested-panel {
+        display: none;
+        margin-left: .5em;
+        padding: 1em 2em 1em 1.5em;
+        background: rgba(0,0,0,.1);
+        margin: 0;
+        border-radius: .5em;
+      }
+      
+      .nested-resources,
+      .nested-resource { display: none; }
+      
+      .nested-resources {
         
-        &.selected {
-          &:before { 
-            border-color: green;
-            color: green;
+        .nested-resource {
+          .choice { @include choice(true); }
+          &.nested-sample {
+            .file>label:before { content: 'Upload file'; }
           }
         }
         
-        input[type=checkbox] { display: none; }
-        
+        .selectable {
+          vertical-align: top;
+          text-align: center;
+          display: inline-block;
+          width: 1.5em;
+          height: 1.5em;
+          background: rgba(100,100,100,.3);
+          border-radius: .25em;
+          box-shadow: inset 0 0 1px black;
+          text-decoration: none;
+          font-size: 2em;
+          font-family: arial Black;
+          font-weight: bold;
+          color: black;
+          img { border-radius: .25em; }
+          &.selected { box-shadow: inset 0 0 2px #5555CC; }
+        }      
       }
-      
-    }
-      
-    &:not(.readonly) {
-      .choice {
-        width: 6.5em;
-        display: inline-block;
-        &:hover { background: rgba(255, 255, 255, .5); }
-      }      
-    }
-    
-    &.readonly {
-      .choice { 
-        display: none;
-        margin: .5em 0;
-        &:before { margin: -5% 0 0 .5em !important; }
-        &.selected { display: block; }
-      }
-    }
+    }             
   } 
 }

@@ -4,6 +4,10 @@ module ApplicationHelper
     Proc.new { |f| f[field] }
   end
   
+  def search?
+    @search.present?
+  end
+  
   def admin?
     current_user.present? && current_user.admin?
   end

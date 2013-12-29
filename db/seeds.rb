@@ -48,20 +48,17 @@ maura_account = User.create!({ person: maura, password: 'interact', encrypted_pa
 james = Person.create!({ name: 'James Kiesel', 
                          description: 'Hi, I\'m James', 
                          tags: [combatant, gdp], 
+                         categories: [actor, director, producer, choreo],
                          details: { email: 'james.kiesel@gmail.com' } })
-james_acts = Skill.create!({ resource: james, category: actor })
-james_directs = Skill.create!({ resource: james, category: director })
-james_choreos = Skill.create!({ resource: james, category: choreo })
 james_account = User.create!({ person: james, password: 'password', encrypted_password: Devise.bcrypt(Devise, 'password'), admin: false })
-sample = Sample.create!({ skill: james_acts, description: 'An acting resume!' })
+sample = Sample.create!({ person: james, job: actor, name: 'An acting resume!' })
 
 cubby = Person.create!({ name: 'Cubby Altobelli', 
                          description: 'It\'s Cubby!', 
                          tags: [clown, license], 
+                         categories: [actor, playwright],
                          details: { email: 'cubby@cubby.com' } })
-cubby_acts = Skill.create!({ resource: cubby, category: actor })
-cubby_writes = Skill.create!({ resource: cubby, category: playwright })
-cubbys_play = Sample.create!({ skill: cubby_writes, description: 'It\'s Cubby\s play!' })
+cubbys_play = Sample.create!({ person: cubby, job: playwright, name: 'It\'s Cubby\s play!' })
 puts 'People-Skills created'
 
 oliver = Person.create!({ name: 'Oliver Donahue', 

@@ -33,10 +33,12 @@ GEM
       uuidtools (~> 2.1)
     bcrypt-ruby (3.1.2-x86-mingw32)
     builder (3.1.4)
+    chunky_png (1.2.9)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
+    cocoon (1.2.1)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -44,6 +46,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (2.0.alpha.0)
+      compass (>= 0.12.2, < 0.14)
     devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -61,6 +69,7 @@ GEM
       railties (>= 3.2, < 5.0)
     formtastic (2.2.1)
       actionpack (>= 3.0)
+    fssm (0.2.10)
     geocoder (1.1.9)
     hike (1.2.3)
     i18n (0.6.9)
@@ -80,8 +89,6 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.2)
-    nokogiri (1.6.1)
-      mini_portile (~> 0.5.0)
     nokogiri (1.6.1-x86-mingw32)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
@@ -152,7 +159,9 @@ PLATFORMS
 DEPENDENCIES
   arel
   aws-sdk
+  cocoon
   coffee-rails (~> 4.0.0)
+  compass-rails
   devise
   draper (~> 1.3)
   font-awesome-rails

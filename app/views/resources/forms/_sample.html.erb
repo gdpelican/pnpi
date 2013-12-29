@@ -1,0 +1,6 @@
+<% partial ||= false %>
+
+<%= string_input f, :sample, :file, 'full', label: true if partial %>
+<%= string_input f, :name, :string %>
+<%= select_input f, :job, collection: @jobs, placeholder: 'Select job. . .' %>
+<%= string_input f, :_destroy, :boolean, 'fifth', css: 'choice', label: 'Destroy?' if partial and f.object.id.present? %>

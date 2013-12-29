@@ -37,8 +37,8 @@ class Resource < ActiveRecord::Base
    .offset(page_size * (page.to_i - 1)) }
   
   has_attached_file :picture,
-                  :thumb => ["250x250", :jpeg], 
-     :styles => { :original => ["1024x1024", :jpeg], 
+     :styles => { :thumb => ["250x250", :jpeg], 
+                  :original => ["1024x1024", :jpeg], 
                   :tiny => ["100x100#", :jpeg] },
      :storage => :s3,
      :default_url => :default_url,
@@ -101,7 +101,7 @@ class Resource < ActiveRecord::Base
   end
   
   def self.mass_fields
-    [:id, :preview, :description, :picture, tag_ids: [], category_ids: []] | self.details
+    [:id, :name, :preview, :description, :picture, :_destroy, tag_ids: [], category_ids: []] | self.details
   end
   
 end

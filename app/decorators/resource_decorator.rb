@@ -13,9 +13,8 @@ class ResourceDecorator < Draper::Decorator
     type == 'Thing'
   end
   
-  
-  def category_message
-    "This is item is available to #{categories.first.name}" if thing? and categories.any?
+  def category_type
+    object.class.category_type.pluralize
   end
 
 end

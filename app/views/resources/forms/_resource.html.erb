@@ -1,28 +1,30 @@
-<% readonly = true if !defined? readonly %>
-<%= semantic_form_for @resource, url: @resource.url(:show), html: { class: "#{'readonly' if readonly }" } do |f| %>
+<%= semantic_form_for @resource, url: @resource.url(:show), html: { class: "resource" } do |f| %>
 	<%= form_title %>
 	<%= f.inputs :picture, class: 'block fifth' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
 			<%= image_tag f.object.picture.url %>
-			<%= f.input :picture, label: false, button_html: { value: 'Change picture' } %>
+			<%= f.input :picture %>
 		<% end %>
 	<% end %>
 	
 	<%= f.inputs :basic, class: 'block two-fifth' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
-			<%= render partial: "/resources/forms/#{f.object.type.downcase}", locals: { f: f, readonly: readonly } %>
+			<%= render partial: "/resources/forms/#{f.object.type.downcase}", locals: { f: f } %>
 		<% end %>
 	<% end %>
 	
 	<%= f.inputs :tags, class: 'block two-fifth' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
-			<%= f.object.thing? ? f.object.category_message : check_box_collection(f, :categories, @categories, readonly) %>
+			<%= categories_html f, @categories %>
 			<% tag_collection(f.object).each do |tag| %>
-				<%= check_box_collection f, :tags, tag[1], readonly, tag[0], :tag %>
+				<%= check_box_collection f, :tags, tag[1], tag[0], :tag %>
 			<% end %>
 		<% end %>
 	<% end %>
 	
-	<%= f.submit %>
-	
+	<%= f.actions do %>
+		<%= f.submit %>
+		<%= link_to font_icon('save') + " Save Changes", 'javascript:;', class: 'submit-link action-link' %>
+		<%= link_to font_icon('trash-o') + " Destroy", f.object.url(:show), confirm: 'Are you sure?', method: :delete, class: 'delete-link action-link' %>
+	<% end %>
 <% end %>

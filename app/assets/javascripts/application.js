@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.ui.effect.all
 //= require turbolinks
+//= require cocoon
 //= require_tree ../../../vendor/assets/javascripts/.
 //= require_tree .
 

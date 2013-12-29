@@ -1,24 +1,6 @@
+@import "compass/layout/stretching";
+
 form.resource {
-  
-  &.readonly {
-    input[type=submit],
-    .file { display: none; }
-    .stringish input, 
-    .text textarea {
-      border: 0;
-    }
-    
-    input[type=text], 
-    input[type=file], 
-    input[type=number],
-    input[type=email],
-    input[type=tel],
-    textarea {
-      border: none;
-      background: transparent;
-    }
-    
-  }
   
   ul, li, ol { list-style-type: none; padding: 0; margin: 0; }
   
@@ -27,8 +9,12 @@ form.resource {
   .half {           width: 50%; }
   .half-pad {       width: 40%; margin-right: 10% !important; }
   .full {           width: 100%; }
+  .select-full {    width: 104%; }
   
   fieldset { margin: 0; padding: 0; border: 0; }
+  
+  input[type=file],
+  input[type=submit] { display: none; }
   
   .block { 
     display: inline-block; 
@@ -38,11 +24,13 @@ form.resource {
     box-sizing: border-box;
     
     input[type=text], 
-    input[type=file], 
     input[type=number],
     input[type=email],
     input[type=tel],
-    textarea { 
+    .file>label,
+    textarea,
+    select { 
+      display: inline-block;
       width: 100%; 
       outline: 0;
       border-radius: .5em;
@@ -52,8 +40,29 @@ form.resource {
       border: 1px inset;
     }
     
+    .file > label { 
+      position: relative;
+      text-align: center; 
+      &:before {
+        background: #CCC;
+        background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+        border-radius: .25em;
+        @include stretch(.5em, .5em, .5em, .5em);
+        border: 1px solid #999;
+        cursor: pointer;
+        content: 'Upload picture';
+      }
+      &.is-ready:before { content: 'File chosen' !important; }
+    }
+    
     textarea { height: 15em; }
     
+  }
+  
+  .actions {
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
   }
   
   .block-padding {
@@ -61,6 +70,6 @@ form.resource {
     margin: auto;
   }
   
-  img { width: 100%;  }
+  img { width: 100%; }
   
 }

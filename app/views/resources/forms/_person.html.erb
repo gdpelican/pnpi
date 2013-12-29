@@ -1,6 +1,23 @@
-<%= string_input f, :first_name, :string, readonly, 'half-pad' %>
-<%= string_input f, :last_name, :string, readonly, 'half' %>
-<%= string_input f, :email, :email, readonly %>
-<%= string_input f, :phone, :phone, readonly %>
-<%= string_input f, :preview, :string, readonly, 'full', '140 character blurb about yourself. . .' %>
-<%= string_input f, :description, :text, readonly, 'full', 'Enter description. . .' %>
+<% partial ||= false %>
+
+<%= string_input f, :picture, :file, 'full', label: true if partial %>
+<%= string_input f, :first_name, :string, 'half-pad' %>
+<%= string_input f, :last_name, :string, 'half' %>
+<%= string_input f, :email, :email %>
+<%= string_input f, :phone, :phone %>
+<%= string_input f, :preview, :string, 'full', placeholder: '140 character blurb about yourself. . .' %>
+<%= string_input f, :description, :text, 'full', placeholder: 'Enter description. . .' %>
+
+<%= content_tag :li, '', class: 'nested', id: 'nestedAnchor' do %>
+	<%= content_tag :ul, '', class: 'nested-menu' do %>
+		<% f.object.nested.each do |nested| %>
+			<%= nested_menu_link(nested).html_safe %>
+		<% end %>
+	<% end %>
+	
+	<%= content_tag :ul, '', class: 'nested-panel' do %>
+		<% f.object.nested.each do |nested| %>
+			<%= nested_menu_displays(f, nested).html_safe %>
+		<% end %>
+	<% end %>
+<% end %>

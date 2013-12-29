@@ -9,7 +9,7 @@ class ResourcesController < ApplicationController
   # GET /resources
   # GET /resources.json
   def index
-    @resources = ResourceDecorator.decorate_collection model.all
+    @resources = decorator.decorate_collection model.all
   end
 
   # GET /resources/1
@@ -43,7 +43,7 @@ class ResourcesController < ApplicationController
   # PATCH/PUT /resources/1.json
   def update
     respond_to do |format|
-      if @resource.update strong_type params, @type, :resource
+      if @resource.update strong_type params, @type, @type.downcase
         format.html { redirect_to @resource.url(:edit), notice: 'Resource was successfully updated.' }
         format.json { head :no_content }
       else
@@ -70,24 +70,29 @@ class ResourcesController < ApplicationController
   end
   
   def set_resource
-    @resource = ResourceDecorator.decorate resource
+    @resource = decorator.decorate resource
   end
   
   def set_collections
     @categories = Category.filter model.category_type 
     @tags = TagType.filter        model.to_s.downcase
+    @jobs = Job.all
   end
   
   def resource
     case action_name.to_sym
     when :new    then model.new type: @type
-    when :create then model.new strong_type params, @type, :resource
+    when :create then model.new strong_type params, @type, @type.downcase
     else              model.find params[:id], include: [:tags, :categories]
     end    
   end
   
   def model
     @type.constantize if @type
+  end
+  
+  def decorator
+    "#{model}Decorator".constantize if model
   end
 
   def require_owner
