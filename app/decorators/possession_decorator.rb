@@ -9,6 +9,10 @@ class PossessionDecorator < Draper::Decorator
     id.present? and resource?
   end
   
+  def name
+    defined? object.name ? object.name : ''
+  end
+  
   def abbrev
     if id.nil?
       '+'
