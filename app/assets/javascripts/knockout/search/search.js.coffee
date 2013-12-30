@@ -41,6 +41,13 @@ class @KnockoutSearch
     @swapTagView = (data, event) =>
       @tagView(!@tagView())
     
+    
+    @handleEnter = (data, event) =>
+      if event.charCode == 13
+        @currSearch().term event.currentTarget.value
+        @fetchResults data, event
+      true
+    
     @fetchCategories = (data, event) =>
       @currSearch().resource(event.currentTarget.value)
       if @currSearch().resource().length == 0
@@ -50,7 +57,7 @@ class @KnockoutSearch
         @currSearch().fetch 'categories', @update, @failure
     
     @fetchTags = (data, event) =>
-      @currSearch().category(event.currentTarget.value)
+      @currSearch().category event.currentTarget.value
       if @currSearch().category().length == 0
         @tagView false
       else

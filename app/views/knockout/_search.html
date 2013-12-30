@@ -5,9 +5,9 @@
 	<div data-bind="appear: type() == 'filter'" class="search-view">
 		<div class="search-view-div">
 			<span   data-bind="text: $root.leadText" class="lead-text"></span>
-			<select data-bind="options: $root.resources, optionsText: 'name', optionsValue: 'value', optionsCaption: '', event: { change: $root.fetchCategories } " class="resource selectpicker"></select>
+			<select data-bind="options: $root.resources, optionsText: 'name', optionsValue: 'value', optionsCaption: '', event: { change: $root.fetchCategories } " class="resource"></select>
 			<span 	data-bind="visible: $root.showPredicate, text: $root.predicate" class="predicate"></span>
-			<select data-bind="visible: $root.showPredicate, value: category, options: $root.categories, optionsText: 'name',  optionsValue: 'value', optionCaption: '', event: { change: $root.fetchTags }" class="category selectpicker"></select>
+			<select data-bind="visible: $root.showPredicate, value: category, options: $root.categories, optionsText: 'name',  optionsValue: 'value', optionCaption: '', event: { change: $root.fetchTags }" class="category"></select>
 			<span   data-bind="visible: $root.showSubmit, click: $root.swapTagView, attr: { class: $root.tagClass }"><i class="fa fa-tags"></i></span>
 			<div data-bind="appear: $root.tagView" class="tags texture-background">
 				<div data-bind="visible: $root.tag_list().length == 0" class="no-results">No tags available</div>
@@ -21,10 +21,10 @@
 	<div data-bind="appear: type() == 'text'" class="search-view">
 		<div class="search-view-div">
 			<span data-bind="text: $root.leadText" class="lead-text"></span>
-			<input data-bind="value: term" type="text" placeholder="Search. . .">
+			<input data-bind="event: { keypress: $root.handleEnter }, value: term" type="text" placeholder="Search. . .">
 		</div>
 		<div data-bind="appear: $root.initialView() && !$root.tagView()" class="search-view-spacer"></div>
-		<a     data-bind="click: $root.fetchResults" class="search-button texture-background">Search</a>
-		<div   class="swap-search-view"><a data-bind="click: $root.swapView">Search by type</a></div>
+		<a data-bind="click: $root.fetchResults" class="search-button texture-background">Search</a>
+		<div class="swap-search-view"><a data-bind="click: $root.swapView">Search by type</a></div>
 	</div>
 </script>
