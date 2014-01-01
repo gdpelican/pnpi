@@ -1,13 +1,11 @@
 <%= content_tag :div do %>
-	<%= user_avatar || font_icon(current_user.present? ? 'user' : 'key')%>
-	<%= content_tag :ul, class: 'user-dashboard' do %>
+	<%= user_avatar || font_icon(current_user.present? ? 'user' : 'key') %>
+	<%= content_tag :ul, class: 'dashboard user-dashboard' do %>
 		<% if current_user %>
-			<%= content_tag :li, '', class: 'right' do %>
-				<%= content_tag :div, "#{current_user.person.name}" %>
-				<%= content_tag :div, current_user.person.email %>
-				<%= content_tag :div, link_to('Edit my profile', edit_person_path(current_user.person)) %>
-				<%= content_tag :div, link_to('Sign Out', destroy_user_session_path) %>
-			<% end %>
+			<%= content_tag :li, "#{current_user.person.name}" %>
+			<%= content_tag :li, current_user.person.email %>
+			<%= menu_link 'Edit my profile', edit_person_path(current_user.person) %>
+			<%= menu_link 'Sign Out', destroy_user_session_path %>
 		<% else %>
 			<%= render partial: 'users/sessions/new' %>
 		<% end %>

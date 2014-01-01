@@ -18,6 +18,8 @@ class Resource < ActiveRecord::Base
   
   scope :named, ->(name) { where(name: name) }
   
+  scope :include_children, -> { includes([:tags, :categories]) }
+  
   scope :filter_search, ->(resource = '', category = '') {  
     joins(:categories)
    .where(type: resource.humanize)

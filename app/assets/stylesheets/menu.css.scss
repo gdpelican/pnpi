@@ -1,0 +1,56 @@
+body.search nav {
+  
+  div:hover, div:hover ul {
+    background: black; 
+    background: rgba(0,0,0,.5);
+    .link:hover { background: rgba(0,0,0,.5); }
+  }
+  div, i, a { color: white; }
+}
+
+body.resources nav {
+  div:hover, div:hover ul {
+    background: white;
+    background: rgba(255,255,255,.75);
+    .link:hover { background: rgba(255,255,255,.75); }
+  }
+  div, i, a { color: black; }
+}
+
+nav {
+  position: absolute;
+  top: 0;
+  padding: .5em 1em;
+  z-index: 9999;
+
+  > div { 
+    vertical-align: top;
+    display: inline-block; 
+    padding: .75em;
+    position: relative;
+    border-radius: .5em .5em 0 0;
+         
+    img { width: 1.3em; cursor: pointer; }
+    i { cursor: pointer }
+    
+    >.dashboard {
+      position: absolute;
+      top: 2.75em;
+      left: 0;
+      padding: .5em;
+      margin: 0;
+      list-style-type: none;
+      min-width: 10em;
+      a { text-decoration: none; font-weight: bold; }
+      display: none;
+      border-radius: 0 .5em .5em .5em;
+      li {
+        padding: 0 .25em 0 .5em;
+        margin: .25em 0;
+        border-radius: .5em;
+      }
+    }
+    &:hover>.dashboard { display: block; }
+  }
+  
+}

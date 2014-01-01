@@ -34,6 +34,9 @@ ActiveRecord::Schema.define(version: 20131215192222) do
     t.integer "possession_id"
   end
 
+  add_index "owners_possessions", ["owner_id"], name: "index_owners_possessions_on_owner_id", using: :btree
+  add_index "owners_possessions", ["possession_id"], name: "index_owners_possessions_on_possession_id", using: :btree
+
   create_table "resources", force: true do |t|
     t.string   "name"
     t.string   "preview"

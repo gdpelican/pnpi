@@ -22,13 +22,13 @@ header.search-form {
     font-family: Arial black; 
     padding: 10% 10% 0 0;
     font-size: 250%;
-    text-shadow: -3px 3px 0 black;
+    text-shadow: -3px 2px 0 black;
   }
   h2 { 
     font-family: Arial; margin: 0; 
     padding: 0 10% 5% 0;
     font-size: 175%;
-    text-shadow: -3px 3px 0 black;
+    text-shadow: -3px 2px 0 black;
   }
   h3 {
     margin: 0;
@@ -38,9 +38,7 @@ header.search-form {
   
   .search-view {
     
-    .search-view-div { padding: 0 10% 1.5em; }
-    .search-view-spacer { padding: 5% 0; }
-    
+    text-shadow: -1px 1px 0 black;
     padding-top: 1em;
     
     select, input {
@@ -53,7 +51,11 @@ header.search-form {
       option { background: rgba(0,0,0,.75); }
     }
     
+    .search-view-div { padding: 0 10% 1.5em; }
+    .search-view-spacer { padding: 5% 0; }
+    
     .search-button {
+      text-shadow: none;
       position: absolute;
       right: 5%;
       bottom: -1em;

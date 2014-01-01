@@ -15,5 +15,8 @@ class CreateResources < ActiveRecord::Migration
       t.integer :possession_id
     end
     
+    add_index :owners_possessions, :owner_id
+    add_index :owners_possessions, :possession_id
+    
   end
 end

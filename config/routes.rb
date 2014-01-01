@@ -5,7 +5,7 @@ PNPI::Application.routes.draw do
   resources :people, controller: 'resources', type: 'Person'
   resources :places, controller: 'resources', type: 'Place'
   resources :things, controller: 'resources', type: 'Thing'
-    
+
   devise_for :users, skip: [:registrations, :sessions]
   as :user do
     get  '/login' => 'devise/sessions#new', as: :new_user_session

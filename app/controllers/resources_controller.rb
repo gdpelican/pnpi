@@ -1,5 +1,4 @@
 class ResourcesController < ApplicationController
-  before_action :set_type
   before_action :set_resource, except: :index
   before_action :set_collections, only: [:new, :edit, :show]
   before_action :require_admin, only: [:new, :create, :index, :destroy]
@@ -64,27 +63,24 @@ class ResourcesController < ApplicationController
   end
 
   private
-          
-  def set_type
-    @type = params[:type]
-  end
   
   def set_resource
+    @type = params[:type]
     @resource = decorator.decorate resource
   end
   
   def set_collections
     @categories = Category.filter model.category_type 
-    @tags = TagType.filter        model.to_s.downcase
+    @tags = TagType.filter  model.to_s.downcase
     @jobs = Job.all
   end
-  
+ 
   def resource
     case action_name.to_sym
     when :new    then model.new type: @type
     when :create then model.new strong_type params, @type, @type.downcase
-    else              model.find params[:id], include: [:tags, :categories]
-    end    
+    else              model.include_children.find params[:id]
+    end
   end
   
   def model

@@ -17,7 +17,7 @@
 	
 	<%= content_tag :ul, '', class: 'nested-panel' do %>
 		<% f.object.nested.each do |nested| %>
-			<%= nested_menu_displays(f, nested).html_safe %>
+			<%= nested_menu_displays(f, nested) %>
 		<% end %>
 	<% end %>
 <% end %>

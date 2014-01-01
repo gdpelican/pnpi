@@ -25,6 +25,6 @@
 	<%= f.actions do %>
 		<%= f.submit %>
 		<%= link_to font_icon('save') + " Save Changes", 'javascript:;', class: 'submit-link action-link' %>
-		<%= link_to font_icon('trash-o') + " Destroy", f.object.url(:show), confirm: 'Are you sure?', method: :delete, class: 'delete-link action-link' %>
+		<%= link_to font_icon('trash-o') + " Destroy", f.object.url(:show), data: { confirm: 'Are you sure?' }, method: :delete, class: 'delete-link action-link' %>
 	<% end %>
 <% end %>
