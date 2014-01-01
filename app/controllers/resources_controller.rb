@@ -1,4 +1,5 @@
 class ResourcesController < ApplicationController
+  before_action :set_type
   before_action :set_resource, except: :index
   before_action :set_collections, only: [:new, :edit, :show]
   before_action :require_admin, only: [:new, :create, :index, :destroy]
@@ -29,7 +30,7 @@ class ResourcesController < ApplicationController
   def create
     respond_to do |format|
       if @resource.save
-        format.html { redirect_to @resource.url, notice: 'Resource was successfully created.' }
+        format.html { redirect_to @resource.url, notice: "#{type} was successfully created." }
         format.json { render action: 'show', status: :created, location: @resource }
       else
         format.html { render action: 'new' }
@@ -43,7 +44,7 @@ class ResourcesController < ApplicationController
   def update
     respond_to do |format|
       if @resource.update strong_type params, @type, @type.downcase
-        format.html { redirect_to @resource.url(:edit), notice: 'Resource was successfully updated.' }
+        format.html { redirect_to @resource.url(:edit), notice: 'Changes successfully saved.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -64,9 +65,12 @@ class ResourcesController < ApplicationController
 
   private
   
-  def set_resource
+  def set_type
     @type = params[:type]
-    @resource = decorator.decorate resource
+  end
+  
+  def set_resource
+    @resource = decorator.decorate resource 
   end
   
   def set_collections
