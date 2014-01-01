@@ -1,0 +1,31 @@
+<%= content_tag :li, '', class: 'nested', id: 'nestedAnchor' do %>
+	<%= content_tag :ul, '', class: 'nested-menu' do %>
+		<% f.object.nested.each do |nested| %>
+		    <%= link_to nested.to_s.humanize,  'javascript:;', 
+		    			class: 'nested-menu-link selectable slide-to', 
+		    			data: { 'resource-type' => nested, 'target' => 'nestedAnchor' } %>
+		<% end %>
+	<% end %>
+	
+	<%= content_tag :ul, '', class: 'nested-panel' do %>
+		<% f.object.nested.each do |nested| %>
+			<%= content_tag :li, '', class: 'nested-resources', data: { 'resource-type' => nested } do %>
+				
+				<%= content_tag :ul do %>
+					<% f.object.send(nested).each do |child| %>
+						<%= link_to nested_image(child), 'javascript:;', class: 'nested-resource-link selectable slide-to', data: { 'resource-id' => child.id, 'target' => 'nestedAnchor' }, title: child.name %>
+					<% end %>
+				<% end %>
+				
+				<%= content_tag :ul, '', class: "nested-#{nested}" do %>
+					<% f.semantic_fields_for nested do |child| %>
+						<%= content_tag :fieldset, '', class: "nested-resource nested-#{nested.to_s.singularize}", data: { 'resource-id' => child.object.id } do %>
+				    		<%= render partial: "/resources/forms/#{nested.to_s.singularize}", locals: { f: child, partial: true } %>
+						<% end %>
+				    <% end %>
+				<% end %>
+				
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

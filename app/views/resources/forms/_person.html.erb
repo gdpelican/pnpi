@@ -8,16 +8,4 @@
 <%= string_input f, :preview, :string, 'full', placeholder: '140 character blurb about yourself. . .' %>
 <%= string_input f, :description, :text, 'full', placeholder: 'Enter description. . .' %>
 
-<%= content_tag :li, '', class: 'nested', id: 'nestedAnchor' do %>
-	<%= content_tag :ul, '', class: 'nested-menu' do %>
-		<% f.object.nested.each do |nested| %>
-			<%= nested_menu_link(nested).html_safe %>
-		<% end %>
-	<% end %>
-	
-	<%= content_tag :ul, '', class: 'nested-panel' do %>
-		<% f.object.nested.each do |nested| %>
-			<%= nested_menu_displays(f, nested) %>
-		<% end %>
-	<% end %>
-<% end %>
+<%= render partial: '/resources/forms/nested', locals: { f: f } if f.object.id.present? %>

@@ -32,14 +32,6 @@ module FormHelper
                                               form.object.category_type)
   end
   
-  def nested_menu_link(name)
-    link_to(name.to_s.humanize,  'javascript:;', class: 'nested-menu-link selectable slide-to', data: { 'resource-type' => name, 'target' => 'nestedAnchor' })
-  end
-  
-  def nested_menu_displays(form, name)
-    render partial: '/resources/forms/nested_resources', locals: {f: form, field: name, name: name.to_s.singularize }
-  end
-  
   def nested_image(nested)
     if nested.image_abbrev? then image_tag(nested.abbrev) 
     else                         nested.abbrev end
