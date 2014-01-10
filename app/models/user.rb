@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   belongs_to :person
-    
+      
   devise :database_authenticatable, :registerable, :validatable, :rememberable, :recoverable
   
   validates :password, length: { in: 6..15 }

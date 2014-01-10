@@ -4,6 +4,7 @@
   <%= devise_error_messages! %>
   
   <%= hidden_field_tag :id, f.object.person.id %>
+  <%= hidden_field_tag :signup_token, f.object.person.signup_token %>
   	
   <div><%= f.label :password %><br />
   <%= f.password_field :password, autofocus: true %></div>

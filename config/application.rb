@@ -21,10 +21,7 @@ module PNPI
     # config.i18n.default_locale = :de
 
     config.assets.precompile += ['*.js', '*.css', '*.png']
-    config.autoload_paths += %W(#{config.root}/app/models/abstract)    
-    config.autoload_paths += %W(#{config.root}/app/models/resources)
-    config.autoload_paths += %W(#{config.root}/app/models/categories)
-    config.autoload_paths += %W(#{config.root}/app/models/tags)
+    config.autoload_paths += %W(#{config.root}/app/validators)
 
   end
 end

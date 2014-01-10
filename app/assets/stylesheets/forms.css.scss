@@ -2,32 +2,27 @@
 
 form.resource {
   
-  padding-top: 3em;
   ul, li, ol { list-style-type: none; padding: 0; margin: 0; }
   
-  .fifth {          width: 20%; }
-  .two-fifth {      width: 40%; }
-  .half {           width: 50%; }
-  .half-pad {       width: 40%; margin-right: 10% !important; }
-  .full {           width: 100%; }
-  .select-full {    width: 104%; }
+  .fifth {              width: 20%; }
+  .two-fifth {          width: 40%; }
+  .half {               width: 50%; }
+  .half-pad {           width: 40%; margin-right: 10% !important; }
+  .full {               width: 100%; }
+  .select-full {        width: 104%; }
+  .select-four-fifth {  width: 78%; position: relative; left: 5%; }
   
   fieldset { margin: 0; padding: 0; border: 0; }
   
   input[type=file],
   input[type=submit] { display: none; }
   
-  .block { 
-    display: inline-block; 
-    vertical-align: top; 
-    padding: 0; 
-    margin: 0 0 0 -3px;
-    box-sizing: border-box;
-    
+  .block {     
     input[type=text], 
     input[type=number],
     input[type=email],
     input[type=tel],
+    input[type=url],
     .file>label,
     textarea,
     select { 

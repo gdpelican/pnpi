@@ -20,6 +20,11 @@ class SearchController < ApplicationController
     end
   end
   
+  def set_background
+    super
+    @background_shade = :dark
+  end
+  
   private
   
   def search_params

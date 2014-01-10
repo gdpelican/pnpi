@@ -5,30 +5,30 @@ class PersonDecorator < ResourceDecorator
     [:places, :things, :samples]
   end
   
-  def places
-    append_n_decorate :places
+  def places(append = true)
+    collection :places, append
   end
   
-  def things
-    append_n_decorate :things
+  def things(append = true)
+    collection :things, append
   end
   
-  def samples
-    append_n_decorate :samples
+  def samples(append = true)
+    collection :samples, append
   end
   
-  private
-  
-  def append(field)
-    object.send(field).to_a.push field.to_s.singularize.humanize.constantize.new
+  def description_header
+    'About Me'
   end
   
-  def decorate(collection)
-    PossessionDecorator.decorate_collection collection
+  def sample_header
+    'My Work'
   end
   
-  def append_n_decorate(field)
-    decorate append field
+  def details
+    [{ text: email,   icon: 'envelope-o', link: "mailto:#{email}" }, 
+     { text: website, icon: 'laptop',     link: website },
+     { text: phone,   icon: 'phone' }]
   end
  
 end

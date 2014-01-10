@@ -20,7 +20,7 @@
 				<%= content_tag :ul, '', class: "nested-#{nested}" do %>
 					<% f.semantic_fields_for nested do |child| %>
 						<%= content_tag :fieldset, '', class: "nested-resource nested-#{nested.to_s.singularize}", data: { 'resource-id' => child.object.id } do %>
-				    		<%= render partial: "/resources/forms/#{nested.to_s.singularize}", locals: { f: child, partial: true } %>
+				    		<%= render partial: "/resources/forms/details", locals: { f: child, type: nested.to_s.downcase.singularize.to_sym, partial: true } %>
 						<% end %>
 				    <% end %>
 				<% end %>

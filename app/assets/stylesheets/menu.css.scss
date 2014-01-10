@@ -1,6 +1,6 @@
-body.search nav {
+body.dark-background nav {
   
-  div:hover, div:hover ul {
+  >div:hover, >div:hover ul {
     background: black; 
     background: rgba(0,0,0,.5);
     .link:hover { background: rgba(0,0,0,.5); }
@@ -8,8 +8,8 @@ body.search nav {
   div, i, a { color: white; }
 }
 
-body.resources nav {
-  div:hover, div:hover ul {
+body.light-background nav {
+  >div:hover, >div:hover ul {
     background: white;
     background: rgba(255,255,255,.75);
     .link:hover { background: rgba(255,255,255,.75); }
@@ -28,9 +28,13 @@ nav {
     display: inline-block; 
     padding: .75em;
     position: relative;
-    border-radius: .5em .5em 0 0;
          
-    img { width: 1.3em; cursor: pointer; }
+    img { 
+      width: 1.75em; 
+      cursor: pointer; 
+      margin: -.25em -.25em -.55em;
+      border-radius: 15%;
+    }
     i { cursor: pointer }
     
     >.dashboard {
@@ -50,6 +54,8 @@ nav {
         border-radius: .5em;
       }
     }
+    &.menu { border-radius: .5em .5em 0 0; }
+    &.link { border-radius: .5em; }
     &:hover>.dashboard { display: block; }
   }
   

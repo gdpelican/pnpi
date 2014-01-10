@@ -5,6 +5,7 @@ class CreateResources < ActiveRecord::Migration
       t.string :preview
       t.string :type
       t.text :description
+      t.boolean :active, default: false
       t.has_attached_file :picture
       t.text :details
       t.timestamps

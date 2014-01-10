@@ -1,5 +1,5 @@
-<%= content_tag :div do %>
-	<%= user_avatar || font_icon(current_user.present? ? 'user' : 'key') %>
+<%= content_tag :div, '', class: 'menu', title: if current_user then 'Account options' else 'Sign In' end do %>
+	<%= user_avatar || font_icon(current_user ? 'user' : 'key') %>
 	<%= content_tag :ul, class: 'dashboard user-dashboard' do %>
 		<% if current_user %>
 			<%= content_tag :li, "#{current_user.person.name}" %>

@@ -1,4 +1,4 @@
-<%= content_tag :div do %>
+<%= content_tag :div, '', class: 'menu', title: 'Admin functions' do %>
 	<%= font_icon 'gavel' %>
 	<%= content_tag :ul, class: 'dashboard admin-dashboard' do %>
 		<%= menu_link 'Create a Person', new_person_path %>
@@ -7,5 +7,6 @@
 		<%= menu_link 'View People', people_path %>
 		<%= menu_link 'View Places', places_path %>
 		<%= menu_link 'View Things', things_path %>
+		<%= menu_link 'Requiring Approval', scoped_resources_path(:inactive) %>
 	<% end %> 
 <% end %>

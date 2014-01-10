@@ -1,1 +1,29 @@
-<%= render partial: "/resources/forms/resource" %>
+<%= content_tag :article, '', class: "resource #{@resource.type.downcase}" do %>
+	<%= content_tag :div, '', class: 'block left' do %>
+		<%= content_tag :h1, image_tag(@resource.picture.url(:thumb)) %>
+		<%= content_tag :ul, '', class: 'details' do %>
+			<% @resource.details.each do |detail| %>
+				<%= detail_item detail[:icon], detail[:text], detail[:link] %>
+			<% end %>
+		<% end %>
+	<% end %>
+	
+	<%= content_tag :div, '', class: 'block right' do %>
+		<%= content_tag :h1, @resource.name, class: 'name' %>
+		
+		<% if @resource.description %>
+			<%= content_tag :h2, @resource.description_header %>
+			<%= content_tag :div, @resource.description, class: 'description' %>
+		<% end %>
+		
+		<% if @resource.person? %>
+			<%= render partial: 'resources/nested', locals: { field: :places }  if @resource.places(false).any? %>
+			<%= render partial: 'resources/nested', locals: { field: :things }  if @resource.things(false).any? %>
+			<%= render partial: 'resources/nested', locals: { field: :samples}  if @resource.samples(false).any? %>
+		<% end %>
+		
+		<%= render partial: 'resources/nested', locals: { field: :owners }  if @resource.owners.any? %>
+		<%= render partial: 'resources/nested', locals: { field: :tags }    if @resource.tags.any? %>
+		
+	<% end %>
+<% end %>

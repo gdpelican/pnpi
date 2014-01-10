@@ -1,5 +1,5 @@
 <script type="text/javascript">
 	$(document).ready(function() { 
-		Knockout.initialize(<%= json %>) 
+		Knockout.initialize(<%= json %>, <%= current_user.present? %>) 
 	});
 </script>

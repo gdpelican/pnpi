@@ -1,5 +1,5 @@
 class @KnockoutSearch
-  constructor: (json) ->
+  constructor: (json, user) ->
     
     @currSearch =  ko.observable(new KnockoutSearchResult())
     @lastSearch =  ko.observable(new KnockoutSearchResult())
@@ -11,6 +11,8 @@ class @KnockoutSearch
     @categories =  ko.observableArray(json.categories or [])
     @tag_list =    ko.observableArray(json.tags or [])
     @errors =      ko.observableArray([])
+
+    @loggedIn =    user
 
     @leadText =       ko.computed =>
       switch @currSearch().type()

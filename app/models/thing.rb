@@ -1,14 +1,30 @@
 class Thing < Resource
 
-  validates :price, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
-  
+  before_validation :set_price_per_period
   before_validation :set_category
-  after_find :remove_empty_price
+  after_initialize :get_price_per_period
+  
+  validates_with ThingValidator
   
   alias_attribute :prices, :categories 
-
+  
+  attr_accessor :price, :period
+  
   def set_category
-    self.categories = Category.named(if zero_price? then :borrow else :rent end)
+    self.categories = Category.named(if self.price_per_period then :rent else :borrow end)
+  end
+ 
+  def set_price_per_period
+    return if id.nil? and price_per_period.present? #to allow seeding
+    self.price.gsub! '$', '' unless self.price.nil?
+    if self.price.to_f > 0 && self.period.present? then self.price_per_period = "#{self.price.to_f} / #{self.period}"
+    else                                                self.price_per_period = nil end
+  end
+  
+  def get_price_per_period
+    return unless price_per_period
+    self.price = price_per_period.split('/')[0].to_f
+    self.period = price_per_period.split('/')[1].chomp
   end
 
   def self.category_type
@@ -16,7 +32,19 @@ class Thing < Resource
   end
   
   def self.details
-    [:price, :person_id]  
+    [:price_per_period, :person_id]  
+  end
+  
+  def self.mass_fields
+    super | [:price, :period]
+  end
+  
+  def self.periods
+    [:hour, :day, :week, :month, :year]
+  end
+  
+  def self.periods_map
+    Thing.periods.map { |period| ["per #{period}", period] }
   end
   
   private
@@ -26,7 +54,7 @@ class Thing < Resource
   end
   
   def zero_price?
-    price.nil? || price.to_i == 0
+    price == nil || price == 0
   end
   
 end

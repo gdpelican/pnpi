@@ -1,14 +1,17 @@
 <%= semantic_form_for @resource, url: @resource.url(:show), html: { class: "resource" } do |f| %>
+	
+	<%= f.input :active, as: :hidden, input_html: { class: 'active' }, value: admin? || f.object.active? %>
+	
 	<%= f.inputs :picture, class: 'block fifth' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
-			<%= image_tag f.object.picture.url %>
+			<%= image_tag f.object.picture.url(:thumb) %>
 			<%= f.input :picture %>
 		<% end %>
 	<% end %>
-	
+
 	<%= f.inputs :basic, class: 'block two-fifth' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
-			<%= render partial: "/resources/forms/#{f.object.type.downcase}", locals: { f: f } %>
+			<%= render partial: "/resources/forms/details", locals: { f: f, type: f.object.type.downcase.to_sym } %>
 		<% end %>
 	<% end %>
 	
@@ -23,9 +26,8 @@
 	
 	<%= f.actions do %>
 		<%= f.submit %>
-		<%= link_to submit_text(f.object.type, f.object.id.present?), 'javascript:;', class: 'submit-link action-link' %>
-		<%= link_to font_icon('trash-o') + " Destroy", f.object.url(:show), method: :delete,
-					data: { confirm: 'Are you sure?' }, 
-					class: 'delete-link action-link' if f.object.id.present? %>
+		<%= resource_action :submit, 	 f.object, admin? %>
+		<%= resource_action :deactivate, f.object, admin? %>
+		<%= resource_action :delete, 	 f.object, admin? %>
 	<% end %>
 <% end %>

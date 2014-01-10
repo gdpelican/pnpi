@@ -1,5 +1,5 @@
 @Knockout =
-  initialize: (json) ->
+  initialize: (json, user) ->
     ko.bindingHandlers.appear =
       init: (element, hidden) ->
         if ko.utils.unwrapObservable hidden()
@@ -15,5 +15,5 @@
     
     resources =
       resources: json.results
-    ko.applyBindings new KnockoutSearch(resources)
+    ko.applyBindings new KnockoutSearch(resources, user)
 

@@ -8,12 +8,14 @@ PNPI::Application.routes.draw do
 
   devise_for :users, skip: [:registrations, :sessions]
   as :user do
-    get  '/login' => 'devise/sessions#new', as: :new_user_session
-    post '/login' => 'devise/sessions#create', as: :user_session
-    get  '/logout' => 'devise/sessions#destroy', as: :destroy_user_session
-    get  '/people/:id/register' => 'registrations#new', as: :new_user_registration
+    get  '/login' => 'sessions#new', as: :new_user_session
+    post '/login' => 'sessions#create', as: :user_session
+    get  '/logout' => 'sessions#destroy', as: :destroy_user_session
+    get  '/people/:id/register/:signup_token' => 'registrations#new', as: :new_user_registration
     post '/people/register' => 'registrations#create', as: :registration
   end
+ 
+  get '/resources(/:scope)' => 'resources#index', as: :scoped_resources
  
   post '/search/resources' => 'search#resources'
   post '/search/categories/:resource' => 'search#categories'

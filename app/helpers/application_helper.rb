@@ -5,11 +5,19 @@ module ApplicationHelper
   end
   
   def search?
-    @search.present?
+    controller_name == 'search'
+  end
+  
+  def login?
+    controller_name == 'sessions'
   end
   
   def admin?
     current_user.present? && current_user.admin?
+  end
+  
+  def create?
+    @resource.present? && @resource.person? && action_name.to_sym == :new
   end
   
   def user_avatar

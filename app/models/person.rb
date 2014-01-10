@@ -20,6 +20,7 @@ class Person < Resource
                                         
   after_initialize :get_name
   before_validation :prepare_for_save
+  before_create :generate_signup_token
   
   validates :email, presence: true
   
@@ -30,6 +31,11 @@ class Person < Resource
   def prepare_for_save
     self.name = "#{first_name} #{last_name}" if first_name.present? and last_name.present?
     self.email = self.email.downcase
+    self.website = "http://#{self.website}" unless self.website.blank? || self.website[/^https?/]
+  end
+  
+  def generate_signup_token
+    self.signup_token = SecureRandom.hex(5)
   end
   
   def self.category_type
@@ -41,7 +47,7 @@ class Person < Resource
   end
   
   def self.details
-    [:email, :phone]
+    [:email, :phone, :website, :signup_token]
   end
   
   def self.mass_fields

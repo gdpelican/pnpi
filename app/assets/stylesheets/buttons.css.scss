@@ -44,4 +44,13 @@
     }  
   }
   
+  &.deactivate-link {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ebeba7), color-stop(1, #dfdfdf) );
+    background:-moz-linear-gradient( center top, #a7eba7 5%, #dfdfdf 100% );
+    &:hover { 
+      background:-webkit-gradient( linear, left top, left bottom, color-stop(0.55, #ebeba7), color-stop(1, #dfdfdf) );
+      background:-moz-linear-gradient( center top, #a7eba7 55%, #dfdfdf 100% );
+    }  
+  }
+  
 }

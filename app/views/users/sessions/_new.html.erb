@@ -1,1 +1,19 @@
-<%= render template: 'users/sessions/new', locals: { resource: User.new, resource_name: 'user' } %>
+<%= form_for(@user, as: :user, url: user_session_path) do |f| %>
+  
+  <%= content_tag :div do %>
+  	<%= f.label :email %>
+  	<%= f.email_field :email, autofocus: true %>
+  <% end %>
+
+  <%= content_tag :div do %>
+  	<%= f.label :password %>
+  	<%= f.password_field :password %>
+  <% end %>
+
+  <%= content_tag :div do %>
+  	<%= f.check_box :remember_me %>
+  	<%= f.label :remember_me %>
+  <% end %>
+  
+  <%= content_tag :div, f.submit("Sign in") %>
+<% end %>

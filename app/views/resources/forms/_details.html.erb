@@ -1,0 +1,32 @@
+<% partial ||= false %>
+<% update = f.object.id.present? %>
+
+<%= string_input f, :picture, :file, 'full', label: true if partial and type != :sample %>
+<%= string_input f, :name, :string unless type == :person %>
+
+<% case type %>
+<% when :person %>
+	<%= string_input f, :first_name, :string, 'half-pad' %>
+	<%= string_input f, :last_name, :string, 'half' %>
+	<%= string_input f, :email, :email %>
+	<%= string_input f, :phone, :phone, 'full', css: 'phone' %>
+	<%= string_input f, :website, :url %>
+	<%= string_input f, :preview, :string, 'full', placeholder: '140 character blurb about yourself. . .' %>
+<% when :place %>
+	<%= string_input f, :address, :string %>
+	<%= string_input f, :preview, :string, 'full', placeholder: '140 character description. . .' %>
+<% when :thing %>
+	<%= string_input f, :price, :string, 'fifth', placeholder: 'Rental price. . .', css: 'currency' %>
+	<%= select_input f, :period, collection: @periods, placeholder: 'Rental period. . .', field_size: 'select-four-fifth' %>
+	<%= string_input f, :preview, :string, 'full', placeholder: '140 character description. . .' %>
+<% when :sample %>
+	<%= string_input f, :sample, :file, 'full', label: true %>
+	<%= select_input f, :job, collection: @jobs, placeholder: 'Select job. . .' %>
+<% end %>
+
+<%= string_input f, :description, :text, 'full', placeholder: 'Enter description. . .' unless type == :sample %>
+
+<% if update %>
+	<%= string_input f, :_destroy, :boolean, 'fifth', css: 'choice', label: 'Destroy?' if partial %>
+	<%= render partial: '/resources/forms/nested', locals: { f: f } if type == :person %>
+<% end %>

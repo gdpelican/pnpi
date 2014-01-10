@@ -1,5 +1,7 @@
 body, html, ul { margin: 0; padding: 0; }
-.texture-background { background: url('/images/texture.png') center center repeat; }
+html { height: 100%; }
+
+body:not(.search) { padding-top: 4em; }
 
 .flash {
   position: absolute;
@@ -13,3 +15,39 @@ body, html, ul { margin: 0; padding: 0; }
 
 .notice { background: rgba(0, 255, 0, .5); }
 .alert { background: rgba(255, 0, 0, .5); }
+
+.lead-message {
+  i { 
+    border: .15em solid;
+    width: 1.25em;
+    border-radius: 100%;
+    line-height: 1.35em;
+    height: 1.25em;
+    margin-right: .5em;
+  }
+  padding: .75em;
+  text-align: center;
+  background: rgba(200,200,150,.5);
+  margin: 1em;
+  border-radius: .5em;
+}
+
+.texture-background { background: url('/images/texture.png') top center repeat; }
+
+.picture-background {
+  background: rgba(0,0,0,.75);
+  position: relative;
+  color: white;
+  
+  &:after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '';
+    z-index: -1;
+    background: url('/images/bg.jpg') no-repeat center center fixed;
+    opacity: .25;
+  }
+}

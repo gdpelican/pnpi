@@ -60,7 +60,76 @@
 }
 
 body.resources {
-  padding-top: 2em; 
+  
+  .block {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0; 
+    margin: 0 0 0 -3px;
+    box-sizing: border-box;
+    text-align: left;
+  }
+    
+  article.resource {
+    
+    text-align: center;
+    a {
+      color: black;
+      text-decoration: none;
+    }
+    
+    .left {
+      a:hover { text-decoration: underline; }
+      h1 { text-align: center; }
+      .detail {
+        list-style-type: none;
+        padding-right: .75em;
+        .fa {
+          padding-right: .5em;
+          font-size: .9em;
+        }
+      }
+    }
+    
+    .right { 
+      min-width: 30em;
+      max-width: 40%;
+      padding: 0 3em;
+      
+      section {
+        h2 { 
+          position: relative;
+          i {
+            position: absolute;
+            font-size: .6em;
+            vertical-align: top;
+            top: .65em;
+            left: -1.1em;
+          }
+        }
+      }
+      .toggle-target { display: none; }
+
+      .things, .places, .owners {
+        .resource-wrapper { 
+          padding-left: 1em;
+          width: auto !important; 
+          img {
+            position: relative;
+            left: -.5em; 
+            width: 3em; }
+          a { 
+            vertical-align: top;
+            line-height: 3em; 
+          }
+        }      
+      }
+      
+      .tags { padding: 2em 0; }
+      
+    }
+    
+  }
   
   form.resource {
     .check_boxes .choices {

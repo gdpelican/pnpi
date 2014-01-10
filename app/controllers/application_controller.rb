@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_action :set_background
 
   def strong_type(params, model = nil, param_name = nil)
     model ||= controller_name
@@ -15,22 +16,34 @@ class ApplicationController < ActionController::Base
   
   protected
   
-  def handle_auth(condition = false, message = 'You must be logged in to complete this action')
-    flash[:alert] = message and redirect_to root_url unless condition or admin?
+  def initialize
+    super
+    @user = User.new
   end
       
   def require_admin
-    handle_auth
+    handle_auth false, 'You must be an admin to complete this action.'
   end
     
   def require_user
-    handle_auth current_user.present?
+    handle_auth current_user.present?, 'You must be logged in to complete this action'
+  end
+  
+  protected
+
+  def set_background
+    @background = :texture
+    @background_shade = :light
   end
   
   private
   
   def admin?
     current_user.present? and current_user.admin?
+  end
+  
+  def handle_auth(condition, message)
+    flash[:alert] = message and redirect_to root_url unless condition or admin?
   end
   
 end

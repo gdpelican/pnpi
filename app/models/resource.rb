@@ -38,8 +38,11 @@ class Resource < ActiveRecord::Base
     limit(page_size)
    .offset(page_size * (page.to_i - 1)) }
   
+  scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
+  
   has_attached_file :picture,
-     :styles => { :thumb => ["250x250", :jpeg], 
+     :styles => { :thumb => ["250x250#", :jpeg], 
                   :original => ["1024x1024", :jpeg], 
                   :tiny => ["100x100#", :jpeg] },
      :storage => :s3,
@@ -67,7 +70,7 @@ class Resource < ActiveRecord::Base
   end
     
   def as_json(options={})
-    super(options.merge!({ only: [:id, :name, :description, :preview], include: :tags }))
+    super(options.merge!({ only: [:id, :type, :name, :description, :preview], include: :tags }))
                  .merge!({ show_url: url(:show), picture_url: picture.url(:tiny) })
   end
   
@@ -95,7 +98,7 @@ class Resource < ActiveRecord::Base
               when :all    then Resource.all
               else              Resource.none end
     results = results.tag_search options[:tags] if options[:tags]
-    results.uniq
+    results.active.uniq.order(:name)
   end
 
   def self.types
@@ -103,7 +106,7 @@ class Resource < ActiveRecord::Base
   end
   
   def self.mass_fields
-    [:id, :name, :preview, :description, :picture, :_destroy, tag_ids: [], category_ids: []] | self.details
+    [:id, :name, :preview, :description, :picture, :active, :_destroy, tag_ids: [], category_ids: []] | self.details
   end
   
 end

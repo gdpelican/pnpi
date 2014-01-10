@@ -1,17 +1,17 @@
 <script type="text/html" id="resourcePreview">
-	<div class="resource-wrapper texture-background">
+	<div data-bind="attr: { class: previewClass }">
 		<div class="resource-image">
 			<img data-bind="attr: { src: picture_url }" />			
 		</div>
 		<div class="resource-info">	
 			<div data-bind="text: name"></div>
 			<div data-bind="text: preview"></div>
-			<a data-bind="attr: { href: show_url }">Learn more &raquo;</a>
+			<a data-bind="visible: $parents[1].loggedIn, attr: { href: show_url }">Learn more &raquo;</a>
 		</div>
 		<div class="resource-tags">
 			<ul data-bind="foreach: tags">
 				<li data-bind="click: $parents[2].fetchResults, attr: {'data-tags': $data.id }" data-load="true" class="tag">
-					<span class="arrow texture-background"></span>
+					<span class="arrow"></span>
 					<span data-bind="text: $data.tag"></span>
 				</li>
 			</ul>

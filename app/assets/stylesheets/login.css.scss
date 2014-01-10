@@ -1,0 +1,18 @@
+body.sessions {
+  min-height: 100%;
+  overflow: hidden;
+  
+  main { 
+    width: 15em;  
+    padding: 1.5em;
+    border-radius: .5em;
+    background: rgba(255,255,255,.5);
+    color: black;
+    margin: 5em auto; 
+
+    input[type=email],
+    input[type=password] { width: 100%; }
+    label[for*=email],
+    label[for*=password] { display: block; }
+  }
+}

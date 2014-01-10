@@ -1,4 +1,9 @@
 <script type="text/html" id="results">
+	<div data-bind="visible: !$parent.loggedIn" class="lead-message">
+		<i class="fa fa-info"></i>
+		<span>Want to view these lovely people's profiles?</span> 
+		<span>Either <a href="/login">sign in</a> or <a href="/people/new">submit your own profile</a> to gain access!</span>
+	</div>
 	<div data-bind="visible: loading" class="loading-results"><i class="fa fa-spinner fa-spin fa-3x"></i></div>
 	<div data-bind="visible: !hasResults() && !loading()" class="no-results">No results found</div>
 	<ul data-bind="visible: hasResults, template: { name: 'resourcePreview', foreach: results }" class="previews"></ul>
