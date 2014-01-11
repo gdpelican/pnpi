@@ -32,12 +32,7 @@ class ResourcesController < ApplicationController
   def create
     respond_to do |format|
       if @resource.save
-        data = if @resource.person? && admin? then 
-          { url: @resource.url(:show), notice: "#{@type} was successfully created" }
-        else                  
-          { url: root_url, notice: "Thanks for submitting! You'll be hearing from us soon, at the email address provided." }
-        end 
-          
+        data = handle_successful_creation
         format.html { redirect_to data[:url], notice: data[:notice] }
         format.json { render action: 'show', status: :created, location: @resource }
       else
@@ -52,6 +47,7 @@ class ResourcesController < ApplicationController
   def update
     respond_to do |format|
       if @resource.update strong_type params, @type, @type.downcase
+        handle_successful_update
         format.html { redirect_to @resource.url(:edit), notice: 'Changes successfully saved.' }
         format.json { head :no_content }
       else
@@ -114,6 +110,20 @@ class ResourcesController < ApplicationController
                (@resource.person? && @resource.id == current_user.person_id || 
                 @resource.owners.include?(current_user.person)), 
                 "You must be logged in as #{if @resource.person? then @resource.name else "an owner of this #{@type.downcase}" end } to complete this action."
+  end
+  
+  def handle_successful_creation
+    if @resource.person? && admin? then 
+      { url: @resource.url(:show), notice: "#{@type} was successfully created" }
+    else                  
+      { url: root_url, notice: "Thanks for submitting! You'll be hearing from us soon, at the email address provided." }
+    end 
+  end
+  
+  def handle_successful_update
+    if @resource.person? && admin? && !User.exists_for?(@resource)
+      WelcomeMailer.welcome_email @resource
+    end  
   end
 
 end

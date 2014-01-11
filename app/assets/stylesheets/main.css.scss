@@ -30,6 +30,11 @@ body:not(.search) { padding-top: 4em; }
   background: rgba(200,200,150,.5);
   margin: 1em;
   border-radius: .5em;
+  
+  a {
+    color: black;
+    font-weight: bold;
+  }
 }
 
 .texture-background { background: url('/images/texture.png') top center repeat; }

@@ -53,7 +53,7 @@ class Search
   end
   
   def sanitized_tags
-    TagType.filter(resource, category, 4).map { |type| { name: type[0], tags: type[1].map { |tag| { name: tag.tag, value: tag.id } } } }
+    TagType.filter(resource, category).map { |type| { name: type[0], tags: type[1].map { |tag| { name: tag.tag, value: tag.id } } } }
   end
   
   def doing_search?

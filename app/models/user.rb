@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   
   attr_accessor :email, :password
   
+  scope :for, ->(person) { where(person_id: person.id) }
+  
   def email
     self.person.email if self.person
   end
@@ -16,8 +18,12 @@ class User < ActiveRecord::Base
     false
   end
   
+  def self.exists_for?(person)
+    User.for(person).count > 0
+  end
+  
   def self.find_by_person(person)
-    User.where(person_id: person.id).first
+    User.for(person).first
   end
   
 end

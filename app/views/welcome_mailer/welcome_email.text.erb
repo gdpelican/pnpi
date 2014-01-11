@@ -1,0 +1,13 @@
+========================================================================================
+Welcome to the Philadelphia New Play Initiative, <%= @person.first_name %>!
+========================================================================================
+
+  Your profile has been added to our website, and you are now welcome to browse our database of creators, marketers, 
+  producers, and others making theater in the Philadelphia region.
+  
+  Simply follow <%= link_to 'this link', new_user_registration_path(@person, @person.signup_token) %> to secure your account with a password, and you should be good to go! 
+  For future reference, your signup code is <%= content_tag :b, @person.signup_token %>.
+  
+  Thanks for joining and have a great day!
+  
+~ The Philadelphia New Play Initiative

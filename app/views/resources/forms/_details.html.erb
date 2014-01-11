@@ -6,6 +6,7 @@
 
 <% case type %>
 <% when :person %>
+	<%= f.input :signup_token, as: :hidden, value: f.object.signup_token %>
 	<%= string_input f, :first_name, :string, 'half-pad' %>
 	<%= string_input f, :last_name, :string, 'half' %>
 	<%= string_input f, :email, :email %>
