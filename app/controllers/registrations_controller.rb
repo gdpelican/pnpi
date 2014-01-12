@@ -13,14 +13,15 @@ class RegistrationsController < Devise::RegistrationsController
   
   def set_background
     @background = :picture
+    @background_shade = :dark
   end
 
   private
    
   def require_token
     build_resource sign_up_params
-    handle_auth !self.resource.person.active, 'This account has already been registered! Please sign in with your password to continue.'
-    handle_auth self.resource.person.signup_token == params[:signup_token], 'Please provide the token sent with your signup email to complete registration'
+    handle_auth(!User.exists_for?(self.resource.person), 'This account has already been registered! Please sign in with your password to continue.') ||
+    handle_auth(self.resource.person.signup_token == params[:signup_token], 'Please provide the token sent with your signup email to complete registration')
   end
   
 end

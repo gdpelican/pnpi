@@ -24,6 +24,8 @@ class Person < Resource
   
   validates :email, presence: true
   
+  scope :unapproved, -> { joins('LEFT OUTER JOIN users ON users.person_id = resources.id').where('users.id IS NULL').inactive }
+  
   def get_name
     self.first_name, self.last_name = self.name.split(' ')[0], self.name.split(' ')[1] if self.name
   end

@@ -24,7 +24,7 @@
 		<% end %>
 	<% end %>
 	
-	<%= f.actions do %>
+	<%= f.actions :actions, class: 'actions fifth' do %>
 		<%= f.submit %>
 		<%= resource_action :submit, 	 f.object, admin? %>
 		<%= resource_action :deactivate, f.object, admin? %>

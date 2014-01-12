@@ -110,20 +110,18 @@ body.resources {
       }
       .toggle-target { display: none; }
 
-      .things, .places, .owners {
-        .resource-wrapper { 
-          padding-left: 1em;
-          width: auto !important; 
-          img {
-            position: relative;
-            left: -.5em; 
-            width: 3em; }
-          a { 
-            vertical-align: top;
-            line-height: 3em; 
-          }
-        }      
-      }
+      .resource-wrapper { 
+        padding-left: 1em;
+        width: auto !important; 
+        img {
+          position: relative;
+          left: -.5em; 
+          width: 3em; }
+        a { 
+          vertical-align: top;
+          line-height: 3em; 
+        }
+      }      
       
       .tags { padding: 2em 0; }
       

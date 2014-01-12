@@ -3,6 +3,7 @@ class WelcomeMailer < ActionMailer::Base
   
   def welcome_email(person)
     @person = person
-    mail(to: @person.email, subject: 'You\'ve been accepted as part of the Philadelphia New Play Initiative!')
+    @signup_link = new_user_registration_path @person, @person.signup_token
+    mail(to: @person.email, subject: 'Welcome to the Philadelphia New Play Initiative!')
   end
 end

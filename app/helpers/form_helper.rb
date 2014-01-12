@@ -10,14 +10,14 @@ module FormHelper
   
   def string_input(form, symbol, type, field_size = 'full', options = {})
     form.input symbol, wrapper_html: { class: "block #{field_size} #{options[:css]}" }, 
-                       input_html: { data: { inputmask: options[:inputmask] || '' }, placeholder: options[:placeholder] || symbol.to_s.humanize + '. . .' }, 
+                       input_html: { placeholder: options[:placeholder] || symbol.to_s.humanize + '. . .' }, 
                        label: options[:label] || false,
                        as: type
   end
   
   def select_input(form, symbol, options = {})
     form.input symbol, wrapper_html: { class: "block #{options[:field_size] || 'select-full'} #{options[:css]}" }, 
-                       input_html: { value: form.object.send(symbol), data: { inputmask: options[:inputmask] } },
+                       selected: (form.object.send(symbol).id if form.object.send(symbol)),
                        label: options[:label] || false,
                        collection: options[:collection],
                        include_blank: options[:placeholder],

@@ -1,4 +1,4 @@
-<%= content_tag :div, '', class: "#{preview.type.downcase}-wrapper resource-wrapper texture-background" do %>
+<%= content_tag :div, '', class: "#{preview.type.downcase}-wrapper resource-wrapper" do %>
 	<%= image_tag preview.avatar, class: 'resource-image' %>
 	<%= link_to "  #{preview.name} »", preview.show_path %>
 <% end %>

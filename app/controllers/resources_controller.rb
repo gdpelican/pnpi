@@ -70,7 +70,7 @@ class ResourcesController < ApplicationController
   private
   
   def set_type
-    @type = params[:type] || 'Resource'
+    @type = params[:type].humanize.singularize || 'Resource'
   end
   
   def set_resource

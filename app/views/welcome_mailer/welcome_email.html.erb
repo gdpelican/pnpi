@@ -10,7 +10,7 @@
       producers, and others making theater in the Philadelphia region.
     </p>
     <p>
-   	  Simply follow <%= link_to 'this link', new_user_registration_path(@person, @person.signup_token) %> to secure your account with a password, and you should be good to go! 
+   	  Simply follow <%= link_to 'this link', @signup_link %> to secure your account with a password, and you should be good to go! 
       For future reference, your signup code is <%= content_tag :b, @person.signup_token %>.
     </p>
     <p>Thanks for joining and have a great day!</p>

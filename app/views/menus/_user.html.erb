@@ -4,8 +4,8 @@
 		<% if current_user %>
 			<%= content_tag :li, "#{current_user.person.name}" %>
 			<%= content_tag :li, current_user.person.email %>
-			<%= menu_link 'Edit my profile', edit_person_path(current_user.person) %>
-			<%= menu_link 'Sign Out', destroy_user_session_path %>
+			<%= submenu_link 'Edit my profile', edit_person_path(current_user.person) %>
+			<%= submenu_link 'Sign Out', destroy_user_session_path %>
 		<% else %>
 			<%= render partial: 'users/sessions/new' %>
 		<% end %>

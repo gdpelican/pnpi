@@ -3,7 +3,7 @@ body.dark-background nav {
   >div:hover, >div:hover ul {
     background: black; 
     background: rgba(0,0,0,.5);
-    .link:hover { background: rgba(0,0,0,.5); }
+    .link a:hover { background: rgba(0,0,0,.5); }
   }
   div, i, a { color: white; }
 }
@@ -12,7 +12,7 @@ body.light-background nav {
   >div:hover, >div:hover ul {
     background: white;
     background: rgba(255,255,255,.75);
-    .link:hover { background: rgba(255,255,255,.75); }
+    .link a:hover { background: rgba(255,255,255,.75); }
   }
   div, i, a { color: black; }
 }
@@ -54,6 +54,39 @@ nav {
         border-radius: .5em;
       }
     }
+    
+    .link a {
+      width: 90%;
+      display: block;
+      padding: 0 .25em;
+      border-radius: .5em;
+    }
+    
+    .menu-link {
+      position: relative;
+      height: 1.5em;
+      
+      > label {
+        a { width: 75%; }
+        position: absolute;
+        width: 110%;
+        padding: .5em 0;
+      }
+      > ul {
+        min-width: 10em;
+        display: none; 
+        list-style-type: none;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        border-radius: .5em;
+        
+        padding: .25em;
+        margin-left: 1em;
+      }
+      &:hover>ul { display: block; }
+    }
+    
     &.menu { border-radius: .5em .5em 0 0; }
     &.link { border-radius: .5em; }
     &:hover>.dashboard { display: block; }

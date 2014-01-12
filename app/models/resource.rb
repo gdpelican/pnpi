@@ -40,6 +40,7 @@ class Resource < ActiveRecord::Base
   
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
+  scope :recent, -> { order('created_at DESC').limit(5) }
   
   has_attached_file :picture,
      :styles => { :thumb => ["250x250#", :jpeg], 
