@@ -40,11 +40,7 @@ class Thing < Resource
   end
   
   def self.periods
-    [:hour, :day, :week, :month, :year]
-  end
-  
-  def self.periods_map
-    Thing.periods.map { |period| ["per #{period}", period] }
+    [:hour, :day, :week, :month, :year].map { |period| ["per #{period}", "#{period}"]}
   end
   
   private

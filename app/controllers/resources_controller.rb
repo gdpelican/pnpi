@@ -80,8 +80,8 @@ class ResourcesController < ApplicationController
   def set_collections
     @categories = Category.filter model.category_type 
     @tags =       TagType.filter  model.to_s.downcase
-    @jobs =       Job.all if @resource.person?
-    @periods =    Thing.periods_map if @resource.thing?
+    @periods =    Thing.periods if @resource.thing? or @resource.person?
+    @jobs =       Job.all.map { |job| [job.name, job.id] } if @resource.person?
   end
  
   def resource

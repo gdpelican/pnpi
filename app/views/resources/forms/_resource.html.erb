@@ -1,6 +1,6 @@
 <%= semantic_form_for @resource, url: @resource.url(:show), html: { class: "resource" } do |f| %>
 	
-	<%= f.input :active, as: :hidden, input_html: { class: 'active' }, value: admin? || f.object.active? %>
+	<%= f.input :active, as: :hidden, input_html: { class: 'active', value: admin? || f.object.active? } %>
 	
 	<%= f.inputs :picture, class: 'block fifth' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>

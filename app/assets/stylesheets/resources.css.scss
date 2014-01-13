@@ -172,6 +172,13 @@ body.resources {
           }
         }
         
+        .view-file {
+          width: 2em;
+          height: 2em;
+          display: inline-block;
+          margin: 0.5em .5em .5em 0;
+        }
+        
         .selectable {
           vertical-align: top;
           text-align: center;

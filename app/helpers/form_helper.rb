@@ -15,11 +15,10 @@ module FormHelper
                        as: type
   end
   
-  def select_input(form, symbol, options = {})
+  def select_input(form, symbol, collection, options = {})
     form.input symbol, wrapper_html: { class: "block #{options[:field_size] || 'select-full'} #{options[:css]}" }, 
-                       selected: (form.object.send(symbol).id if form.object.send(symbol)),
                        label: options[:label] || false,
-                       collection: options[:collection],
+                       collection: options_for_select(collection, options[:value] || form.object.send(symbol)),
                        include_blank: options[:placeholder],
                        as: :select  
   end

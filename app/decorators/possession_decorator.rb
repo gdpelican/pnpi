@@ -44,5 +44,9 @@ class PossessionDecorator < Draper::Decorator
   def show_target
     '_blank' if type.to_sym == :sample  
   end
+
+  def selected_period
+    ["per #{object.period.strip}", "#{object.period.strip}"] if object.period    
+  end
  
 end

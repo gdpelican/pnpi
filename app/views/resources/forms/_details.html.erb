@@ -18,12 +18,12 @@
 	<%= string_input f, :preview, :string, 'full', placeholder: '140 character description. . .' %>
 <% when :thing %>
 	<%= string_input f, :price, :string, 'fifth', placeholder: 'Rental price. . .', css: 'currency' %>
-	<%= select_input f, :period, collection: @periods, placeholder: 'Rental period. . .', field_size: 'select-four-fifth' %>
+	<%= select_input f, :period, @periods, placeholder: 'Rental period. . .', field_size: 'select-four-fifth', value: f.object.selected_period %>
 	<%= string_input f, :preview, :string, 'full', placeholder: '140 character description. . .' %>
 <% when :sample %>
-	<%= link_to 'View file', f.object.sample.url if f.object.sample_file_name %>
-	<%= string_input f, :sample, :file, 'full', label: true %>
-	<%= select_input f, :job, collection: @jobs, placeholder: 'Select job. . .' %>
+	<%= link_to image_tag('/images/pdf.png'), f.object.sample.url, target: :_blank, title: f.object.sample_file_name, class: 'view-file' if f.object.sample_file_name %>
+	<%= string_input f, :sample, :file, (f.object.sample_file_name ? 'upload-with-file' : 'select-full'), label: true %>
+	<%= select_input f, :job, @jobs, placeholder: 'Select job. . .', value: f.object.id %>
 <% end %>
 
 <%= string_input f, :description, :text, 'full', placeholder: 'Enter description. . .' unless type == :sample %>

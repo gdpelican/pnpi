@@ -14,5 +14,13 @@ class ThingDecorator < ResourceDecorator
   def details
     [{ text: price_per_period, icon: 'dollar' }]
   end
+    
+  def periods
+    Thing.periods.map { |period| ["per #{period}", "#{period}"] }
+  end
+  
+  def selected_period
+    ["per #{object.period.strip}", "#{object.period.strip}"] if object.period 
+  end
 
 end
