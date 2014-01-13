@@ -24,6 +24,7 @@ class Person < Resource
   
   validates :email, presence: true
   
+  scope :include_children, -> { includes([:tags, :categories, :places, :things, :samples]) }
   scope :unapproved, -> { joins('LEFT OUTER JOIN users ON users.person_id = resources.id').where('users.id IS NULL').inactive }
   
   def get_name

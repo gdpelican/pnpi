@@ -24,7 +24,6 @@ header.search-form {
   .search-view {
     
     text-shadow: -1px 1px 0 black;
-    padding-top: 1em;
     
     select, input {
       padding: .25em 0.5em;
@@ -36,7 +35,7 @@ header.search-form {
       option { background: rgba(0,0,0,.75); }
     }
     
-    .search-view-div { padding: .5em 10% 2em; }
+    .search-view-div { padding: 3em 10%; }
     .search-view-spacer { padding: 5% 0; }
     
     .search-button {

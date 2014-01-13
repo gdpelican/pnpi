@@ -113,7 +113,7 @@ class ResourcesController < ApplicationController
   end
   
   def handle_successful_creation
-    if @resource.person? && admin? then 
+    if admin? then 
       { url: @resource.url(:show), notice: "#{@type} was successfully created" }
     else                  
       { url: root_url, notice: "Thanks for submitting! You'll be hearing from us soon, at the email address provided." }

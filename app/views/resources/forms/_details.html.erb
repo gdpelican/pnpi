@@ -1,12 +1,12 @@
 <% partial ||= false %>
 <% update = f.object.id.present? %>
 
-<%= string_input f, :picture, :file, 'full', label: true if partial and type != :sample %>
+<%= string_input f, :picture, :file, 'select-full', label: true if partial and type != :sample %>
 <%= string_input f, :name, :string unless type == :person %>
 
 <% case type %>
 <% when :person %>
-	<%= f.input :signup_token, as: :hidden, value: f.object.signup_token %>
+	<%= f.input :signup_token, as: :hidden, input_html: { value: f.object.signup_token } %>
 	<%= string_input f, :first_name, :string, 'half-pad' %>
 	<%= string_input f, :last_name, :string, 'half' %>
 	<%= string_input f, :email, :email %>
