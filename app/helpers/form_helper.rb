@@ -20,7 +20,7 @@ module FormHelper
                        label: options[:label] || false,
                        collection: options_for_select(collection, options[:value] || form.object.send(symbol)),
                        include_blank: options[:placeholder],
-                       as: :select  
+                       as: :select
   end
   
   def categories_html(form, categories = {})

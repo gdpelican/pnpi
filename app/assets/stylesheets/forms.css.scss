@@ -57,6 +57,9 @@ form.resource {
     
   }
   
+  select.unselected { color: #AAA; }
+  select > option { color: black; }
+  
   .actions {
     position: fixed;
     bottom: 1em;
