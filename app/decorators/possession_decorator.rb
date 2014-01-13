@@ -35,7 +35,14 @@ class PossessionDecorator < Draper::Decorator
   end
  
   def show_path
-    "/#{type.downcase.pluralize}/#{object.id}" if object.id
+    case type.to_sym
+    when :sample then object.sample.url
+    else              "/#{type.downcase.pluralize}/#{object.id}"
+    end if object.id
+  end
+  
+  def show_target
+    '_blank' if type.to_sym == :sample  
   end
  
 end
