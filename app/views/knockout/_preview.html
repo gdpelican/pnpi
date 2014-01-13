@@ -1,12 +1,11 @@
 <script type="text/html" id="resourcePreview">
-	<div data-bind="attr: { class: previewClass }">
+	<div data-bind="click: showResource, attr: { class: previewClass }">
 		<div class="resource-image">
-			<img data-bind="attr: { src: picture_url }" />			
+			<img data-bind="attr: { src: pictureUrl }" />			
 		</div>
 		<div class="resource-info">	
-			<div data-bind="text: name"></div>
-			<div data-bind="text: preview"></div>
-			<a data-bind="visible: $parents[1].loggedIn, attr: { href: show_url }">Learn more &raquo;</a>
+			<div data-bind="text: name" class="resource-title"></div>
+			<div data-bind="text: preview" class="resource-subtitle"></div>
 		</div>
 		<div class="resource-tags">
 			<ul data-bind="foreach: tags">

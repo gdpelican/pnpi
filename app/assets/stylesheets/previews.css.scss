@@ -12,6 +12,15 @@ ul.previews {
     border-radius: .5em;
     background: rgba(200, 200, 150, 0.5);
     
+    .resource-title {
+      font-weight: bold;
+    }
+    
+    .resource-subtitle {
+      font-size: .85em;
+      font-style: italic;
+    }
+    
     .resource-image {
       float: left;
       width: 25%;
@@ -29,5 +38,10 @@ ul.previews {
     }
     
     .resource-tags { clear: both; }
+  
+    &:hover {
+      cursor: pointer;
+      background: rgba(150, 150, 100, .5);
+    }
   }    
 }

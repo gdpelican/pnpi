@@ -67,6 +67,7 @@ class @KnockoutSearch
         @currSearch().fetch 'tags', @update, @failure
        
     @fetchResults = (data, event) =>
+      event.stopPropagation()
       results = if $(event.currentTarget).data('load') \
                 then @elementSearch($(event.currentTarget)) \
                 else @currSearch()
