@@ -99,7 +99,7 @@ class @KnockoutSearch
       @lastSearch().results(@wrapResults(json.results))
     
     @wrapResults = (results) ->
-      new KnockoutResource(result) for result in results
+      new KnockoutResource(result, @loggedIn) for result in results
     
     @next = => @lastSearch().nextPage(@update, @failure)
     @prev = => @lastSearch().prevPage(@update, @failure)

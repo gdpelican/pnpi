@@ -1,0 +1,6 @@
+<%= content_tag :div, '', class: 'nav-item menu menu-down', title: 'Sign In' do %>
+	<%= font_icon('key') %>
+	<%= content_tag :ul, class: 'dashboard dashboard-down user-dashboard' do %>
+		<%= render partial: 'users/sessions/new' %>
+	<% end %> 
+<% end %>

@@ -1,5 +1,5 @@
 class @KnockoutResource
-  constructor: (json) ->
+  constructor: (json, user) ->
     @id = json.id
     @type = json.type.toLowerCase()
     @name = json.name
@@ -10,4 +10,5 @@ class @KnockoutResource
     @previewClass = @type + '-wrapper resource-wrapper'
     @showUrl = json.show_url
     @showResource = ->
-      window.location.href = @showUrl
+      if user
+        window.location.href = @showUrl

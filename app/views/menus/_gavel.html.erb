@@ -1,6 +1,6 @@
-<%= content_tag :div, '', class: 'menu', title: 'Admin functions' do %>
+<%= content_tag :div, '', class: 'nav-item menu menu-down', title: 'Admin functions' do %>
 	<%= font_icon 'gavel' %>
-	<%= content_tag :ul, class: 'dashboard admin-dashboard' do %>
+	<%= content_tag :ul, class: 'dashboard dashboard-down admin-dashboard' do %>
 		<%= menu_link 'Create Resources' do %>
 			<%= submenu_link 'New Person', new_person_path %>
 			<%= submenu_link 'New Place', new_place_path %>
@@ -9,7 +9,7 @@
 		<%= menu_link 'Manage People' do %>
 			<%= submenu_link 'Awaiting approval', scoped_resources_path(:people, :unapproved) %>
 			<%= submenu_link 'Recently created', scoped_resources_path(:people, :recent) %>
-			<%= submenu_link 'View all', scoped_resources_path(:people, :all) %>
+			<%= submenu_link 'View all', scoped_resources_path(:people, :all 	) %>
 		<% end %>
 		<%= menu_link 'Manage Places' do %>
 			<%= submenu_link 'Recently created', scoped_resources_path(:places, :recent) %>
