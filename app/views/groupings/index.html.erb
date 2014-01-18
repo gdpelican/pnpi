@@ -1,0 +1,6 @@
+<% @groupings.each do |grouping| %>
+	<%= content_tag :section, '', class: 'grouping-section' do %>
+		<%= content_tag :h1, grouping[0].humanize.pluralize %>
+		<%= render partial: "/groupings/#{@type.downcase.to_s.pluralize}", locals: { group_name: grouping[0], groups: grouping[1] } %>
+	<% end %>
+<% end %>

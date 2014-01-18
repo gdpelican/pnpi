@@ -1,0 +1,10 @@
+<% params ||= nil %>
+<%= content_tag :span, '', class: 'toggle-parent' do %>
+	<%= content_tag :span, text_field_tag(:name, '', 
+	                       	 placeholder: "New #{group_name}. . .",
+	                         href: create_grouping_path,
+	                         class: 'remote-trigger',
+	                         data: { type: 'json', params: "type=#{group_name}#{'&' + params if params}", method: :post }), 
+		class: 'toggle-input tag' %>
+	<%= content_tag :span, link_to(font_icon('plus'), 'javascript:;'), class: 'toggle-link tag' %>
+<% end %>

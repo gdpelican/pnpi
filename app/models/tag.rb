@@ -3,4 +3,8 @@ class Tag < ActiveRecord::Base
   belongs_to :tag_type
   
   alias_attribute :name, :tag
+  
+  def self.mass_fields
+    [:name, :tag_type_id]
+  end
 end

@@ -21,5 +21,7 @@
 			<%= submenu_link 'Inactive', scoped_resources_path(:things, :inactive) %>
 			<%= submenu_link 'View all', scoped_resources_path(:things, :all) %>
 		<% end %>
+		<%= submenu_link 'Manage Categories', categories_path %>
+		<%= submenu_link 'Manage Tags', tags_path %>
 	<% end %> 
 <% end %>

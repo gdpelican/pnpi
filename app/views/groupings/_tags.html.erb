@@ -1,0 +1,9 @@
+<% groups.each do |group| %>
+	<%= content_tag :section, '', class: 'tag-section' do %>
+		<%= content_tag :h2, group.name %>
+		<% group.tags.each do |tag| %>
+			<%= render partial: '/groupings/grouping', locals: { group: tag } %>
+		<% end %>
+		<%= render partial: '/groupings/add_grouping', locals: { group_name: :tag, params: "tag_type_id=#{group.id}" } %>
+	<% end %>
+<% end %>

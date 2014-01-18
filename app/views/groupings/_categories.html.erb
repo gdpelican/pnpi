@@ -1,0 +1,6 @@
+<%= content_tag :section, '', class: 'category-section' do %>
+	<% groups.each do |group| %>
+		<%= render partial: '/groupings/grouping', locals: { group: group } %>
+	<% end %>
+	<%= render partial: '/groupings/add_grouping', locals: { group_name: group_name } %>
+<% end %>

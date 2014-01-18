@@ -4,10 +4,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_background
 
-  def strong_type(params, model = nil, param_name = nil)
+  def strong_type(params, model = nil, param_name = nil, require_nest = true)
     model ||= controller_name
     param_name ||= model
-    params.require(param_name).permit(model.to_s.classify.constantize.mass_fields)
+    params = params.require(param_name) if require_nest
+    params.permit("#{model}".classify.constantize.mass_fields)
   end
   
   def font_icon(icon)

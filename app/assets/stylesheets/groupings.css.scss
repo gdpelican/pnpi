@@ -1,0 +1,51 @@
+body.groupings {
+  
+  h2 { 
+    margin: 0;
+    font-weight: bold;
+    font-size: 1em;
+  }
+  
+  
+  .grouping-section {
+    width: 50%;
+    min-width: 30em;
+    padding: 1em;
+    background: rgba(255,255,255,.5);
+    border-radius: .5em;
+    margin: 1em auto;
+    i { font-size: .85em; vertical-align: middle; }
+  }
+  
+  .tag-section, .category-section {
+    padding-bottom: 1em;
+  }
+  
+  .toggle-input {
+    
+    &:after {
+      content: '(Enter to submit)';
+      position: absolute;
+      top: 2.5em;
+      color: black;
+      text-shadow: none;
+      font-size: .8em;
+      width: 100%;
+      left: 0;
+      text-align: center;
+    }
+    
+    position: relative;
+    display: none;
+    input, &.remote-trigger {
+      text-align: center;
+      color: white;
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid white;
+      width: 8em;
+      text-shadow: 1px 1px 0 #444;
+      position: relative;
+    }
+  }
+}

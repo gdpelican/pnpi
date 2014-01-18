@@ -1,0 +1,13 @@
+<%= content_tag :span, '', class: 'toggle-parent tag' do %>
+	<%= link_to group.name, 'javascript:;', class: 'toggle-link' %>
+	<%= text_field_tag :name, '', 
+		href: update_grouping_path,
+		value: group.name,
+		class: 'toggle-input remote-trigger',
+        data: { type: 'json', params: "type=#{@type}&id=#{group.id}",  method: :post } %>
+	<%= link_to font_icon('times'), destroy_grouping_path, 
+		remote: true, 
+		method: :post, 
+		class: 'remote-trigger', 
+		data: { params: "id=#{group.id}&type=#{@type}" } %>
+<% end %>

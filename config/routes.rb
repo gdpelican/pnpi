@@ -2,10 +2,17 @@ PNPI::Application.routes.draw do
   
   root to: 'search#new'
   
-  resources :people, controller: 'resources', type: 'Person'
-  resources :places, controller: 'resources', type: 'Place'
-  resources :things, controller: 'resources', type: 'Thing'
+  resources :people, controller: :resources, type: 'Person'
+  resources :places, controller: :resources, type: 'Place'
+  resources :things, controller: :resources, type: 'Thing'
+  
+  resources :categories, controller: :groupings, type: :category, only: :index
+  resources :tags,       controller: :groupings, type: :tag,      only: :index
 
+  post '/groupings/create/' => 'groupings#create',    as: :create_grouping
+  post '/groupings/update/' => 'groupings#update',    as: :update_grouping
+  post '/groupings/destroy/' => 'groupings#destroy',  as: :destroy_grouping
+  
   devise_for :users, skip: [:registrations, :sessions]
   as :user do
     get  '/login' => 'sessions#new', as: :new_user_session

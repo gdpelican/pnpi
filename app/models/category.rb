@@ -7,5 +7,10 @@ class Category < ActiveRecord::Base
  
   scope :named, ->(name) { where(name: name.to_s.humanize) }
   scope :filter, ->(type) { where(type: type) }
+  scope :exclude, ->(type) { where('type <> ?', type.to_s.humanize) }
+
+  def self.mass_fields
+    [:name, :type]
+  end
 
 end
