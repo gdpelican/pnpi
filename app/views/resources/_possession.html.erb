@@ -1,0 +1,4 @@
+<%= content_tag :div, '', class: "#{possession.type.downcase}-wrapper resource-wrapper" do %>
+	<%= image_tag possession.avatar, class: 'resource-image' %>
+	<%= link_to "  #{possession.name} »", possession.show_path, target: possession.show_target, class: 'resource-title' %>
+<% end %>

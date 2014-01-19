@@ -4,8 +4,8 @@
 <%= content_tag :section, '', class: field.to_s.pluralize do %>
 	<%= content_tag :h2, link_to(font_icon('plus') + " #{header}", 'javascript:;', class: 'toggle-trigger', data: { target: field }) unless tags %>
 	<%= content_tag :ul, '', class: 'previews toggle-target', data: { target: field } do %>
-		<% @resource.send(field, false).each do |nested| %>
-			<%= render partial: 'resources/preview', locals: { preview: nested } %>
+		<% @resource.send(field, false).each do |possession| %>
+			<%= render partial: 'resources/possession', locals: { possession: possession } %>
 		<% end %>
 	<% end unless tags %>
 	<%= render partial: 'tags/index', locals: {tags: @resource.send(field, false) } if tags %>

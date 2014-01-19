@@ -1,4 +1,11 @@
-<%= content_tag :div, '', class: "#{preview.type.downcase}-wrapper resource-wrapper" do %>
-	<%= image_tag preview.avatar, class: 'resource-image' %>
-	<%= link_to "  #{preview.name} »", preview.show_path, target: preview.show_target, class: 'resource-title' %>
+<%= content_tag :div, '', class: 'preview' do %>
+	<%= image_tag resource.picture(:tiny), class: 'resource-image' %>
+	<%= content_tag :span, '', class: 'block' do %>
+		<%= content_tag :div, resource.name || link_to("Create new #{resource.type}", resource_path(resource, :new)), class: 'resource-title' %>
+		<%= content_tag :div, resource.preview, class: 'resource-subtitle' if resource.preview %>
+		<%= content_tag :div do %>
+			<%= link_to "Show »", 	resource_path(resource, :show), class: 'resource-link' %>
+			<%= link_to "Edit »", 	resource_path(resource, :edit), class: 'resource-link' %>
+		<% end if resource.id.present? %>
+	<% end %>
 <% end %>

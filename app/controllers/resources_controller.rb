@@ -11,7 +11,9 @@ class ResourcesController < ApplicationController
   # GET /resources.json
   def index
     @scope = (params[:scope] || :all).to_sym
-    @resources = decorator.decorate_collection model.send @scope
+    collection = model.send @scope
+    collection.append model.new if @scope == :all
+    @resources = decorator.decorate_collection collection
   end
 
   # GET /resources/1

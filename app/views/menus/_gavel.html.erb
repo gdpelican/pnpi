@@ -1,25 +1,20 @@
 <%= content_tag :div, '', class: 'nav-item menu menu-down', title: 'Admin functions' do %>
 	<%= font_icon 'gavel' %>
 	<%= content_tag :ul, class: 'dashboard dashboard-down admin-dashboard' do %>
-		<%= menu_link 'Create Resources' do %>
-			<%= submenu_link 'New Person', new_person_path %>
-			<%= submenu_link 'New Place', new_place_path %>
-			<%= submenu_link 'New Thing', new_thing_path %>
-		<% end %>
-		<%= menu_link 'Manage People' do %>
+		<%= menu_link 'Manage People', scoped_resources_path(:people, :all) do %>
 			<%= submenu_link 'Awaiting approval', scoped_resources_path(:people, :unapproved) %>
 			<%= submenu_link 'Recently created', scoped_resources_path(:people, :recent) %>
-			<%= submenu_link 'View all', scoped_resources_path(:people, :all 	) %>
+			<%= submenu_link 'New Person', new_person_path %>
 		<% end %>
-		<%= menu_link 'Manage Places' do %>
+		<%= menu_link 'Manage Places', scoped_resources_path(:places, :all) do %>
 			<%= submenu_link 'Recently created', scoped_resources_path(:places, :recent) %>
 			<%= submenu_link 'Inactive', scoped_resources_path(:places, :inactive) %>
-			<%= submenu_link 'View all', scoped_resources_path(:places, :all) %>
+			<%= submenu_link 'New Place', new_place_path %>
 		<% end %>
-		<%= menu_link 'Manage Things' do %>
+		<%= menu_link 'Manage Things', scoped_resources_path(:things, :all) do %>
 			<%= submenu_link 'Recently created', scoped_resources_path(:things, :recent) %>
 			<%= submenu_link 'Inactive', scoped_resources_path(:things, :inactive) %>
-			<%= submenu_link 'View all', scoped_resources_path(:things, :all) %>
+			<%= submenu_link 'New Thing', new_thing_path %>
 		<% end %>
 		<%= submenu_link 'Manage Categories', categories_path %>
 		<%= submenu_link 'Manage Tags', tags_path %>

@@ -1,24 +1,6 @@
 <%= content_tag :h1, "Listing #{@scope.to_s.humanize} #{@type.pluralize}"%>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @resources.each do |resource| %>
-      <tr>
-      	<td><%= resource.name %></td>
-      	<td><%= resource.type %></td>
-      	<td><%= resource.preview %></td>
-        <td><%= link_to 'Show', resource.url(:show) %></td>
-        <td><%= link_to 'Edit', resource.url(:edit) %></td>
-        <td><%= link_to 'Destroy', resource.url(:show), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @resources.each do |resource| %>
+	<%= render partial: '/resources/preview', locals: { resource: resource } %>
+<% end unless @resources.empty? %>
+<%= content_tag :span, "No #{@type.pluralize} found", class: 'no-results' if @resources.empty? %>

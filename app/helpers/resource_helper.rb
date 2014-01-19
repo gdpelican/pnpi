@@ -50,6 +50,17 @@ module ResourceHelper
       { icon: 'save', text: ' Save Changes' } 
     end
   end
+  
+  def show_resource_path(resource)
+    case resource.type_symbol
+    when :person then person_path(resource)
+    when :place then place_path(resource)
+    when :thing then thing_path(resource) end
+  end
+  
+  def resource_path(resource, action)
+    send "#{action.to_s + '_' if action != :show}#{resource.type.downcase}_path", resource
+  end
 
   private
   
