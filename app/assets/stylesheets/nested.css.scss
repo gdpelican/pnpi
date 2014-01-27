@@ -1,7 +1,7 @@
 .nested {
    
   text-align: center;
-  margin-bottom: 4em;
+  margin-bottom: 4em !important;
    
   .nested-menu>li { display: inline-block; }
   .nested-menu-link {
@@ -12,14 +12,16 @@
     text-decoration: none;
     &.selected { text-decoration: underline; } 
   }
-   
-  .nested-panel {
-    display: none;
-    margin-left: .5em;
-    padding: 1em 2em 1em 1.5em;
-    background: rgba(0,0,0,.1);
-    margin: 0;
-    border-radius: .5em;
+  
+  &.possessions { 
+    .nested-panel {
+      display: none;
+      margin-left: .5em;
+      padding: 1em 2em 1em 1.5em;
+      background: rgba(0,0,0,.1);
+      margin: 0;
+      border-radius: .5em;
+    }
   }
    
   .nested-resources,
