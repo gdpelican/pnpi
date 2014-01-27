@@ -17,6 +17,10 @@ class ResourceDecorator < Draper::Decorator
     type_symbol == :thing
   end
   
+  def sample?
+    type_symbol == :sample
+  end
+  
   def tags?
     tags.any?
   end
@@ -29,6 +33,10 @@ class ResourceDecorator < Draper::Decorator
     not object.active
   end
   
+  def file_url(size = :thumb)
+    object.picture.url(size)
+  end
+  
   def tags(append = false)
     collection :tags, append
   end
@@ -36,7 +44,7 @@ class ResourceDecorator < Draper::Decorator
   def owners(append = false)
     collection :owners, append
   end
-    
+  
   def category_type
     object.class.category_type.pluralize
   end
@@ -48,13 +56,19 @@ class ResourceDecorator < Draper::Decorator
   def owner_header
     'Contact Info'
   end
-  
+ 
   private
 
   def collection(field, append)
     collection = object.send(field)
+    field = :people if field == :owners
+    
     collection = collection.to_a.push field.to_s.singularize.humanize.constantize.new if append
-    PossessionDecorator.decorate_collection collection
+    collection_model(field).decorate_collection collection
+  end
+  
+  def collection_model(field)
+    "#{field.to_s.singularize.humanize}Decorator".constantize
   end
   
 end

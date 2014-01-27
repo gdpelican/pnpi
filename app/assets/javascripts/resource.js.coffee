@@ -30,10 +30,7 @@
           form.find('.nested-panel').show()
           showSelection $(@), event, '.nested', \
                         '.nested-resources', 'resource-type'
-          
-        form.on 'click', '.nested-resource-link', (event) ->
-          showSelection $(@), event, '.nested-resources', \
-                        '.nested-resource', 'resource-id'
+
         form.on 'change', 'input[type=file]', ->
           $(@).siblings('label').addClass('is-ready')
           

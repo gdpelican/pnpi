@@ -32,8 +32,7 @@ module FormHelper
   end
   
   def nested_image(nested)
-    if nested.image_abbrev? then image_tag(nested.abbrev) 
-    else                         nested.abbrev end
+    nested.id.nil? ? '+' : image_tag(nested.file_url(:tiny))
   end
   
   def tag_collection(resource)

@@ -1,0 +1,23 @@
+<%= content_tag :li, '', class: 'possessions nested', id: "possessionAnchor" do %>
+	<%= content_tag :ul, '', class: 'nested-menu' do %>
+		<% f.object.possessions.each do |field| %>
+		    <%= link_to field.to_s.humanize,  'javascript:;', 
+		    			class: 'nested-menu-link slide-to', 
+		    			data: { 'resource-type' => field, 'target' => "possessionAnchor" } %>
+		<% end %>
+	<% end %>
+	
+	<%= content_tag :ul, '', class: 'nested-panel' do %>
+		<% f.object.possessions.each do |field| %>
+			<%= content_tag :li, '', class: 'nested-resources', data: { 'resource-type' => field } do %>
+				<%= content_tag :ul do %>
+					<% f.object.send(field, true).each do |child| %>
+						<%= link_to nested_image(child), resource_by_owner_path(f.object, child), 
+							class: 'nested-resource-link',
+							title: child.name %>						
+					<% end %>
+				<% end %>		
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

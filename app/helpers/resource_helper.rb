@@ -1,14 +1,4 @@
 module ResourceHelper
-  
-  def resource_url(type, action = :index)
-    url = "/#{type.downcase.pluralize}/"
-    case path
-      when :new
-        url << "new"
-      when :index
-        url
-    end
-  end
  
   def detail_item(icon, text = '', link = '')
     text = link_to text, link, target: :_blank if link.present? and text.present?
@@ -51,15 +41,24 @@ module ResourceHelper
     end
   end
   
-  def show_resource_path(resource)
-    case resource.type_symbol
-    when :person then person_path(resource)
-    when :place then place_path(resource)
-    when :thing then thing_path(resource) end
+  def submit_path(resource)
+    resource_path(resource, resource.id.nil? ? :index : :show)
   end
   
   def resource_path(resource, action)
-    send "#{action.to_s + '_' if action != :show}#{resource.type.downcase}_path", resource
+    action = :new if resource.id.nil? && action == :edit
+    
+    type = resource.type.downcase
+    case action
+    when :index then send "#{type.pluralize}_path"
+    when :new then send "new_#{type}_path", resource
+    when :show then send "#{type}_path", resource
+    when :edit then send "edit_#{type}_path", resource end
+  end
+  
+  def resource_by_owner_path(owner, resource)
+    if resource.id.present? then resource_path(resource, :edit)
+    else                         new_resource_by_owner_path(owner, resource.type.downcase.pluralize) end
   end
 
   private

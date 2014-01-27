@@ -6,12 +6,12 @@ class Resource < ActiveRecord::Base
     join_table:              :owners_possessions,
     association_foreign_key: :owner_id,
     foreign_key:             :possession_id
-                                   
+  
   validates :name, length: { minimum: 3 }
   validates :preview, length: { maximum: 140 }
   validates_associated :tags
   validates_associated :categories
-  validates :type, inclusion: { in: ['Person', 'Place', 'Thing'] }
+  validates :type, inclusion: { in: ['Person', 'Place', 'Thing', 'Sample'] }
   
   serialize :details, Hash
   after_initialize :define_details_methods
@@ -41,16 +41,18 @@ class Resource < ActiveRecord::Base
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
   scope :recent, -> { active.order('created_at DESC').limit(5) }
+  scope :except, ->(type) { where('type <> ?', type.to_s.humanize) }
   
   has_attached_file :picture,
      :styles => { :thumb => ["250x250#", :jpeg], 
                   :original => ["1024x1024", :jpeg], 
                   :tiny => ["100x100#", :jpeg] },
+     :whiny => false,
      :storage => :s3,
      :default_url => :default_url,
      :s3_credentials => "#{Rails.root}/config/s3.yml",
      :path => "/:style/:id/:filename",
-     :bucket => 'PNPI-Resource'
+     :bucket => 'PNPI-Resource'  
   
   def assign_attributes(attr, options={})
     self.class.details.each do |detail|
@@ -75,15 +77,6 @@ class Resource < ActiveRecord::Base
                  .merge!({ show_url: url(:show), picture_url: picture.url(:tiny) })
   end
   
-  def url(action = :index)
-    url = "/#{type.downcase.pluralize}/"
-    case action
-    when :show  then url << "#{self.id}"
-    when :edit  then url << "#{self.id}/edit"
-    when :new   then url << "new"
-    when :index then url end
-  end
-  
   def self.search(options = {})
     Resource.retrieve(options).paging(options[:page], options[:page_size])
   end
@@ -103,7 +96,7 @@ class Resource < ActiveRecord::Base
   end
 
   def self.types
-    Resource.all.sanitize(:type)
+    Resource.except(:sample).sanitize(:type)
   end
   
   def self.mass_fields

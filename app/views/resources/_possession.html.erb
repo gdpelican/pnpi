@@ -1,4 +1,4 @@
 <%= content_tag :div, '', class: "#{possession.type.downcase}-wrapper resource-wrapper" do %>
-	<%= image_tag possession.avatar, class: 'resource-image' %>
-	<%= link_to "  #{possession.name} »", possession.show_path, target: possession.show_target, class: 'resource-title' %>
+	<%= image_tag possession.file_url(:tiny), class: 'resource-image' %>
+	<%= link_to "  #{possession.name} »", resource_path(possession, :show), target: ('_blank' if possession.sample?), class: 'resource-title' %>
 <% end %>

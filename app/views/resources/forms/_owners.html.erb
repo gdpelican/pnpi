@@ -1,0 +1,11 @@
+<%= content_tag :li, '', class: 'nested owners' do %>
+	<%= content_tag :span, "Owners", class: 'nested-menu-link selected' %>
+	<%= content_tag :ul, '', class: 'nested-panel' do %>
+		<% f.object.owners.each do |owner| %>
+			<%= link_to nested_image(owner), resource_path(owner, :show), 
+				class: 'nested-resource-link',
+				title: owner.name %>
+		<% end %>
+		<%= f.input :owner_ids, as: :hidden %>		
+	<% end %>
+<% end %>

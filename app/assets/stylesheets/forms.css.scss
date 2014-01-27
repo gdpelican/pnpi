@@ -18,6 +18,15 @@ form.resource {
   input[type=file],
   input[type=submit] { display: none; }
   
+  .view-file {
+    display: inline-block;
+    width: 2em;
+    vertical-align: middle;
+    padding: .25em 1.5%;
+  }
+  
+  &.sample .file > label:before { content: 'Upload file' !important; }
+  
   .block {     
     input[type=text], 
     input[type=number],
@@ -56,7 +65,7 @@ form.resource {
     textarea { height: 15em; }
     
   }
-  
+ 
   select.unselected { color: #AAA; }
   select > option { color: black; }
   

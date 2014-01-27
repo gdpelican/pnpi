@@ -1,12 +1,13 @@
-<%= semantic_form_for @resource, url: @resource.url(:show), html: { class: "resource" } do |f| %>
+<%= semantic_form_for @resource, url: submit_path(@resource), html: { class: "resource" } do |f| %>
 	
 	<%= f.input :active, as: :hidden, input_html: { class: 'active', value: admin? || f.object.active? } %>
 	
 	<%= f.inputs :picture, class: 'block fifth' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
-			<%= image_tag f.object.picture.url(:thumb) %>
+			<%= image_tag f.object.file_url %>
 			<%= f.input :picture %>
-		<% end %>
+		<% end unless f.object.sample? %>
+		<%= render partial: '/resources/forms/owners', locals: { f: f } unless f.object.owners.empty? %>
 	<% end %>
 
 	<%= f.inputs :basic, class: 'block two-fifth' do %>

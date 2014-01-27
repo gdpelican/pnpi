@@ -1,8 +1,9 @@
-<% partial ||= false %>
 <% update = f.object.id.present? %>
 
-<%= string_input f, :picture, :file, 'select-full', label: true if partial and type != :sample %>
-<%= string_input f, :name, :string unless type == :person %>
+<%# raise f.object.sample.to_json %>
+<%= link_to image_tag('/images/pdf.png'), f.object.sample_url, target: :_blank, title: f.object.picture_file_name, class: 'view-file' if f.object.sample? && f.object.picture_file_name %>
+<%= string_input f, :picture, :file, (update ? 'upload-with-file' : 'select-full' ), label: true if f.object.sample? %>
+<%= string_input f, :name, :string unless f.object.person? %>
 
 <% case type %>
 <% when :person %>
@@ -21,14 +22,8 @@
 	<%= select_input f, :period, @periods, placeholder: 'Rental period. . .', field_size: 'select-four-fifth', value: f.object.selected_period %>
 	<%= string_input f, :preview, :string, 'full', placeholder: '140 character description. . .' %>
 <% when :sample %>
-	<%= link_to image_tag('/images/pdf.png'), f.object.sample.url, target: :_blank, title: f.object.sample_file_name, class: 'view-file' if f.object.sample_file_name %>
-	<%= string_input f, :sample, :file, (f.object.sample_file_name ? 'upload-with-file' : 'select-full'), label: true %>
-	<%= select_input f, :job, @jobs, placeholder: 'Select job. . .', value: f.object.id %>
 <% end %>
 
-<%= string_input f, :description, :text, 'full', placeholder: 'Enter description. . .' unless type == :sample %>
+<%= string_input f, :description, :text, 'full', placeholder: 'Enter description. . .' %>
 
-<% if update %>
-	<%= string_input f, :_destroy, :boolean, 'fifth', css: 'choice', label: 'Destroy?' if partial %>
-	<%= render partial: '/resources/forms/nested', locals: { f: f } if type == :person %>
-<% end %>
+<%= render partial: 'resources/forms/possessions', locals: { f: f } if f.object.person? && f.object.id.present? %>

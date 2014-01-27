@@ -12,12 +12,12 @@ class Person < Resource
     join_table:              :owners_possessions,
     association_foreign_key: :possession_id,
     foreign_key:             :owner_id
-  has_many :samples
-      
-  accepts_nested_attributes_for :places, reject_if: :all_blank, allow_destroy: :true
-  accepts_nested_attributes_for :things, reject_if: :all_blank, allow_destroy: :true
-  accepts_nested_attributes_for :samples, reject_if: :all_blank, allow_destroy: :true
-                                        
+  has_and_belongs_to_many :samples,
+    class_name:              'Sample',
+    join_table:              :owners_possessions,
+    association_foreign_key: :possession_id,
+    foreign_key:             :owner_id
+                                    
   after_initialize :get_name
   before_validation :prepare_for_save
   before_create :generate_signup_token

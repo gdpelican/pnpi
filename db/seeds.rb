@@ -55,7 +55,10 @@ james = Person.create!({ name: 'James Kiesel',
                          picture: File.new("#{Rails.root}/db/seed_images/james.jpg"),
                          details: { email: 'james.kiesel@gmail.com' } })
 james_account = User.create!({ person: james, password: 'password', encrypted_password: Devise.bcrypt(Devise, 'password'), admin: false })
-sample = Sample.create!({ person: james, job: actor, name: 'An acting resume!' })
+james_resume = Sample.create!({ owners: [james], 
+                                categories: [actor], 
+                                name: 'An acting resume!',
+                                picture: File.new("#{Rails.root}/db/seed_images/resume.pdf") })
 
 cubby = Person.create!({ name: 'Cubby Altobelli', 
                          description: 'It\'s Cubby!', 
@@ -64,7 +67,10 @@ cubby = Person.create!({ name: 'Cubby Altobelli',
                          categories: [actor, playwright],
                          picture: File.new("#{Rails.root}/db/seed_images/cubby.jpg"),
                          details: { email: 'cubby@cubby.com' } })
-cubbys_play = Sample.create!({ person: cubby, job: playwright, name: 'It\'s Cubby\s play!' })
+cubbys_play = Sample.create!({ owners: [cubby], 
+                               categories: [playwright], 
+                               name: 'It\'s Cubby\'s play!',
+                               picture: File.new("#{Rails.root}/db/seed_images/play.pdf") })
 
 oliver = Person.create!({ name: 'Oliver Donahue', 
                           preview: 'Resident fight director for the 95 Runagates', 

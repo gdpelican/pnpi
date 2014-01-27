@@ -5,6 +5,9 @@ PNPI::Application.routes.draw do
   resources :people, controller: :resources, type: 'Person'
   resources :places, controller: :resources, type: 'Place'
   resources :things, controller: :resources, type: 'Thing'
+  resources :samples, controller: :resources, type: 'Sample'
+  
+  get '/people/:person_id/:type/new' => 'resources#new', as: :new_resource_by_owner
   
   resources :categories, controller: :groupings, type: :category, only: :index
   resources :tags,       controller: :groupings, type: :tag,      only: :index

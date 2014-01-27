@@ -1,6 +1,6 @@
 <%= content_tag :article, '', class: "resource #{@resource.type.downcase}" do %>
 	<%= content_tag :div, '', class: 'block left' do %>
-		<%= content_tag :h1, image_tag(@resource.picture.url(:thumb)) %>
+		<%= content_tag :h1, image_tag(@resource.file_url) %>
 		<%= content_tag :ul, '', class: 'details' do %>
 			<% @resource.details.each do |detail| %>
 				<%= detail_item detail[:icon], detail[:text], detail[:link] %>
@@ -10,6 +10,10 @@
 	
 	<%= content_tag :div, '', class: 'block right' do %>
 		<%= content_tag :h1, @resource.name, class: 'name' %>
+		
+		<% @resource.categories.each do |category| %>
+			<%= content_tag :span, category.name, class: 'tag' %>
+		<% end unless @resource.thing? %>
 		
 		<% if @resource.description %>
 			<%= content_tag :h2, @resource.description_header %>

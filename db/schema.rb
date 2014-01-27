@@ -60,18 +60,6 @@ ActiveRecord::Schema.define(version: 20131215192222) do
   add_index "resources_tags", ["resource_id"], name: "index_resources_tags_on_resource_id", using: :btree
   add_index "resources_tags", ["tag_id"], name: "index_resources_tags_on_tag_id", using: :btree
 
-  create_table "samples", force: true do |t|
-    t.integer  "person_id"
-    t.integer  "job_id"
-    t.string   "sample_file_name"
-    t.string   "sample_content_type"
-    t.integer  "sample_file_size"
-    t.datetime "sample_updated_at"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "tag_types", force: true do |t|
     t.string "name"
     t.string "resource"

@@ -1,4 +1,6 @@
 class ResourcesController < ApplicationController
+  include ResourceHelper
+  
   before_action :set_type
   before_action :set_resource, except: :index
   before_action :allow_person_create, only: [:new, :create]
@@ -19,6 +21,7 @@ class ResourcesController < ApplicationController
   # GET /resources/1
   # GET /resources/1.json
   def show
+    redirect_to @resource.sample_url if @resource.sample?
   end
 
   # GET /resources/new
@@ -50,7 +53,7 @@ class ResourcesController < ApplicationController
     respond_to do |format|
       if @resource.update strong_type params, @type, @type.downcase
         handle_successful_update
-        format.html { redirect_to @resource.url(:edit), notice: 'Changes successfully saved.' }
+        format.html { redirect_to resource_path(@resource, :edit), notice: 'Changes successfully saved.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -64,7 +67,7 @@ class ResourcesController < ApplicationController
   def destroy
     @resource.destroy
     respond_to do |format|
-      format.html { redirect_to @resource.url, notice: "#{@resource.name} successfully deleted." }
+      format.html { redirect_to resource_path(@resource, :index), notice: "#{@resource.name} successfully deleted." }
       format.json { head :no_content }
     end
   end
@@ -76,22 +79,26 @@ class ResourcesController < ApplicationController
   end
   
   def set_resource
-    @resource = decorator.decorate resource 
+    @resource = decorator.decorate resource
   end
   
   def set_collections
     @categories = Category.filter model.category_type 
     @tags =       TagType.filter  model.to_s.downcase
     @periods =    Thing.periods if @resource.thing? or @resource.person?
-    @jobs =       Job.all.map { |job| [job.name, job.id] } if @resource.person?
+    @jobs =       Job.all.map { |job| [job.name, job.id] } if @resource.person? || @resource.sample?
   end
  
   def resource
     case action_name.to_sym
-    when :new    then model.new type: @type
-    when :create then model.new strong_type params, @type, @type.downcase
+    when :new    then model.new({type: @type}.merge owner_array)
+    when :create then model.new(strong_type(params, @type, @type.downcase).merge owner_array)
     else              model.include_children.find params[:id]
     end
+  end
+  
+  def owner_array
+    { owners: [params[:person_id] ? Person.find(params[:person_id]) : current_user.person] }
   end
   
   def model
@@ -103,22 +110,22 @@ class ResourcesController < ApplicationController
   end
   
   def allow_person_create
-    @resource.person? || require_admin
+    @resource.person? || require_owner
   end
 
   def require_owner
     handle_auth current_user.present? &&
                 @resource.present? &&
-               (@resource.person? && @resource.id == current_user.person_id || 
+               (@resource.person? && @resource.id == current_user.person_id ||
                 @resource.owners.include?(current_user.person)), 
                 "You must be logged in as #{if @resource.person? then @resource.name else "an owner of this #{@type.downcase}" end } to complete this action."
   end
   
   def handle_successful_creation
-    if admin? then 
-      { url: @resource.url(:show), notice: "#{@type} was successfully created" }
-    else                  
+    if @resource.person? && !admin? then 
       { url: root_url, notice: "Thanks for submitting! You'll be hearing from us soon, at the email address provided." }
+    else                  
+      { url: resource_path(@resource, :show), notice: "#{@type} was successfully created" }
     end 
   end
   

@@ -1,7 +1,7 @@
 class PersonDecorator < ResourceDecorator
   delegate_all
   
-  def nested
+  def possessions
     [:places, :things, :samples]
   end
   
