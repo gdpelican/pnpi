@@ -74,7 +74,7 @@ class Resource < ActiveRecord::Base
     
   def as_json(options={})
     super(options.merge!({ only: [:id, :type, :name, :description, :preview], include: :tags }))
-                 .merge!({ show_url: url(:show), picture_url: picture.url(:tiny) })
+                 .merge!({ show_url: "/#{type.to_s.downcase.pluralize}/#{id}", picture_url: picture.url(:tiny) })
   end
   
   def self.search(options = {})
