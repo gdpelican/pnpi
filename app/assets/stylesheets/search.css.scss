@@ -32,7 +32,8 @@ header.search-form {
       border: 0;
       outline: 0;
       color: white;
-      option { background: rgba(0,0,0,.75); }
+      option { background: rgba(0,0,0,.75); 
+               &:checked { background: transparent; } }
     }
     
     .search-view-div { padding: 3em 10%; }
