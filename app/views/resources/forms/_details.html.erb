@@ -1,6 +1,5 @@
 <% update = f.object.id.present? %>
 
-<%# raise f.object.sample.to_json %>
 <%= link_to image_tag('/images/pdf.png'), f.object.sample_url, target: :_blank, title: f.object.picture_file_name, class: 'view-file' if f.object.sample? && f.object.picture_file_name %>
 <%= string_input f, :picture, :file, (update ? 'upload-with-file' : 'select-full' ), label: true if f.object.sample? %>
 <%= string_input f, :name, :string unless f.object.person? %>

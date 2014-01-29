@@ -25,9 +25,62 @@ form.resource {
     padding: .25em 1.5%;
   }
   
+  .input-info {
+    position: absolute;
+    right: -.6em;
+    top: .6em;
+    text-align: right;
+    z-index: 10;
+    
+    .input-info-text { 
+      text-align: left;
+      display: none; 
+      background: rgba(150,150,100,.9);
+      padding: .5em;
+      position: relative;
+      top: -.25em;
+      border-radius: .5em 0 .5em .5em;
+      color: white;
+      text-shadow: -1px 1px 0 #777;
+      font-size: .9em; 
+      
+      p { margin: .5em 0; }
+      a { 
+        color: #FFD;
+        &:hover { color: #CCB; } 
+      }
+
+      ul > li { margin-left: 2em; list-style-type: disc; }
+      ol > li { 
+        &:first-child { display: block; }
+        display: none; 
+      }
+    }
+    &:hover {
+      .input-info-text { display: block; }
+      &:before {
+        background: rgba(150,150,100,.9); 
+        opacity: 1;
+        color: white;
+      }
+    }
+    &:before {
+      content: '\f05a';
+      font-family: FontAwesome;
+      border-radius: 100% 100% 0 0;
+      padding: 0 .1em;
+      color: #CCA;
+      opacity: .5;      
+    }
+  }
+  
   &.sample .file > label:before { content: 'Upload file' !important; }
   
-  .block {     
+  .block { 
+    
+    label { display: block; }
+    position: relative;
+        
     input[type=text], 
     input[type=number],
     input[type=email],
@@ -35,7 +88,7 @@ form.resource {
     input[type=url],
     .file>label,
     textarea,
-    select { 
+    select {
       display: inline-block;
       width: 100%; 
       outline: 0;

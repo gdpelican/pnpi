@@ -11,8 +11,12 @@ module FormHelper
   def string_input(form, symbol, type, field_size = 'full', options = {})
     form.input symbol, wrapper_html: { class: "block #{field_size} #{options[:css]}" }, 
                        input_html: { placeholder: options[:placeholder] || symbol.to_s.humanize + '. . .' }, 
-                       label: options[:label] || false,
+                       label: options[:label] || string_input_info(info(form.object.type, symbol)) || false,
                        as: type
+  end
+  
+  def string_input_info(info)
+    content_tag :div, content_tag(:div, info.markdown, class: 'input-info-text'), class: 'input-info' if info
   end
   
   def select_input(form, symbol, collection, options = {})

@@ -27,5 +27,9 @@ module ApplicationHelper
   def font_icon(icon, size='lg')
     "<i class=\"fa fa-#{icon} #{'fa-' + size}\"></i>".html_safe
   end
+  
+  def info(type, field)
+    INFO[type.downcase.to_sym][field.downcase.to_sym] || INFO[field]
+  end
 
 end

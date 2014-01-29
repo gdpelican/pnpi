@@ -17,7 +17,7 @@
 		
 		<% if @resource.description %>
 			<%= content_tag :h2, @resource.description_header %>
-			<%= content_tag :div, @resource.description, class: 'description' %>
+			<%= content_tag :div, @resource.description.markdown, class: 'description' %>
 		<% end %>
 		
 		<% if @resource.person? %>

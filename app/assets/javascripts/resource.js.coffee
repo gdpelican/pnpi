@@ -45,6 +45,9 @@
           $('html,body').animate(\
             {scrollTop: $('#' + $(@).data('target')).offset().top},'slow')
         
+        form.on 'click', '.input-info ol a', ->
+          $(this).closest('li').slideUp().next('li').slideDown()
+        
         showSelection = (self, event, parent, classname, datafield, target) ->
           event.stopPropagation()
           selector = "#{classname}[data-#{datafield}=#{self.data(datafield)}]"
