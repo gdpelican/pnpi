@@ -37,6 +37,14 @@ class ResourceDecorator < Draper::Decorator
     object.picture.url(size)
   end
   
+  def max_categories
+    object.class.max_categories || 1000
+  end
+  
+  def max_tags
+    object.class.max_tags || 1000
+  end
+  
   def tags(append = false)
     collection :tags, append
   end

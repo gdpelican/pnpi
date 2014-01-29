@@ -39,10 +39,9 @@ class ResourcesController < ApplicationController
       if @resource.save
         data = handle_successful_creation
         format.html { redirect_to data[:url], notice: data[:notice] }
-        format.json { render action: 'show', status: :created, location: @resource }
       else
+        set_collections
         format.html { render action: 'new' }
-        format.json { render json: @resource.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,10 +53,10 @@ class ResourcesController < ApplicationController
       if @resource.update strong_type params, @type, @type.downcase
         handle_successful_update
         format.html { redirect_to resource_path(@resource, :edit), notice: 'Changes successfully saved.' }
-        format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @resource.errors, status: :unprocessable_entity }
+        set_collections
+        flash.now[:alert] = @resource.errors.to_json
+        format.html { render action: :edit }
       end
     end
   end
@@ -68,7 +67,6 @@ class ResourcesController < ApplicationController
     @resource.destroy
     respond_to do |format|
       format.html { redirect_to resource_path(@resource, :index), notice: "#{@resource.name} successfully deleted." }
-      format.json { head :no_content }
     end
   end
 

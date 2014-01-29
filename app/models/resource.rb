@@ -12,6 +12,8 @@ class Resource < ActiveRecord::Base
   validates_associated :tags
   validates_associated :categories
   validates :type, inclusion: { in: ['Person', 'Place', 'Thing', 'Sample'] }
+  validate :validate_tag_count
+  validate :validate_category_count
   
   serialize :details, Hash
   after_initialize :define_details_methods
@@ -61,6 +63,14 @@ class Resource < ActiveRecord::Base
     super(attr)
   end
   
+  def validate_category_count
+    errors.add(:categories, "A #{type} cannot have more than #{self.class.max_categories} #{self.class.category_type.pluralize}.") if self.categories.size > self.class.max_categories
+  end
+  
+  def validate_tag_count
+    errors.add(:tags, "A #{type} cannot have more than #{self.class.max_tags} tags.") if self.tags.size > self.class.max_tags    
+  end
+  
   def define_details_methods
     self.class.details.each do |detail|
       define_singleton_method "#{detail}=", ->(value) { self.details[detail] = value }
@@ -75,6 +85,14 @@ class Resource < ActiveRecord::Base
   def as_json(options={})
     super(options.merge!({ only: [:id, :type, :name, :description, :preview], include: :tags }))
                  .merge!({ show_url: "/#{type.to_s.downcase.pluralize}/#{id}", picture_url: picture.url(:tiny) })
+  end
+  
+  def self.max_categories
+    3
+  end
+  
+  def self.max_tags
+    7
   end
   
   def self.search(options = {})
