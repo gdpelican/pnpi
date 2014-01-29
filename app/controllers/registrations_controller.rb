@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
   
   def build_resource(hash=nil)
     super(hash)
-    self.resource.person = Person.find(params[:id]) if params[:id]
+    self.resource.person = @person if @person
   end
 
   protected
@@ -19,9 +19,9 @@ class RegistrationsController < Devise::RegistrationsController
   private
    
   def require_token
-    build_resource sign_up_params
-    handle_auth(!User.exists_for?(self.resource.person), 'This account has already been registered! Please sign in with your password to continue.') ||
-    handle_auth(self.resource.person.signup_token == params[:signup_token], 'Please provide the token sent with your signup email to complete registration')
+    @person = Person.find(params[:id])
+    handle_auth(!User.exists_for?(@person), 'This account has already been registered! Please sign in with your password to continue.') ||
+    handle_auth(@person.signup_token == params[:signup_token], 'Please provide the token sent with your signup email to complete registration')
   end
   
 end

@@ -24,9 +24,7 @@ INFO = {
       #{markdown_description}",
     
     preview:
-    "This should be a short artistic statement, maximum 140 characters.
-    
-    This is your elevator speech; what is it that you do best, or most appeals to you about your work?"
+    "Please provide a short artistic statement, maximum 140 characters. This is your elevator speech; what is it that you do best, or most appeals to you about your work?"
     
   },
   

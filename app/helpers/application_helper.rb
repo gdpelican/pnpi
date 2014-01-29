@@ -29,7 +29,7 @@ module ApplicationHelper
   end
   
   def info(type, field)
-    INFO[type.downcase.to_sym][field.downcase.to_sym] || INFO[field]
+    INFO[type.downcase.to_sym][field.downcase.to_sym] || INFO[field.downcase.to_sym]
   end
 
 end
