@@ -133,7 +133,7 @@ class ResourcesController < ApplicationController
   
   def handle_successful_update
     if @resource.person? && admin? && !User.exists_for?(@resource)
-      WelcomeMailer.welcome_email @resource
+      WelcomeMailer.welcome_email(@resource).deliver
     end  
   end
 
