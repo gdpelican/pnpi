@@ -21,7 +21,7 @@ INFO = {
       "1. This is a more detailed description of yourself and your work. Feel free to type up a resume, or a longer artistic statement,
           or otherwise let us know what you want us to know about you.
           
-          #{markdown_description}",
+      #{markdown_description}",
     
     preview:
     "This should be a short artistic statement, maximum 140 characters.
