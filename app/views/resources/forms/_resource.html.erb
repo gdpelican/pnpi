@@ -2,7 +2,7 @@
 	
 	<%= f.input :active, as: :hidden, input_html: { class: 'active', value: admin? || f.object.active? } %>
 	
-	<%= f.inputs :picture, class: 'block fifth' do %>
+	<%= f.inputs :picture, class: 'block fifth picture' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
 			<%= image_tag f.object.file_url %>
 			<%= f.input :picture %>
@@ -10,13 +10,13 @@
 		<%= render partial: '/resources/forms/owners', locals: { f: f } unless f.object.owners.empty? %>
 	<% end %>
 
-	<%= f.inputs :basic, class: 'block two-fifth' do %>
+	<%= f.inputs :basic, class: 'block two-fifth basic' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
 			<%= render partial: "/resources/forms/details", locals: { f: f, type: f.object.type.downcase.to_sym } %>
 		<% end %>
 	<% end %>
 	
-	<%= f.inputs :tags, class: 'block two-fifth' do %>
+	<%= f.inputs :tags, class: 'block two-fifth tags' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
 			<%= categories_html f, @categories %>
 			<% tag_collection(f.object).each do |tag| %>

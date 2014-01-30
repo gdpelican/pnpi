@@ -1,64 +1,6 @@
 // Place all the styles related to the resources controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-@mixin choice($delete) {
-  position: relative;
-  display: inline-block;
-  padding: .5em;
-  margin: .5em;
-  border-radius: 1em;
-  background: rgba(255, 255, 255, .25);
-  width: 6.5em;
-  
-  @if $delete == true { padding-left: 2.5em; }
-  @else {               padding-left: 3.5em; }
-  
-  &:hover { background: rgba(255, 255, 255, .5); }
-  &:before {
-    position: absolute;
-    left: 0;
-    top: 50%;
-
-    @if $delete == true {
-      content: "\f00d";
-      margin-top: -17%;
-      padding: .5em .4em .5em .6em; 
-    }
-    @else { 
-      content: "\f00c";
-      margin-top: -10%;
-      padding: .5em 
-    }
-            
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    
-    color: #CCC;
-    height: 1em;
-    width: 1em;
-    border: 2px solid #CCC;
-    border-radius: 100%;
-  }
-  
-  &.selected {
-    &:before { 
-      @if $delete == true { 
-        border-color: red;
-        color: red;
-      }
-      @else {
-        border-color: green;
-        color: green;
-      }
-    }
-  }
-  
-  input[type=checkbox],
-  input[type=radio] { display: none; }
-}
-
 body.resources {
   
   .block {
@@ -130,11 +72,10 @@ body.resources {
   }
   
   form.resource {
-    .check_boxes .choices {
+    .tags .choices {
       text-align: center;
       padding-bottom: 1em;
-      legend { font-weight: bold; }
-      .choice { @include choice(false) }
+      legend { font-weight: bold; }      
     }           
   } 
 }

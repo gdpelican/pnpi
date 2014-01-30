@@ -1,4 +1,4 @@
-.tag {
+@mixin tag {
   display: inline-block;
   border: 0;
   background: #bb7;
@@ -15,4 +15,14 @@
     color: white;
     text-decoration: none; 
   } 
+  
+  input { display: none; }
+  
+}
+
+.tag,
+form.resource .tags .choice { @include tag; }
+form.resource .tags .choice:not(.selected) { 
+  opacity: .7;
+  background: #aaa; 
 }

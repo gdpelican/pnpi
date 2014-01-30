@@ -29,7 +29,13 @@ module ApplicationHelper
   end
   
   def info(type, field)
-    INFO[type.downcase.to_sym][field.downcase.to_sym] || INFO[field.downcase.to_sym]
+    INFO[underscore type][underscore field] || INFO[underscore field] if field
+  end
+
+  private
+  
+  def underscore(param)
+    param.to_s.parameterize('_').to_sym
   end
 
 end

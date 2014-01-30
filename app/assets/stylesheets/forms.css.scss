@@ -25,14 +25,9 @@ form.resource {
     padding: .25em 1.5%;
   }
   
-  .input-info {
-    position: absolute;
-    right: -.6em;
-    top: .6em;
-    text-align: right;
-    z-index: 10;
-    
-    .input-info-text { 
+  .tooltip { 
+    display: inline-block;    
+    .tooltip-text { 
       text-align: left;
       display: none; 
       background: rgba(150,150,100,.9);
@@ -57,7 +52,7 @@ form.resource {
       }
     }
     &:hover {
-      .input-info-text { display: block; }
+      .tooltip-text { display: block; }
       &:before {
         background: rgba(150,150,100,.9); 
         opacity: 1;
@@ -78,9 +73,29 @@ form.resource {
   
   .block { 
     
+    .tooltip {
+      position: absolute;
+      z-index: 10;
+      text-align: right;
+    }
+    &.basic .tooltip {
+        right: -.6em;
+        top: .6em;
+    }
+    
+    &.tags .tooltip {
+      right: 0;
+      top: 0;
+    }
+    
     label { display: block; }
     position: relative;
         
+    .choices { 
+      position: relative; 
+      legend { width: 100%; }
+    }
+    
     input[type=text], 
     input[type=number],
     input[type=email],
@@ -97,6 +112,13 @@ form.resource {
       margin: .25em 0;
       background: rgba(255,255,255,.75);
       border: 1px inset;
+    }
+    
+    .required abbr {
+      position: absolute;
+      left: -1em;
+      color: red;
+      line-height: 2.75em;
     }
     
     .file > label { 

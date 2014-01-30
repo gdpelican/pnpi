@@ -24,8 +24,16 @@ INFO = {
       #{markdown_description}",
     
     preview:
-    "Please provide a short artistic statement, maximum 140 characters. This is your elevator speech; what is it that you do best, or most appeals to you about your work?"
+    "Please provide a short artistic statement, maximum 140 characters. This is your elevator speech; what is it that you do best, or most appeals to you about your work?",
     
+    jobs:
+    "Please select up to 3 jobs you'd like to list yourself as. We know you probably wear a lot of hats, so it's best to choose ones
+    you consider yourself most proficient in or best known for.",
+    
+    company_affiliation:
+    "Select any companies you are affiliated with. Please note that these should not simply be companies you have worked for before,
+    but ones you've donated a significant chunk of time, effort, or resources to, either onstage, backstage, administratively, or otherwise."
+  
   },
   
   place: {
