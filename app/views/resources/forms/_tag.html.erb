@@ -1,0 +1,11 @@
+<% selected ||= (defined? model) ? selected?(model, field, group) : true %>
+<% type ||= 	(defined? model) ? model.type.downcase : group.tag_type.resource %>
+<% field ||= :tags %>
+<% name ||= :name %>
+
+<%= content_tag :li, '', class: "tag #{'selected' if selected }" do %>
+	<%= content_tag :label, '', for: "#{type}_tag_ids_#{group.id}" do %>
+		<%= check_box_tag "#{type}[#{field.to_s.singularize}_ids][]", group.id, selected %>
+		<%= content_tag :span, group.send(name) %>
+	<% end %>
+<% end %>

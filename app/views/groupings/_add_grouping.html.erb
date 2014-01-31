@@ -4,7 +4,7 @@
 	                       	 placeholder: "New #{group_name}. . .",
 	                         href: create_grouping_path,
 	                         class: 'remote-trigger',
-	                         data: { type: 'json', params: "type=#{group_name}#{'&' + params if params}", method: :post }), 
+	                         data: { type: 'json', params: "origin=groupings&type=#{group_name}#{'&' + params if params}", method: :post }), 
 		class: 'toggle-input tag' %>
 	<%= content_tag :span, link_to(font_icon('plus'), 'javascript:;'), class: 'toggle-link tag' %>
 <% end %>

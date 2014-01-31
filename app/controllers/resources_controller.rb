@@ -2,7 +2,7 @@ class ResourcesController < ApplicationController
   include ResourceHelper
   
   before_action :set_type
-  before_action :set_resource, except: :index
+  before_action :set_resource,        except: :index
   before_action :allow_person_create, only: [:new, :create]
   before_action :set_collections,     only: [:new, :edit, :show]
   before_action :require_admin,       only: [:index, :destroy]

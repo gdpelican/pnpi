@@ -15,11 +15,11 @@
       
       form = $('form.resource')
       if form?
-        form.find('.choice').each ->
+        form.find('li.tag').each ->
           if $(@).find('input[checked=checked]').length > 0
             $(@).addClass 'selected'
         
-        form.on 'click', '.choice', (event) ->
+        form.on 'click', 'li.tag', (event) ->
           event.stopPropagation()
           $(@).toggleClass 'selected'
           check = $(@).find(':checkbox')

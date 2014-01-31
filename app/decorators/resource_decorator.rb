@@ -45,10 +45,6 @@ class ResourceDecorator < Draper::Decorator
     object.class.max_tags || 1000
   end
   
-  def tags(append = false)
-    collection :tags, append
-  end
-  
   def owners(append = false)
     collection :owners, append
   end

@@ -9,6 +9,7 @@ class GroupingsController < ApplicationController
   end
   
   def create
+    params[:tag_type_id] = TagType.where(name: params[:tag_type_name]).pluck(:id).first if params[:tag_type_name]
     handle_response model.create(strong_type params, model, nil, false)  
   end
 
@@ -28,9 +29,12 @@ class GroupingsController < ApplicationController
       format.json { render json: { action: action_name, 
                                    message: message, 
                                    success: success.blank?, 
-                                   partial: (action_name == 'create') ? render_to_string(partial: '/groupings/grouping', locals: { group: success }, formats: [:html]) : '' } }
+                                   partial: (action_name == 'create') ? render_to_string(partial: partial_name, 
+                                            locals: { group: success, field: :tags, type: success.tag_type.resource }, formats: [:html]) : '' } }
     end
   end
+  
+  private
   
   def set_type
     @type = (params[:type]).downcase.to_sym
@@ -45,6 +49,13 @@ class GroupingsController < ApplicationController
   
   def model
     "#{@type}".classify.constantize
+  end
+  
+  def partial_name
+    case params[:origin].downcase.to_sym
+    when :groupings then 'groupings/grouping'
+    when :resources then 'resources/forms/tag' 
+    end
   end
   
 end

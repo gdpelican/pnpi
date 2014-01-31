@@ -93,25 +93,27 @@ form.resource {
         
     .choices { 
       position: relative; 
-      legend { width: 100%; }
+      > span { font-weight: bold; }
     }
     
-    input[type=text], 
-    input[type=number],
-    input[type=email],
-    input[type=tel],
-    input[type=url],
-    .file>label,
-    textarea,
-    select {
-      display: inline-block;
-      width: 100%; 
-      outline: 0;
-      border-radius: .5em;
-      padding: .5em;
-      margin: .25em 0;
-      background: rgba(255,255,255,.75);
-      border: 1px inset;
+    &.styled-inputs {
+      input[type=text], 
+      input[type=number],
+      input[type=email],
+      input[type=tel],
+      input[type=url],
+      .file>label,
+      textarea,
+      select {
+        display: inline-block;
+        width: 100%; 
+        outline: 0;
+        border-radius: .5em;
+        padding: .5em;
+        margin: .25em 0;
+        background: rgba(255,255,255,.75);
+        border: 1px inset;
+      }
     }
     
     .required abbr {
@@ -119,6 +121,12 @@ form.resource {
       left: -1em;
       color: red;
       line-height: 2.75em;
+    }
+    
+    .toggle-link i { 
+      font-size: .9em; 
+      position: relative;
+      bottom: .15em;
     }
     
     .file > label { 

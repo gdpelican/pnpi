@@ -1,0 +1,11 @@
+<%= content_tag :li, '', class: 'check_boxes input optional' do %>
+	<%= content_tag :fieldset, '', class: 'choices' do %>
+		<%= render partial: 'resources/tooltip', locals: { label: label, info: info(model.type, label) } %>
+		<%= content_tag :ol do %>
+			<% collection.each do |group| %>
+				<%= render partial: 'resources/forms/tag', locals: { model: model, field: field, group: group, name: name_field ||= :name }%>
+			<% end %>
+			<%= render partial: '/groupings/add_grouping', locals: { group_name: :tag, params: "tag_type_name=#{label}&origin=resources" } if field == :tags %>
+		<% end %>
+	<% end %>
+<% end %>

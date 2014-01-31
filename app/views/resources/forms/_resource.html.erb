@@ -2,7 +2,7 @@
 	
 	<%= f.input :active, as: :hidden, input_html: { class: 'active', value: admin? || f.object.active? } %>
 	
-	<%= f.inputs :picture, class: 'block fifth picture' do %>
+	<%= f.inputs :picture, class: 'block fifth picture styled-inputs' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
 			<%= image_tag f.object.file_url %>
 			<%= f.input :picture %>
@@ -10,7 +10,7 @@
 		<%= render partial: '/resources/forms/owners', locals: { f: f } unless f.object.owners.empty? %>
 	<% end %>
 
-	<%= f.inputs :basic, class: 'block two-fifth basic' do %>
+	<%= f.inputs :basic, class: 'block two-fifth basic styled-inputs' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
 			<%= render partial: "/resources/forms/details", locals: { f: f, type: f.object.type.downcase.to_sym } %>
 		<% end %>
@@ -18,9 +18,9 @@
 	
 	<%= f.inputs :tags, class: 'block two-fifth tags' do %>
 		<%= content_tag :div, '', class: 'block-padding' do %>
-			<%= categories_html f, @categories %>
+			<%= render partial: 'resources/forms/association', locals: { model: f.object, field: :categories, label: f.object.category_type, collection: @categories } unless f.object.thing? %>
 			<% tag_collection(f.object).each do |tag| %>
-				<%= check_box_collection f, :tags, tag[1], tag[0], :tag %>
+				<%= render partial: 'resources/forms/association', locals: { model: f.object, field: :tags, label: tag[0], collection: tag[1], name_field: :tag } %>
 			<% end %>
 		<% end %>
 	<% end %>
