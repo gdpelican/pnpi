@@ -20,7 +20,13 @@
   
 }
 
-form.resource .tag:not(.selected) { 
-  opacity: .7;
-  background: #aaa; 
+fieldset.tags { 
+  .toggle-parent { display: inline-block; }
+  .tag {
+    margin: .25em;
+    &:not(.selected) { 
+      opacity: .7;
+      background: #aaa; 
+    }
+  }
 }
