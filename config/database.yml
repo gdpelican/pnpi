@@ -6,7 +6,7 @@
 development:
   adapter: postgresql
   username: postgres
-  password: ENV['PASSWORD']
+  password: <%= ENV['PASSWORD'] %>
   database: pnpi_dev
   pool: 5
   timeout: 5000
@@ -17,7 +17,7 @@ development:
 test:
   adapter: postgresql
   username: postgres
-  password: ENV['PASSWORD']
+  password: <%= ENV['PASSWORD'] %>
   database: pnpi_test
   pool: 5
   timeout: 5000

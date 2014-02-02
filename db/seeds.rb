@@ -51,7 +51,7 @@ james = Person.create!({ name: 'James Kiesel',
                          description: 'Hi, I\'m James', 
                          active: true,
                          tags: [combatant, gdp], 
-                         categories: [actor, director, producer, choreo],
+                         categories: [actor, director, producer],
                          picture: File.new("#{Rails.root}/db/seed_images/james.jpg"),
                          details: { email: 'james.kiesel@gmail.com' } })
 james_account = User.create!({ person: james, password: 'password', encrypted_password: Devise.bcrypt(Devise, 'password'), admin: false })
