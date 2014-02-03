@@ -5,17 +5,16 @@ a { border: none; }
 body:not(.search) { padding-top: 7em; }
 
 .flash {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   padding: 1em 0;
   text-align: center;
   color: white;
   z-index: 9999;
+  &.notice { background: rgba(0, 255, 0, .5); }
+  &.alert { background: rgba(255, 0, 0, .5); } 
 }
-
-.notice { background: rgba(0, 255, 0, .5); }
-.alert { background: rgba(255, 0, 0, .5); }
 
 .lead-message {
   i { 

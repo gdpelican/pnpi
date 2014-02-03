@@ -7,9 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <%= content_tag :body, '', class: "#{controller_name} #{@background}-background #{@background_shade}-background #{'admin' if admin?} #{'user' if current_user }".squeeze(' ') do %>
-	
-	<%= content_tag :div, notice, class: 'flash notice' if notice %>
-	<%= content_tag :div, alert,  class: 'flash alert'  if alert %>
+	<%= content_tag :div, alert || notice, class: "flash #{flash_type}" %>
 	<%= content_tag :nav, render(partial: 'menus/all') %>
 	
 	<%= yield %>

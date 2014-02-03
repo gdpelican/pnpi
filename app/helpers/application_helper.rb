@@ -24,6 +24,11 @@ module ApplicationHelper
     image_tag current_user.person.picture.url(:tiny) if current_user && current_user.person.picture.present?
   end
   
+  def flash_type
+    if    alert then 'alert'
+    elsif notice then 'notice' end
+  end
+  
   def font_icon(icon, size='lg')
     "<i class=\"fa fa-#{icon} #{'fa-' + size}\"></i>".html_safe
   end

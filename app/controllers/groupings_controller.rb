@@ -1,7 +1,7 @@
 class GroupingsController < ApplicationController
   respond_to :html, :json
 
-  before_action :require_admin
+  before_action :require_admin, only: [:update, :destroy]
   before_action :set_type
   before_action :set_groupings, only: :index
 

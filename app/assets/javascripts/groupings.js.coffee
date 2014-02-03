@@ -24,8 +24,15 @@
           parent.before(data.partial)
           parent.find('input').val('')
           parent.find('.toggle-link, .toggle-input').toggle()
+          message = 'Successfully created'
         when 'update'
           parent.find('.toggle-link').html(parent.find('.toggle-input').val())
           parent.find('.toggle-link, .toggle-input').toggle()
+          message = 'Successfully updated'
         when 'destroy'
           parent.slideUp()
+          message = 'Successfully destroyed'
+      Flash.show message, 'notice'
+    
+    groupings.on 'ajax:failure', '.remote-trigger', (event, data, xhr) ->
+      Flash.show 'An error occurred, please try again', 'alert'
