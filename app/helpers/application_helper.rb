@@ -29,8 +29,8 @@ module ApplicationHelper
     elsif notice then 'notice' end
   end
   
-  def font_icon(icon, size='lg')
-    "<i class=\"fa fa-#{icon} #{'fa-' + size}\"></i>".html_safe
+  def font_icon(icon, css='', size='lg')
+    "<i class=\"fa fa-#{icon} #{css} #{'fa-' + size}\"></i>".html_safe
   end
   
   def info(type, field)

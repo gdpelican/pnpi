@@ -1,7 +1,7 @@
 class @KnockoutSearch
-  constructor: (json, user) ->
+  constructor: (json = {}, user) ->
     
-    @currSearch =  ko.observable(new KnockoutSearchResult())
+    @currSearch =  ko.observable(new KnockoutSearchResult(json.results, json.page, json.max_page))
     @lastSearch =  ko.observable(new KnockoutSearchResult())
    
     @initialView = ko.observable(true)
@@ -103,3 +103,5 @@ class @KnockoutSearch
     
     @next = => @lastSearch().nextPage(@update, @failure)
     @prev = => @lastSearch().prevPage(@update, @failure)
+    
+    @setResults(json) if json.results

@@ -6,7 +6,8 @@ class @KnockoutSearchMethods
       cacheKey = @getCacheKey(method, json)
       data =
         tags: json.tags
-      
+        format: 'json'
+          
       @cacheFetch data, cacheKey, success, failure
     
     @getCacheKey = (method, json) ->

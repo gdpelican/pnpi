@@ -1,0 +1,6 @@
+<%= render partial: 'menus/home' %>
+<%= render partial: 'menus/user' 	   if current_user and not login? %>
+<%= render partial: 'menus/signin' if not current_user and not login? %>
+<%= render partial: 'menus/signup' if not current_user and not create? %>
+<%= render partial: 'menus/search' if @last_search %>
+<%= render partial: 'menus/gavel'  if admin? %>

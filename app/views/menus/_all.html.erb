@@ -1,7 +1,0 @@
-<%= render partial: 'menus/home' %>
-<%= render partial: 'menus/user' 	if 	   current_user and not login? %>
-<%= content_tag :div, '', class: 'secondary-menus' do %>
-	<%= render partial: 'menus/signin' 	if not current_user and not login? %>
-	<%= render partial: 'menus/signup' 	if not current_user and not create? %>
-	<%= render partial: 'menus/gavel' 	if admin? %>
-<% end %>

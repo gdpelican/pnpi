@@ -8,6 +8,7 @@ class ResourcesController < ApplicationController
   before_action :require_admin,       only: [:index, :destroy]
   before_action :require_owner,       only: [:edit, :update]
   before_action :require_user,        only: [:show]
+  before_action :set_last_search,     only: [:show]
     
   # GET /resources
   # GET /resources.json
@@ -85,6 +86,10 @@ class ResourcesController < ApplicationController
     @tags =       TagType.filter  model.to_s.downcase
     @periods =    Thing.periods if @resource.thing? or @resource.person?
     @jobs =       Job.all.map { |job| [job.name, job.id] } if @resource.person? || @resource.sample?
+  end
+  
+  def set_last_search
+    @last_search = cookies[:last_search]
   end
  
   def resource

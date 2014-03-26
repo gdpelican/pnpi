@@ -12,12 +12,19 @@ class Search
   end
   
   def as_json(options = {})
-    { type: type, results: results }.merge(doing_search? ? { page: page.to_i, max_page: max_page } : {})
+    { resources: Resource.types, 
+      type: type, 
+      results: results }.merge(doing_search? ? 
+    { term: term, 
+      resource: resource, 
+      category: category, 
+      tags: tags,
+      page: (page || 1).to_i, 
+      max_page: max_page } : {})
   end
   
   def results
     case type.to_sym
-    when :resources           then Resource.types
     when :categories          then filtered_categories          if resource.present?
     when :tags                then sanitized_tags               if resource.present? and category.present?
     when :text, :filter, :all then Resource.search search_hash
