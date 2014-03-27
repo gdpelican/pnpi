@@ -33,7 +33,7 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'paperclip'
+gem 'paperclip', '~> 3.5.3'
 gem 'geocoder'
 gem 'formtastic'
 gem 'draper', '~> 1.3'
