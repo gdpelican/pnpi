@@ -104,6 +104,7 @@ class Resource < ActiveRecord::Base
   end
   
   def self.retrieve(options = {})
+    options[:term] = '' if options[:term] == '*'
     results = case options[:search].to_sym
               when :filter then filter_search options[:resource], options[:category]
               when :text   then text_search options[:term]

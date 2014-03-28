@@ -9,7 +9,7 @@
 		</div>
 		<div class="resource-tags">
 			<ul data-bind="foreach: tags">
-				<li data-bind="click: $parents[2].fetchResults, attr: {'data-tags': $data.id }" data-load="true" class="tag">
+				<li data-bind="click: $parents[2].fetchResults, attr: {'data-tags': $data.id }" data-type="text" data-load="true" class="tag">
 					<span class="arrow"></span>
 					<span data-bind="text: $data.tag"></span>
 				</li>
