@@ -4,6 +4,8 @@ a { border: none; }
 
 body:not(.search) { padding-top: 7em; }
 
+.hide-me { display: none !important; }
+
 .flash {
   position: fixed;
   top: 0;

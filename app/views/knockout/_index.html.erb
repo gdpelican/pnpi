@@ -1,6 +1,6 @@
 
-<header class="search-form picture-background" data-bind="template: { name: 'search', data: currSearch }"></header>
-<main class="results" data-bind="visible: !initialView(), template: { name: 'results', data: lastSearch }"></main>
+<header class="search-form picture-background" data-bind="template: { name: 'search', data: search }"></header>
+<main class="results" data-bind="visible: !initialView(), template: { name: 'results', data: search }"></main>
 
 <%= render partial: 'knockout/search' %>
 <%= render partial: 'knockout/tag' %>

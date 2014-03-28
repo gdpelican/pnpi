@@ -1,3 +1,4 @@
+Job.destroy_all
 actor = Job.create!({ name: 'Actor' })
 director = Job.create!({ name: 'Director' })
 choreo = Job.create!({ name: 'Choreographer' })
@@ -5,15 +6,18 @@ producer = Job.create!({ name: 'Producer' })
 playwright = Job.create!({ name: 'Playwright' })
 puts 'Jobs created'
 
+Event.destroy_all
 performance = Event.create!({ name: 'Performance' })
 meeting = Event.create!({ name: 'Meeting' })
 reading = Event.create!({ name: 'Staged Reading' })
 puts 'Events created'
 
+Price.destroy_all
 rent = Price.create!({ name: 'Rent' })
 borrow = Price.create({ name: 'Borrow' })
 puts 'Prices created'
 
+TagType.destroy_all
 specskill = TagType.create!(name: 'Special Skills', resource: 'person', category: 'actor')
 dirskill = TagType.create!(name: 'Director Skills', resource: 'person', category: 'director')
 genskill = TagType.create!(name: 'Other Skills', resource: 'person')
@@ -22,6 +26,7 @@ seating = TagType.create!(name: 'Seats', resource: 'place')
 tech = TagType.create!(name: 'Tech', resource: 'place')
 puts 'Tag types created'
 
+Tag.destroy_all
 clown = Tag.create!(tag: 'Clown', tag_type: specskill)
 combatant = Tag.create! tag: 'Combatant', tag_type: specskill
 license = Tag.create! tag: 'Valid Driver\'s license', tag_type: genskill
@@ -37,12 +42,15 @@ lighting = Tag.create! tag: 'Has lighting grid', tag_type: tech
 support = Tag.create! tag: 'Provides tech support', tag_type: tech
 puts 'Tags created'
 
+Person.destroy_all
+User.destroy_all
+Sample.destroy_all
 maura = Person.create!({ name: 'Maura Krause', 
                          preview: 'A short artistic statement about me', 
                          description: 'Hi, I\'m Maura',
                          active: true, 
                          categories: [director, producer], 
-                         picture: File.new("#{Rails.root}/db/seed_images/maura.jpg"),
+                         #picture: File.new("#{Rails.root}/db/seed_images/maura.jpg"),
                          tags: [kids, interact, mech], 
                          details: { email: 'mkrause@interact.org' } })
 maura_account = User.create!({ person: maura, password: 'interact', encrypted_password: Devise.bcrypt(Devise, 'interact' ), admin: true })
@@ -52,35 +60,36 @@ james = Person.create!({ name: 'James Kiesel',
                          active: true,
                          tags: [combatant, gdp], 
                          categories: [actor, director, producer],
-                         picture: File.new("#{Rails.root}/db/seed_images/james.jpg"),
+                         #picture: File.new("#{Rails.root}/db/seed_images/james.jpg"),
                          details: { email: 'james.kiesel@gmail.com' } })
 james_account = User.create!({ person: james, password: 'password', encrypted_password: Devise.bcrypt(Devise, 'password'), admin: false })
-james_resume = Sample.create!({ owners: [james], 
-                                categories: [actor], 
-                                name: 'An acting resume!',
-                                picture: File.new("#{Rails.root}/db/seed_images/resume.pdf") })
+#james_resume = Sample.create!({ owners: [james], 
+#                                categories: [actor], 
+#                                name: 'An acting resume!',
+#                                picture: File.new("#{Rails.root}/db/seed_images/resume.pdf") })
 
 cubby = Person.create!({ name: 'Cubby Altobelli', 
                          description: 'It\'s Cubby!', 
                          active: true,
                          tags: [clown, license], 
                          categories: [actor, playwright],
-                         picture: File.new("#{Rails.root}/db/seed_images/cubby.jpg"),
+                         #picture: File.new("#{Rails.root}/db/seed_images/cubby.jpg"),
                          details: { email: 'cubby@cubby.com' } })
-cubbys_play = Sample.create!({ owners: [cubby], 
-                               categories: [playwright], 
-                               name: 'It\'s Cubby\'s play!',
-                               picture: File.new("#{Rails.root}/db/seed_images/play.pdf") })
+#cubbys_play = Sample.create!({ owners: [cubby], 
+#                               categories: [playwright], 
+#                               name: 'It\'s Cubby\'s play!',
+#                               picture: File.new("#{Rails.root}/db/seed_images/play.pdf") })
 
 oliver = Person.create!({ name: 'Oliver Donahue', 
                           preview: 'Resident fight director for the 95 Runagates', 
                           description: 'Oliver Donahue has been working as a fight director for over 6 years in and around the Philadelphia region. He is a Certified Teacher with Fight Directors Canada, and has apprenticed under Fight Master Ian Rose. Past credits include Dust to Dust, After the End, and Sex & Violence.', 
                           categories: [actor, choreo], 
                           tags: [gdp, license, combatant],
-                          picture: File.new("#{Rails.root}/db/seed_images/oliver.jpg"), 
+                          #picture: File.new("#{Rails.root}/db/seed_images/oliver.jpg"), 
                           details: { email: 'oliver@donahue.com'} })
 puts 'People created'
 
+Place.destroy_all
 places = Place.create!([
   { name: 'Plays and Players', description: 'We have Quigs!', active: true, categories: [performance, reading], tags: [small, support], details: { address: '1714 Delancey St' } },
   { name: 'Adrienne Theater', description: 'Interact lives here', active: true, categories: [performance, reading], tags: [interact, med, sound], owners: [maura] },
@@ -88,6 +97,7 @@ places = Place.create!([
 ])
 puts 'Venues created'
 
+Thing.destroy_all
 things = Thing.create!([
   { name: 'Ubu Mask', description: 'A mask for Ubu', active: true, owners: [james] },
   { name: 'That victrola we bought once', description: 'It was overpriced. It was worth it.', active: true, details: { price_per_period: '25.00 / week' } },

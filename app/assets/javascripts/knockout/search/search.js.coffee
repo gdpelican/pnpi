@@ -1,10 +1,7 @@
 class @KnockoutSearch
-  constructor: (json = {}, user) ->
+  constructor: (json = {}, user = false) ->
     
-    @currSearch =  ko.observable(new KnockoutSearchResult(json.results, json.page, json.max_page))
-    @lastSearch =  ko.observable(new KnockoutSearchResult())
-   
-    @initialView = ko.observable(true)
+    @initialView = ko.observable(!json.results)
     @tagView =     ko.observable(false)
   
     @resources =   ko.observableArray(json.resources or [])
@@ -12,10 +9,12 @@ class @KnockoutSearch
     @tag_list =    ko.observableArray(json.tags or [])
     @errors =      ko.observableArray([])
 
+    @search =      ko.observable(new KnockoutSearchResult(json, user))
+
     @loggedIn =    user
 
     @leadText =       ko.computed =>
-      switch @currSearch().type()
+      switch @search().type()
         when 'filter' then 'I\'m looking for a '
         when 'text'   then 'I\'m looking for '
         else               ''
@@ -24,53 +23,36 @@ class @KnockoutSearch
       'tags-trigger' + if @tagView() then ' selected texture-background' \
                        else ''
 
-    @showPredicate =  ko.computed => @currSearch().resource().length > 0
-    @showSubmit =     ko.computed => @currSearch().resource().length > 0 and \
-                                     @currSearch().category() and \
-                                     @currSearch().category().length > 0
-    @predicate =      ko.computed =>
-      switch @currSearch().resource()
-        when 'person' then ' who is a '
-        when 'place'  then ' to have a '
-        when 'thing'  then ' that I can '
-        else               ''
-    
-    @swapView = =>
-      switch @currSearch().type()
-        when 'filter' then @currSearch().type('text')
-        when 'text'   then @currSearch().type('filter')
-      
     @swapTagView = (data, event) =>
-      @tagView(!@tagView())
-    
+      @tagView(!@tagView())    
     
     @handleEnter = (data, event) =>
       if event.charCode == 13
-        @currSearch().term event.currentTarget.value
+        @search().term event.currentTarget.value
         @fetchResults data, event
       true
     
     @fetchCategories = (data, event) =>
-      @currSearch().resource(event.currentTarget.value)
-      if @currSearch().resource().length == 0
-        @currSearch().category('')
+      @search().resource(event.currentTarget.value)
+      if @search().resource().length == 0
+        @search().category('')
         @tagView false
       else
-        @currSearch().fetch 'categories', @update, @failure
+        @search().fetch 'categories', @update, @failure
     
     @fetchTags = (data, event) =>
-      @currSearch().category event.currentTarget.value
-      if @currSearch().category().length == 0
+      @search().category event.currentTarget.value
+      if @search().category().length == 0
         @tagView false
       else
-        @currSearch().tags([])
-        @currSearch().fetch 'tags', @update, @failure
+        @search().tags([])
+        @search().fetch 'tags', @update, @failure
        
     @fetchResults = (data, event) =>
       event.stopPropagation()
       results = if $(event.currentTarget).data('load') \
                 then @elementSearch($(event.currentTarget)) \
-                else @currSearch()
+                else @search()
       results.fetch results.type(), @update, @failure
     
     @elementSearch = (el) ->
@@ -86,22 +68,12 @@ class @KnockoutSearch
         when 'resources'            then @resources(json.results)
         when 'categories'           then @categories(json.results)
         when 'tags'                 then @tag_list(json.results)
-        when 'filter','text', 'all' then @setResults(json)
+        when 'filter','text', 'all' 
+          @search().update(json)
+          @initialView false
 
     @failure = (json) =>
       @errors json.errors
     
-    @setResults = (json) ->
-      @initialView false
-      @lastSearch(new KnockoutSearchResult(@currSearch().json(), \
-                                           json.page, \
-                                           json.max_page))
-      @lastSearch().results(@wrapResults(json.results))
-    
-    @wrapResults = (results) ->
-      new KnockoutResource(result, @loggedIn) for result in results
-    
-    @next = => @lastSearch().nextPage(@update, @failure)
-    @prev = => @lastSearch().prevPage(@update, @failure)
-    
-    @setResults(json) if json.results
+    @next = => @search().nextPage(@update, @failure)
+    @prev = => @search().prevPage(@update, @failure)

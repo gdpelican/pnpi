@@ -1,14 +1,17 @@
+
 @Knockout =
   initialize: (json, user = false) ->
     ko.bindingHandlers.appear =
-      init: (element, hidden) ->
-        if ko.utils.unwrapObservable hidden()
+      init: (element, shown) ->
+        if ko.unwrap shown()
           $(element).show()
         else
           $(element).hide()
-      
-      update: (element, hidden) ->
-        if ko.utils.unwrapObservable hidden()
+          $(element).addClass('hide-me', true)
+          
+      update: (element, shown) ->
+        if ko.unwrap shown()
+          $(element).hide().removeClass('hide-me') if $(element).hasClass('hide-me')
           $(element).slideDown()
         else
           $(element).slideUp()

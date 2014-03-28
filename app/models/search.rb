@@ -13,6 +13,7 @@ class Search
   
   def as_json(options = {})
     { resources: Resource.types, 
+      categories: filtered_categories,
       type: type, 
       results: results }.merge(doing_search? ? 
     { term: term, 
