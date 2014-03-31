@@ -3,7 +3,7 @@ class Search
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   
-  PAGE_SIZE = 5
+  PAGE_SIZE = 10
   
   attr_accessor :type, :term, :resource, :category, :tags, :page
   
