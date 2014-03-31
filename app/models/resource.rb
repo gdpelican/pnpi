@@ -30,10 +30,10 @@ class Resource < ActiveRecord::Base
   scope :text_search, ->(term = '%') { 
     where('name ilike ? OR description ilike ?', "%#{term}%", "%#{term}%") }
   
-  scope :tag_search, ->(tags = nil) { 
+  scope :tag_search, ->(tags) { 
     joins('LEFT OUTER JOIN "resources_tags" on "resources_tags"."resource_id" = "resources"."id"')
    .joins('LEFT OUTER JOIN "tags" on "resources_tags"."tag_id" = "tags"."id"')
-   .where('? or tags.id in (?)', (tags.nil? || tags.empty?) ? "TRUE" : "FALSE", tags)
+   .where('? or tags.id in (?)', (tags.empty?) ? "TRUE" : "FALSE", tags.map { |tag| tag[:id] })
   }
   
   scope :paging, ->(page, page_size) {

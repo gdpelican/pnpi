@@ -6,7 +6,7 @@ class @KnockoutSearch
   
     @resources =   ko.observableArray(json.resources or [])
     @categories =  ko.observableArray(json.categories or [])
-    @tag_list =    ko.observableArray(json.tags or [])
+    @tag_list =    ko.observableArray(new KnockoutTag(tag) for tag in json.tags or [])
     @errors =      ko.observableArray([])
 
     @search =      ko.observable(new KnockoutSearchResult(json, user))
@@ -61,7 +61,7 @@ class @KnockoutSearch
         resource: "#{el.data('resource') || ''}"
         category: "#{el.data('category') || ''}"
         term:     "#{el.data('term') || '*'}"
-        tags:     "#{el.data('tags')}".split ' '
+        tags:     [new KnockoutTag({ id: "#{el.data('id')}", tag: "#{el.data('tag')}" })]
       
     @update = (json) =>
       switch(json.type)

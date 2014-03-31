@@ -2,7 +2,7 @@
 	<h1 data-bind="appear: $root.initialView">You want to make something?</h1>
 	<h2 data-bind="appear: $root.initialView">We want to help.</h2>
 		
-	<div data-bind="appear: type() == 'filter'" class="search-view">
+	<div data-bind="appear: type() == 'filter' || type() == 'all'" class="search-view">
 		<div class="search-view-div">
 			<span   data-bind="text: $root.leadText" class="lead-text"></span>
 			<select data-bind="value: resource, options: $root.resources, optionsText: 'name', optionsValue: 'value', optionsCaption: '', event: { change: $root.fetchCategories } " class="resource"></select>

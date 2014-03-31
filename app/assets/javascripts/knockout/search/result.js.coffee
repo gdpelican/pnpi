@@ -1,19 +1,36 @@
 class @KnockoutSearchResult
   constructor: (json = {}, loggedIn = false) ->
-    json.type = 'filter' if json.type in ['new', 'all']
     
+    @o_type =      ko.observable(if json.type is 'text' and json.term in ['*', '', 'null'] then 'all' else json.type)
+    @o_resource =  ko.observable(json.resource or '')
+    @o_category =  ko.observable(json.category or '')
+    @o_term =      ko.observable(json.term or '')
+    @o_tags =      ko.observableArray(new KnockoutTag(tag) for tag in (json.tags || []))
+   
     @methods =     new KnockoutSearchMethods()
-    @type =        ko.observable(json.type || 'filter')
-    @resource =    ko.observable(json.resource or '')
-    @category =    ko.observable(json.category or '')
-    @term =        ko.observable(json.term or '')
+    @type =        ko.observable(if json.type in ['new', 'all'] then 'filter' else json.type)
+    @resource =    ko.observable(@o_resource())
+    @category =    ko.observable(@o_category())
+    @term =        ko.observable(@o_term())
+    @tags =        ko.observableArray(@o_tags())
+    
     @page =        ko.observable(json.page or 1)
     @maxPage =     ko.observable(json.max_page or 1)
     @loading =     ko.observable(false)
     
-    @tags =        ko.observableArray(json.tags or [])
     @results =     ko.observableArray(new KnockoutResource(result, loggedIn) for result in (json.results || []))
 
+    @summaryResource = ko.computed =>
+      switch @o_resource()
+        when 'person' then 'people who are '
+        when 'place'  then 'places for a '
+        when 'thing'  then 'things available for '
+        else ''
+    @summaryCategory = ko.computed =>
+      switch @o_resource()
+        when 'person' then @o_category() + 's'
+        else               @o_category()
+    
     @hasResults =  ko.computed => !@loading() && @results().length > 0
     @json =        ko.computed =>
       type:     @type()
@@ -25,23 +42,28 @@ class @KnockoutSearchResult
       tags:     @tags()
       
     @update = (json) =>
-      @type     json.type
+      @o_type     json.type
+      @o_resource json.resource
+      @o_category json.category
+      @o_term     json.term
+      @o_tags     (json.tags.map (tag) -> new KnockoutTag tag) || []
+      @results (json.results.map (result) -> new KnockoutResource result, loggedIn) || []
+      
+      @type     if json.type in ['new'] then 'filter' else json.type
       @resource json.resource
       @category json.category
       @term     json.term
       @page     json.page
       @maxPage  json.max_page
-      @tags     json.tags or []
-      
-      @results (json.results.map (result) -> new KnockoutResource result, loggedIn) || []
+      @tags     @o_tags()
             
     @prevPage = (success, failure) ->
       @page(@page() - 1)
-      @fetch @type(), success, failure
+      @fetch @o_type(), success, failure
       
     @nextPage = (success, failure) ->
       @page(@page() + 1)
-      @fetch @type(), success, failure
+      @fetch @o_type(), success, failure
 
     @fetch = (type, success, failure) ->
       @loading type in ['filter', 'text', 'all']
@@ -59,10 +81,25 @@ class @KnockoutSearchResult
       switch @resource()
         when 'person' then ' who is a '
         when 'place'  then ' to have a '
-        when 'thing'  then ' that I can '
-        else ''  
-
-    @canSearch = ko.computed =>
+        when 'thing'  then ' available to '
+        else ''
+        
+    @searchSummary = ko.computed =>
+      @o_type('all') if @o_type() == 'text' and @o_term() in ['', 'null', '*']
+      typeText = switch @o_type()
+        when 'filter' then "Displaying #{@summaryResource()} #{@summaryCategory()}"
+        when 'text'   then "Displaying results with text \'#{@o_term()}\'"
+        when 'all'    then "Displaying all records"
+        else               ""
+                
+      tagsText = if @o_tags().length > 0 then \
+      " with tags " + ("'#{tag.tag}'" for tag in @o_tags()) else ""
+        
+      pageText = \
+      ", page #{@page()} of #{@maxPage()}"
+      "#{typeText}#{tagsText}#{pageText}"
+      
+    @canSearch =     ko.computed =>
       if (@type() == 'text') or \
          (@type() == 'filter' and \
          !!@resource() and \

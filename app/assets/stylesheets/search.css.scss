@@ -115,6 +115,11 @@ header.search-form {
 
 main.results {
   
+  .search-summary {
+    padding: .5em 1em;
+    font-style: italic;
+  }
+  
   .page { 
     margin: .5em;
     padding: .5em;
