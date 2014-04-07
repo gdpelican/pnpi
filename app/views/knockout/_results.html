@@ -1,5 +1,6 @@
 <script type="text/html" id="results">
-	<ul data-bind="visible: $root.tagList().length > 0, event: { change: $root.handleTagChange }, template: { name: 'tagType', foreach: $root.tagList, templateOptions: { selections: tags() } }" class="tag-type-list"></ul>
+	<span data-bind="appear: !showTags(), event: { click: toggleTagPanel }" class="tags-toggle"><i class="fa fa-tags"></i> Filter by tags</span>
+	<ul data-bind="appear: showTags, visible: $root.tagList().length > 0, event: { change: $root.handleTagChange }, template: { name: 'tagType', foreach: $root.tagList, templateOptions: { selections: tags() } }" class="tags-panel"></ul>
 	<div class="results">
 		<div data-bind="visible: !$parent.loggedIn" class="lead-message">
 			<i class="fa fa-info"></i>

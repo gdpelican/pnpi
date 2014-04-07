@@ -101,7 +101,16 @@ header.search-form {
 
 main.results {
   
-  .tag-type-list {
+  .tags-toggle {
+    padding: 1em;
+    line-height: 1.5em;
+    float: right;
+    padding-right: 5em;
+    font-style: italic;
+    cursor: pointer;
+  }
+
+  .tags-panel {
     text-align: center;
     padding-bottom: 1em;
     background: rgba(200, 200, 150, 0.25);
@@ -116,7 +125,7 @@ main.results {
   }
   
   .search-summary {
-    padding: .5em 1em;
+    padding: 1em;
     font-style: italic;
   }
   

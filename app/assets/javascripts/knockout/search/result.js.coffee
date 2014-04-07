@@ -15,6 +15,7 @@ class @KnockoutSearchResult
     
     @page =        ko.observable(json.page or 1)
     @maxPage =     ko.observable(json.max_page or 1)
+    @showTags =    ko.observable(false)
     @loading =     ko.observable(false)
     
     @results =     ko.observableArray(new KnockoutResource(result, loggedIn) for result in (json.results || []))
@@ -102,6 +103,9 @@ class @KnockoutSearchResult
          (@type() == 'filter' and \
          !!@resource() and \
          !!@category()) then true else false
+    
+    @toggleTagPanel = =>
+      @showTags !@showTags()
     
     @toggleTag = (tag) =>
       if @tags.indexOf(tag) < 0 then @tags.push(tag)
