@@ -9,6 +9,13 @@ class Category < ActiveRecord::Base
   scope :filter, ->(type) { where(type: type) }
   scope :exclude, ->(type) { where('type <> ?', type.to_s.humanize) }
 
+  def self.search(resource)
+    return [] unless resource.present?    
+    filter(resource.to_s.humanize.constantize.category_type)
+      .sanitize(:name)
+      .unshift({ id: '', name: ''})
+  end
+
   def self.mass_fields
     [:name, :type]
   end

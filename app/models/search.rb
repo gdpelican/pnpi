@@ -3,57 +3,42 @@ class Search
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   
-  PAGE_SIZE = 10
+  PAGE_SIZE = 5
   
-  attr_accessor :type, :term, :resource, :category, :tags, :page
+  attr_accessor :type, :term, :tags, :resource, :category, :page
   
   def initialize(attributes = {})
     attributes.each do |name, value| send("#{name}=", value) end
   end
   
   def as_json(options = {})
-    { resources: Resource.types, 
-      categories: filtered_categories,
-      type: type, 
-      results: results }.merge(doing_search? ? 
-    { term: term, 
-      resource: resource, 
-      category: category, 
-      tags: Tag.map_json(tags),
-      page: (page || 1).to_i, 
-      max_page: max_page } : {})
-  end
-  
-  def results
-    case type.to_sym
-    when :categories          then filtered_categories  if resource.present?
-    when :tags                then tags                 if resource.present? and category.present?
-    when :text, :filter, :all then Resource.search search_hash
-    end
+    { type:       type,
+      resources:  Resource.types, 
+      categories: Category.search(resource) }.merge(doing_search? ? 
+    { results:    Resource.search(search_hash),
+      tag_list:   TagType.search(resource, category),
+      tags:       tags || [],
+      term:       term,
+      resource:   resource, 
+      category:   category,
+      page:       (page || 1).to_i,
+      max_page:   max_page } : {})
   end
   
   def max_page
-    ((Resource.count(search_hash) - 1) / PAGE_SIZE) + 1 if doing_search?
+    [((Resource.count(search_hash) - 1) / PAGE_SIZE) + 1, 1].max
   end
 
   private
-  
-  def category_type
-    resource.humanize.constantize.category_type if resource.present?
-  end
-  
-  def filtered_categories
-    Category.filter(category_type).sanitize(:name).unshift({ id: '', name: ''})
-  end
   
   def search_hash
     { search: type.to_sym, 
       resource: resource, 
       category: category, 
       term: term,
-      tags: Tag.map_json(tags),
+      tags: tags,
       page_size: PAGE_SIZE, 
-      page: page || 1 }
+      page: page }
   end
 
   def doing_search?

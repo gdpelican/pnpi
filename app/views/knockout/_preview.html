@@ -1,5 +1,5 @@
 <script type="text/html" id="resourcePreview">
-	<div data-bind="click: showResource, attr: { class: previewClass }">
+	<div data-bind="appear: !$data.filtered(), click: showResource, attr: { class: previewClass }">
 		<div class="resource-image">
 			<img data-bind="attr: { src: pictureUrl }" />			
 		</div>

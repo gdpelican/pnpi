@@ -16,4 +16,4 @@
         else
           $(element).slideUp()
           
-    ko.applyBindings new KnockoutSearch(json, user)
+    ko.applyBindings new KnockoutSearch(json, user, new KnockoutSearchMethods())

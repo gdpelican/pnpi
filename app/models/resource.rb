@@ -33,12 +33,12 @@ class Resource < ActiveRecord::Base
   scope :tag_search, ->(tags) { 
     joins('LEFT OUTER JOIN "resources_tags" on "resources_tags"."resource_id" = "resources"."id"')
    .joins('LEFT OUTER JOIN "tags" on "resources_tags"."tag_id" = "tags"."id"')
-   .where('? or tags.id in (?)', (tags.empty?) ? "TRUE" : "FALSE", tags.map { |tag| tag[:id] })
+   .where('? or tags.id in (?)', (tags.empty?) ? "TRUE" : "FALSE", tags)
   }
   
-  scope :paging, ->(page, page_size) {
-    limit(page_size)
-   .offset(page_size * (page.to_i - 1)) }
+  scope :paging, ->(options = {}) {
+    limit( [options[:page_size], 1].max)
+   .offset([options[:page_size], 1].max * ([options[:page].to_i, 1].max - 1)) }
   
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
@@ -96,7 +96,7 @@ class Resource < ActiveRecord::Base
   end
   
   def self.search(options = {})
-    Resource.retrieve(options).paging(options[:page], options[:page_size])
+    Resource.retrieve(options).paging(options)
   end
   
   def self.count(options = {})
@@ -108,8 +108,8 @@ class Resource < ActiveRecord::Base
     results = case options[:search].to_sym
               when :filter then filter_search options[:resource], options[:category]
               when :text   then text_search options[:term]
-              when :all    then Resource.all
-              else              Resource.none end
+              when :all    then all
+              else              none end
     results = results.tag_search options[:tags] if options[:tags]
     results.active.uniq.order(:name)
   end

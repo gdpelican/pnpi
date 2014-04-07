@@ -1,18 +1,17 @@
 class @KnockoutSearchResult
-  constructor: (json = {}, loggedIn = false) ->
+  constructor: (json = {},loggedIn = false, methods = null) ->
     
     @o_type =      ko.observable(if json.type is 'text' and json.term in ['*', '', 'null'] then 'all' else json.type)
     @o_resource =  ko.observable(json.resource or '')
     @o_category =  ko.observable(json.category or '')
     @o_term =      ko.observable(json.term or '')
-    @o_tags =      ko.observableArray(new KnockoutTag(tag) for tag in (json.tags || []))
    
-    @methods =     new KnockoutSearchMethods()
+    @methods =     methods
     @type =        ko.observable(if json.type in ['new', 'all'] then 'filter' else json.type)
     @resource =    ko.observable(@o_resource())
     @category =    ko.observable(@o_category())
     @term =        ko.observable(@o_term())
-    @tags =        ko.observableArray(@o_tags())
+    @tags =        ko.observableArray([])
     
     @page =        ko.observable(json.page or 1)
     @maxPage =     ko.observable(json.max_page or 1)
@@ -32,8 +31,8 @@ class @KnockoutSearchResult
         else               @o_category()
     
     @hasResults =  ko.computed => !@loading() && @results().length > 0
-    @json =        ko.computed =>
-      type:     @type()
+    @json = (type = null) =>
+      type:     type || @type()
       resource: @resource()
       category: @category()
       term:     @term()
@@ -46,8 +45,8 @@ class @KnockoutSearchResult
       @o_resource json.resource
       @o_category json.category
       @o_term     json.term
-      @o_tags     (json.tags.map (tag) -> new KnockoutTag tag) || []
-      @results (json.results.map (result) -> new KnockoutResource result, loggedIn) || []
+      @tags       json.tags
+      @results    (json.results.map (result) -> new KnockoutResource result, loggedIn) || []
       
       @type     if json.type in ['new'] then 'filter' else json.type
       @resource json.resource
@@ -55,17 +54,16 @@ class @KnockoutSearchResult
       @term     json.term
       @page     json.page
       @maxPage  json.max_page
-      @tags     @o_tags()
             
     @prevPage = (success, failure) ->
       @page(@page() - 1)
-      @fetch @o_type(), success, failure
+      @fetch success, failure, @o_type()
       
     @nextPage = (success, failure) ->
       @page(@page() + 1)
-      @fetch @o_type(), success, failure
+      @fetch success, failure, @o_type()
 
-    @fetch = (type, success, failure) ->
+    @fetch = (success, failure, type) ->
       @loading type in ['filter', 'text', 'all']
       s = (data) =>
         @loading false
@@ -73,8 +71,8 @@ class @KnockoutSearchResult
       f = (data) =>
         @loading false
         failure(data)
-          
-      @methods.search type, @json(), s, f
+      
+      @methods.search @json(type), s, f
     
     @showPredicate = ko.computed => !!@resource()
     @predicate =     ko.computed =>
@@ -85,15 +83,15 @@ class @KnockoutSearchResult
         else ''
         
     @searchSummary = ko.computed =>
-      @o_type('all') if @o_type() == 'text' and @o_term() in ['', 'null', '*']
+      @o_type('all') if @o_type() == 'text' and @term() in ['', 'null', '*']
       typeText = switch @o_type()
         when 'filter' then "Displaying #{@summaryResource()} #{@summaryCategory()}"
         when 'text'   then "Displaying results with text \'#{@o_term()}\'"
         when 'all'    then "Displaying all records"
         else               ""
                 
-      tagsText = if @o_tags().length > 0 then \
-      " with tags " + ("'#{tag.tag}'" for tag in @o_tags()) else ""
+      tagsText = if @tags().length > 0 then \
+      " with tags " + ("'#{@methods.tagLookup(id)}'" for id in @tags()) else ""
         
       pageText = \
       ", page #{@page()} of #{@maxPage()}"
@@ -104,9 +102,13 @@ class @KnockoutSearchResult
          (@type() == 'filter' and \
          !!@resource() and \
          !!@category()) then true else false
-         
+    
+    @toggleTag = (tag) =>
+      if @tags.indexOf(tag) < 0 then @tags.push(tag)
+      else                           @tags.remove(tag)
+      @page 1
+    
     @typeSwap = =>
       switch @type()
         when 'filter' then @type 'text'
         when 'text'   then @type 'filter'
-      

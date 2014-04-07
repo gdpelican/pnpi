@@ -95,25 +95,25 @@ header.search-form {
       padding: .5em;
       margin: .5em 0;
       text-align: center;
-            
-      .tag-type-list > li { 
-        text-shadow: none;
-        display: inline-block; 
-        padding: 1em;
-        vertical-align: top;
-        text-align: left;
-        .tag-list > li { 
-          display: block; 
-          font-size: 90%;
-          font-style: italic;
-          span { display: inline-block; width: 10em; }
-        }
-      }
     }
-  }  
+  }
 }
 
 main.results {
+  
+  .tag-type-list {
+    text-align: center;
+    padding-bottom: 1em;
+    background: rgba(200, 200, 150, 0.25);
+    ul, li { list-style-type: none; }
+    > li {
+      h3 { margin-bottom: .25em; }
+      text-align: left;
+      display: inline-block;
+      vertical-align: top;
+      width: 15%;
+    }
+  }
   
   .search-summary {
     padding: .5em 1em;
@@ -121,9 +121,14 @@ main.results {
   }
   
   .page { 
+    border-radius: .5em;
+    font-weight: bold;
+    border: none;
+    background: rgba(200, 200, 150, 0.5);
+    text-shadow: -1px -1px 0px white;
+    font-variant: small-caps;
     margin: .5em;
     padding: .5em;
-    border: 1px solid black;
     cursor: pointer;
   }
   .prev { float: left; }

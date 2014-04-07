@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   respond_to :html, :json
-  SEARCHES = [:categories, :tags, :filter, :text, :all]
+  SEARCHES = [:categories, :filter, :text, :all]
   before_action :populate_types
   before_action :populate_search, except: :new
   
@@ -18,7 +18,7 @@ class SearchController < ApplicationController
           format.html { render template: 'search/new' }
           format.json { render json: @search }
         end
-      } 
+      }
     end
   end
   
