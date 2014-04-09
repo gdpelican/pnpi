@@ -16,7 +16,6 @@ class @KnockoutSearchResult
     @page =        ko.observable(json.page or 1)
     @maxPage =     ko.observable(json.max_page or 1)
     @showTags =    ko.observable(false)
-    @loading =     ko.observable(false)
     
     @results =     ko.observableArray(new KnockoutResource(result, loggedIn) for result in (json.results || []))
 
@@ -31,7 +30,7 @@ class @KnockoutSearchResult
         when 'person' then @o_category() + 's'
         else               @o_category()
     
-    @hasResults =  ko.computed => !@loading() && @results().length > 0
+    @hasResults =  ko.computed => @results().length > 0
     @json = (type = null) =>
       type:     type || @type()
       resource: @resource()
@@ -64,16 +63,8 @@ class @KnockoutSearchResult
       @page(@page() + 1)
       @fetch success, failure, @o_type()
 
-    @fetch = (success, failure, type) ->
-      @loading type in ['filter', 'text', 'all']
-      s = (data) =>
-        @loading false
-        success(data)
-      f = (data) =>
-        @loading false
-        failure(data)
-      
-      @methods.search @json(type), s, f
+    @fetch = (success, failure, type) ->  
+      @methods.search @json(type), success, failure
     
     @showPredicate = ko.computed => !!@resource()
     @predicate =     ko.computed =>
@@ -108,7 +99,7 @@ class @KnockoutSearchResult
       @showTags !@showTags()
     
     @toggleTag = (tag) =>
-      if @tags.indexOf(tag) < 0 then @tags.push(tag)
+      if @tags.indexOf(tag) < 0 then @tags().push(tag)
       else                           @tags.remove(tag)
       @page 1
     

@@ -27,9 +27,11 @@ nav {
     z-index: 3;
     vertical-align: top;
     display: inline-block; 
-    padding: .75em;
     position: relative;
-         
+    a {
+      padding: .75em;
+      display: inline-block;
+    }  
     img { 
       width: 5em;
       height: 5em; 

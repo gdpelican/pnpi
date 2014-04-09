@@ -9,6 +9,7 @@ class @KnockoutSearch
     @categories =  ko.observableArray(json.categories or [])
     @tagList =     ko.observableArray([])
     @errors =      ko.observableArray([])
+    @canHandle =   ko.observable(true)
 
     @search =      ko.observable(new KnockoutSearchResult(json, user, methods))
 
@@ -23,12 +24,17 @@ class @KnockoutSearch
     @handleEnter = (data, event) =>
       if event.charCode == 13
         @search().term event.currentTarget.value
-        @fetchResults data, event
+        @handleFetchEvent(data, event)
       true
     
-    @handleTagChange = (data, event) =>
-      @search().toggleTag(event.target.value)
-      @fetchResults data, event
+    @handleTagToggle = (data, event) =>
+      ko.utils.addOrRemoveItem(@search().tags, event.target.value, event.target.checked)
+      @handleFetchEvent(data, event)
+    
+    @handleFetchEvent = (data, event) =>
+      if @canHandle()
+        @canHandle false
+        @fetchResults data, event
     
     @fetchCategories = (data, event) =>
       @search().resource(event.currentTarget.value)
@@ -39,9 +45,11 @@ class @KnockoutSearch
 
     @fetchResults = (data, event) =>
       event.stopPropagation()
+      $(event.currentTarget).data('changed', false)
       @search().fetch @update, @failure
       
     @update = (json) =>
+      @canHandle true
       switch json.type
         when 'categories'            then @categories(json.categories)
         when 'filter', 'text', 'all'
@@ -59,6 +67,7 @@ class @KnockoutSearch
     @populateTags(json.tag_list) if json.tag_list
 
     @failure = (json) =>
+      @canHandle true
       @errors json.errors
     
     @next = => @search().nextPage(@update, @failure)

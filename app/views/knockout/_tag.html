@@ -1,7 +1,7 @@
 <script type="text/html" id="tagType">
 	<li>
 		<h3 data-bind="text: $data.name"></h3>
-		<ul class="tag-list" data-bind="template: { name: 'tag', foreach: $data.tags, templateOptions: { selections: $parent.tags() } }"></ul>
+		<ul class="tag-list" data-bind="template: { name: 'tag', foreach: $data.tags }"></ul>
 	</li>
 </script>
 

@@ -1,6 +1,5 @@
 <script type="text/html" id="results">
-	<span data-bind="appear: !showTags(), event: { click: toggleTagPanel }" class="tags-toggle"><i class="fa fa-tags"></i> Filter by tags</span>
-	<ul data-bind="appear: showTags, visible: $root.tagList().length > 0, event: { change: $root.handleTagChange }, template: { name: 'tagType', foreach: $root.tagList, templateOptions: { selections: tags() } }" class="tags-panel"></ul>
+	<ul data-bind="appear: showTags, visible: $root.tagList().length > 0, event: { change: $root.handleTagToggle }, template: { name: 'tagType', foreach: $root.tagList }" class="tags-panel"></ul>
 	<div class="results">
 		<div data-bind="visible: !$parent.loggedIn" class="lead-message">
 			<i class="fa fa-info"></i>
@@ -9,13 +8,20 @@
 		</div>
 		<div data-bind="visible: maxPage() > 0" class="search-summary">
 			<div data-bind="text: searchSummary"></div>
+			<div data-bind="visible: $parent.loggedIn">
+				<span data-bind="appear: !showTags(), event: { click: toggleTagPanel }" class="tags-toggle">
+					<i class="fa fa-tags"></i> Filter by tags
+				</span>				
+			</div>
 		</div>
-		<div data-bind="visible: loading" class="loading-results"><i class="fa fa-spinner fa-spin fa-3x"></i></div>
-		<div data-bind="visible: !hasResults() && !loading()" class="no-results">No results found</div>
-		<ul  data-bind="visible: hasResults, template: { name: 'resourcePreview', foreach: results }" class="previews"></ul>
-		<div data-bind="visible: hasResults">
-			<a data-bind="visible: page() > 1, click: $root.prev" class="page prev">&laquo; prev</a>
-			<a data-bind="visible: page() < maxPage(), click: $root.next" class="page next">next &raquo;</a>
+		<div data-bind="visible: !$root.canHandle()" class="loading-results"><i class="fa fa-spinner fa-spin fa-3x"></i></div>
+		<div data-bind="visible: $root.canHandle()" class="results-shown">
+			<div data-bind="visible: !hasResults()" class="no-results">No results found</div>
+			<ul  data-bind="visible: hasResults(), template: { name: 'resourcePreview', foreach: results }" class="previews"></ul>
+			<div data-bind="visible: hasResults">
+				<a data-bind="visible: page() > 1, click: $root.prev" class="page prev">&laquo; prev</a>
+				<a data-bind="visible: page() < maxPage(), click: $root.next" class="page next">next &raquo;</a>
+			</div>
 		</div>
 	</div>
 </script>
