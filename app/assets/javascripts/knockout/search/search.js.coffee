@@ -29,6 +29,7 @@ class @KnockoutSearch
     
     @handleTagToggle = (data, event) =>
       ko.utils.addOrRemoveItem(@search().tags, event.target.value, event.target.checked)
+      @search().page 1
       @handleFetchEvent(data, event)
     
     @handleFetchEvent = (data, event) =>
