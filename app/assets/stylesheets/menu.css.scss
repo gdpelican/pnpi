@@ -24,14 +24,14 @@ nav {
   padding: .5em 1em;
 
   .nav-item { 
+    padding: .75em;
+    display: inline-block;
+    
     z-index: 3;
     vertical-align: top;
     display: inline-block; 
     position: relative;
-    a {
-      padding: .75em;
-      display: inline-block;
-    }  
+
     img { 
       width: 5em;
       height: 5em; 
