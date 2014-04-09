@@ -33,7 +33,7 @@ class @KnockoutSearchMethods
       url
     
     @cacheFetch = (data, postUrl, success, failure) =>
-      if @cache[postUrl] && data.tags.length == 0
+      if @cache[postUrl] && (!data.tags? || data.tags.length == 0)
         success(@cache[postUrl])
       else
         @handle data, postUrl, success, failure
@@ -44,7 +44,8 @@ class @KnockoutSearchMethods
         url: "/search/#{postUrl}"
         data: data
         success: (json) =>
-          @cache[postUrl] = $.extend(true, {}, json) unless json.tags?
+          if !json.tags? || json.tags.length == 0
+            @cache[postUrl] = $.parseJSON JSON.stringify json
           success(json)
         failure: (json) ->
           failure(json)

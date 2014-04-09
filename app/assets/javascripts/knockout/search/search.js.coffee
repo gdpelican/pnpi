@@ -21,16 +21,29 @@ class @KnockoutSearch
         when 'text'   then 'I\'m looking for '
         else               ''
 
-    @handleEnter = (data, event) =>
+    @enterFetchEvent = (data, event) =>
       if event.charCode == 13
         @search().term event.currentTarget.value
-        @handleFetchEvent(data, event)
+        @searchFetchEvent data, event
       true
     
-    @handleTagToggle = (data, event) =>
+    @searchFetchEvent = (data, event) =>
+      @search().term '*' unless @search().term().length > 0
+      @search().tags []
+      @handleFetchEvent data, event
+    
+    @tagFetchEvent = (data, event) =>
       ko.utils.addOrRemoveItem(@search().tags, event.target.value, event.target.checked)
       @search().page 1
       @handleFetchEvent(data, event)
+    
+    @nextFetchEvent = (data, event) => 
+      @search().page @search().page() + 1
+      @handleFetchEvent data, event
+    
+    @prevFetchEvent = (data, event) =>
+      @search().page @search().page() - 1
+      @handleFetchEvent data, event
     
     @handleFetchEvent = (data, event) =>
       if @canHandle()
@@ -42,12 +55,11 @@ class @KnockoutSearch
       if @search().resource().length == 0
         @search().category ''
       else
-        @search().fetch @update, @failure, 'categories'
+        @fetchResults data, event, 'categories'
 
-    @fetchResults = (data, event) =>
+    @fetchResults = (data, event, type) =>
       event.stopPropagation()
-      $(event.currentTarget).data('changed', false)
-      @search().fetch @update, @failure
+      @search().fetch @update, @failure, type
       
     @update = (json) =>
       @canHandle true
@@ -70,6 +82,3 @@ class @KnockoutSearch
     @failure = (json) =>
       @canHandle true
       @errors json.errors
-    
-    @next = => @search().nextPage(@update, @failure)
-    @prev = => @search().prevPage(@update, @failure)

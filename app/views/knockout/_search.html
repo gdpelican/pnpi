@@ -15,10 +15,10 @@
 	<div data-bind="appear: type() == 'text'" class="search-view">
 		<div class="search-view-div">
 			<span data-bind="text: $root.leadText" class="lead-text"></span>
-			<input data-bind="event: { keypress: $root.handleEnter }, value: term" type="text" placeholder="Search. . .">
+			<input data-bind="event: { keypress: $root.enterFetchEvent }, value: term" type="text" placeholder="Search. . .">
 		</div>
 		<div data-bind="appear: $root.initialView()" class="search-view-spacer"></div>
-		<a data-bind="appear: canSearch, click: $root.fetchResults" class="search-button texture-background">Search</a>
+		<a data-bind="appear: canSearch, click: $root.searchFetchEvent" class="search-button texture-background">Search</a>
 		<div class="swap-search-view"><a data-bind="click: typeSwap">Search by type</a></div>
 	</div>
 </script>
