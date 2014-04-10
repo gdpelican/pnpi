@@ -7,10 +7,7 @@ class @KnockoutSearchMethods
         tags: json.tags
         format: 'json'
           
-      @cacheFetch data, \
-                  @getPostUrl(json), \
-                  success, \
-                  failure
+      @cacheFetch data, @getPostUrl(json), success, failure
     
     @tagLookup = (id) =>
       @cache[@getTagKey id]
@@ -34,7 +31,7 @@ class @KnockoutSearchMethods
     
     @cacheFetch = (data, postUrl, success, failure) =>
       if @cache[postUrl] && (!data.tags? || data.tags.length == 0)
-        success(@cache[postUrl])
+        success($.parseJSON @cache[postUrl])
       else
         @handle data, postUrl, success, failure
     
@@ -45,7 +42,7 @@ class @KnockoutSearchMethods
         data: data
         success: (json) =>
           if !json.tags? || json.tags.length == 0
-            @cache[postUrl] = $.parseJSON JSON.stringify json
+            @cache[postUrl] = JSON.stringify json
           success(json)
         failure: (json) ->
           failure(json)
