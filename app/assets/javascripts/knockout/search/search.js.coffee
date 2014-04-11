@@ -59,7 +59,7 @@ class @KnockoutSearch
 
     @fetchResults = (data, event, type) =>
       event.stopPropagation()
-      @search().fetch @update, @failure, type
+      @methods.fetch @search().json(type), @update, @failure
       
     @update = (json) =>
       @canHandle true

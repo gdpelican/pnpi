@@ -2,24 +2,28 @@ class @KnockoutSearchMethods
   constructor: ->
     @cache = {}
 
-    @search = (json, success, failure) ->
-      data =
+    @fetch = (json, success, failure) =>
+      data = 
         tags: json.tags
         format: 'json'
-          
-      @cacheFetch data, @getPostUrl(json), success, failure
+      cacheKey = @getCacheKey json
+      
+      if @cache[cacheKey]
+        success($.parseJSON @cache[cacheKey])
+      else
+        @handle data, @getPostUrl(json), success, failure
     
-    @tagLookup = (id) =>
-      @cache[@getTagKey id]
-    
+    @fetchTag = (id) =>
+      @fetch({ type: 'tags', id: id }, (json) -> json.tag )
+      
+    @store = (json) =>
+      @cache[@getCacheKey json] = JSON.stringify json
+
     @createTagLookup = (tagList) =>
       for type in Object.keys(tagList)
         for tag in tagList[type]
-          @cache[@getTagKey tag.id] = tag.tag
+          @store { type: 'tags', id: tag.id, tag: tag.tag }
     
-    @getTagKey = (id) ->
-      @getPostUrl {type: 'tags', id: id }
-      
     @getPostUrl = (json) ->
       url = json.type
       url += "/#{json.id}"        if json.type == 'tags'
@@ -29,11 +33,11 @@ class @KnockoutSearchMethods
       url += "/#{json.page || 1}" if json.type in ['filter', 'text', 'all']
       url
     
-    @cacheFetch = (data, postUrl, success, failure) =>
-      if @cache[postUrl] && (!data.tags? || data.tags.length == 0)
-        success($.parseJSON @cache[postUrl])
-      else
-        @handle data, postUrl, success, failure
+    @getCacheKey = (json) ->
+      key = @getPostUrl(json).replace(/\//g, '_')
+      if json.tags? && json.tags.length > 0
+        key += "_[#{json.tags}]"
+      key
     
     @handle = (data, postUrl, success, failure) ->
       $.ajax
@@ -41,8 +45,7 @@ class @KnockoutSearchMethods
         url: "/search/#{postUrl}"
         data: data
         success: (json) =>
-          if !json.tags? || json.tags.length == 0
-            @cache[postUrl] = JSON.stringify json
+          @store json
           success(json)
         failure: (json) ->
           failure(json)

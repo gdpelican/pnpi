@@ -57,14 +57,11 @@ class @KnockoutSearchResult
             
     @prevPage = (success, failure) ->
       @page(@page() - 1)
-      @fetch success, failure, @o_type()
+      @methods.fetch @json @o_type(), success, failure
       
     @nextPage = (success, failure) ->
       @page(@page() + 1)
-      @fetch success, failure, @o_type()
-
-    @fetch = (success, failure, type) ->  
-      @methods.search @json(type), success, failure
+      @methods.fetch @json @o_type(), success, failure
     
     @showPredicate = ko.computed => !!@resource()
     @predicate =     ko.computed =>
@@ -83,7 +80,7 @@ class @KnockoutSearchResult
         else               ""
                 
       tagsText = if @tags().length > 0 then \
-      " with tags " + ("'#{@methods.tagLookup(id)}'" for id in @tags()) else ""
+      " with tags " + ("'#{@methods.fetchTag(id)}'" for id in @tags()) else ""
         
       pageText = \
       ", page #{@page()} of #{@maxPage()}"
