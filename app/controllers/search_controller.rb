@@ -34,12 +34,12 @@ class SearchController < ApplicationController
   end
 
   def populate_search
-    cookies[:last_search] = { value: request.original_url, expires: 1.hour.from_now }
+    cookies[:last_search] = { value: params[:cache_key], expires: 1.hour.from_now }
     @search = Search.new search_params
   end
   
   def search_params
-    params.except(:controller, :action, :format).merge({ type: action_name })
+    params.except(:controller, :action, :format, :cache_key).merge({ type: action_name })
   end
   
 end

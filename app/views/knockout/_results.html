@@ -1,5 +1,5 @@
 <script type="text/html" id="results">
-	<ul data-bind="appear: showTags, visible: $root.tagList().length > 0, event: { change: $root.tagFetchEvent }, template: { name: 'tagType', foreach: $root.tagList }" class="tags-panel"></ul>
+	<ul data-bind="appear: showTags, visible: $root.tagList().length > 0, event: { change: $root.tagToggleFetchEvent }, template: { name: 'tagType', foreach: $root.tagList }" class="tags-panel"></ul>
 	<div class="results">
 		<div data-bind="visible: !$parent.loggedIn" class="lead-message">
 			<i class="fa fa-info"></i>

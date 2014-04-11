@@ -1,5 +1,5 @@
 class @KnockoutSearch
-  constructor: (json = {}, user = false, methods = new KnockoutSearchMethods()) ->
+  constructor: (json = {}, user = false, methods = new KnockoutSearchMethods(), cacheKey = nil) ->
     
     @methods =     methods
     
@@ -32,9 +32,15 @@ class @KnockoutSearch
       @search().tags []
       @handleFetchEvent data, event
     
-    @tagFetchEvent = (data, event) =>
+    @tagToggleFetchEvent = (data, event) =>
       ko.utils.addOrRemoveItem(@search().tags, event.target.value, event.target.checked)
       @search().page 1
+      @handleFetchEvent(data, event)
+    
+    @tagFetchEvent = (data, event) =>
+      event.preventDefault()
+      @search().page 1
+      @search().tags([$(event.currentTarget).data('id')])
       @handleFetchEvent(data, event)
     
     @nextFetchEvent = (data, event) => 
@@ -59,7 +65,7 @@ class @KnockoutSearch
 
     @fetchResults = (data, event, type) =>
       event.stopPropagation()
-      @methods.fetch @search().json(type), @update, @failure
+      @methods.fetchSearch @search().json(type), @update, @failure
       
     @update = (json) =>
       @canHandle true
@@ -70,6 +76,10 @@ class @KnockoutSearch
           @populateTags(json.tag_list)
           @initialView(false)
 
+    @failure = (json) =>
+      @canHandle true
+      @errors json.errors
+
     @populateTags = (tags) ->
       @tagList([])
       @methods.createTagLookup tags
@@ -78,7 +88,4 @@ class @KnockoutSearch
                         tags: new KnockoutTag tag for tag in tags[type] }
         
     @populateTags(json.tag_list) if json.tag_list
-
-    @failure = (json) =>
-      @canHandle true
-      @errors json.errors
+    @methods.fetchDirect(cacheKey, @update, @failure) if cacheKey

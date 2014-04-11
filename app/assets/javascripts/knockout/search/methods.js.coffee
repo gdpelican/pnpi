@@ -2,20 +2,31 @@ class @KnockoutSearchMethods
   constructor: ->
     @cache = {}
 
-    @fetch = (json, success, failure) =>
-      data = 
-        tags: json.tags
-        format: 'json'
+    @fetchSearch = (json, success, failure) =>
       cacheKey = @getCacheKey json
+      postUrl = @getPostUrl json
+      data =
+        tags:      json.tags
+        cache_key: cacheKey
+        format:    'json'
+      @fetch cacheKey, postUrl, data, success, failure
       
+    @fetchTag = (id) =>
+      @fetch("tags_#{id}", "tags/#{id}", null, (json) -> json.tag)
+    
+    @fetchDirect = (cacheKey, success, failure) =>
+      data =
+        tags:       cacheKey.substring(cacheKey.lastIndexOf('_'), cacheKey.length).match(/(\d+)/g)
+        cache_key:  cacheKey
+        format:     'json'
+      @fetch cacheKey, cacheKey.replace(/_/g, '/').replace(/\[\d*\]/g, ''), data, success, failure
+    
+    @fetch = (cacheKey, postUrl, data, success, failure) =>
       if @cache[cacheKey]
         success($.parseJSON @cache[cacheKey])
       else
-        @handle data, @getPostUrl(json), success, failure
+        @handle data, postUrl, success, failure
     
-    @fetchTag = (id) =>
-      @fetch({ type: 'tags', id: id }, (json) -> json.tag )
-      
     @store = (json) =>
       @cache[@getCacheKey json] = JSON.stringify json
 

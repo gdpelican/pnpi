@@ -11,7 +11,7 @@ PNPI::Application.routes.draw do
   
   resources :categories, controller: :groupings, type: :category, only: :index
   resources :tags,       controller: :groupings, type: :tag,      only: :index
-
+  
   post '/groupings/create/' => 'groupings#create',    as: :create_grouping
   post '/groupings/update/' => 'groupings#update',    as: :update_grouping
   post '/groupings/destroy/' => 'groupings#destroy',  as: :destroy_grouping
@@ -26,7 +26,8 @@ PNPI::Application.routes.draw do
   end
  
   get '/resources/:type/:scope' => 'resources#index', as: :scoped_resources
- 
+
+  post '/search/tags/:id' => 'tags#show'
   post '/search/resources' => 'search#resources'
   post '/search/categories/:resource' => 'search#categories'
   post '/search/tags/:resource/:category' => 'search#tags'

@@ -1,6 +1,6 @@
 
 @Knockout =
-  initialize: (json, user = false) ->
+  initialize: (json, user = false, cacheKey = nil) ->
     ko.bindingHandlers.appear =
       init: (element, shown) ->
         if ko.unwrap shown()
@@ -16,4 +16,4 @@
         else
           $(element).slideUp()
           
-    ko.applyBindings new KnockoutSearch(json, user, new KnockoutSearchMethods())
+    ko.applyBindings new KnockoutSearch(json, user, new KnockoutSearchMethods(), cacheKey)
