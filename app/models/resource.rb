@@ -122,4 +122,8 @@ class Resource < ActiveRecord::Base
     [:id, :name, :preview, :description, :picture, :active, :_destroy, tag_ids: [], category_ids: []] | self.details
   end
   
+  def self.details
+    []
+  end
+  
 end

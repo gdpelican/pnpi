@@ -16,7 +16,7 @@ class @KnockoutSearchMethods
     
     @fetchDirect = (cacheKey, success, failure) =>
       data =
-        tags:       cacheKey.substring(cacheKey.lastIndexOf('_'), cacheKey.length).match(/(\d+)/g)
+        tags:       cacheKey.substring(cacheKey.lastIndexOf('['), cacheKey.length).match(/(\d+)/g)
         cache_key:  cacheKey
         format:     'json'
       @fetch cacheKey, cacheKey.replace(/_/g, '/').replace(/\[\d*\]/g, ''), data, success, failure

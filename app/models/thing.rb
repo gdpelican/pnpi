@@ -43,14 +43,4 @@ class Thing < Resource
     [:hour, :day, :week, :month, :year].map { |period| ["per #{period}", "#{period}"]}
   end
   
-  private
-  
-  def remove_empty_price
-    price = nil if price == 0
-  end
-  
-  def zero_price?
-    price == nil || price == 0
-  end
-  
 end

@@ -33,6 +33,11 @@ GEM
       uuidtools (~> 2.1)
     bcrypt (3.1.7)
     bcrypt (3.1.7-x86-mingw32)
+    better_errors (1.0.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.1.4)
     chunky_png (1.3.0)
     climate_control (0.0.3)
@@ -40,6 +45,7 @@ GEM
     cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.6)
+    coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -54,12 +60,14 @@ GEM
     compass-rails (1.1.7)
       compass (>= 0.12.2)
       sprockets (<= 2.11.0)
+    debug_inspector (0.0.2)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    diff-lcs (1.2.5)
     draper (1.3.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -67,6 +75,11 @@ GEM
       request_store (~> 1.0.3)
     erubis (2.7.0)
     execjs (2.0.2)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     font-awesome-rails (4.0.3.1)
       railties (>= 3.2, < 5.0)
     formtastic (2.2.1)
@@ -125,6 +138,18 @@ GEM
     rdoc (4.1.1)
       json (~> 1.4)
     request_store (1.0.5)
+    rspec-core (2.14.8)
+    rspec-expectations (2.14.5)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.14.6)
+    rspec-rails (2.14.2)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
     rufus-scheduler (3.0.7)
       tzinfo
     sass (3.2.18)
@@ -169,11 +194,14 @@ PLATFORMS
 DEPENDENCIES
   arel
   aws-sdk
+  better_errors
+  binding_of_caller
   cocoon
   coffee-rails (~> 4.0.0)
   compass-rails
   devise
   draper (~> 1.3)
+  factory_girl_rails (~> 4.0)
   font-awesome-rails
   formtastic
   geocoder
@@ -184,6 +212,7 @@ DEPENDENCIES
   paperclip (~> 3.5.3)
   pg
   rails (= 4.0.0)
+  rspec-rails
   rufus-scheduler
   sass-rails (~> 4.0.0)
   sdoc
