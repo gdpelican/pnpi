@@ -2,12 +2,12 @@ header.search-form {
   box-shadow: 0 1px 5px black;
   padding: .5em 2.5%;
   text-align: right;
+  font-family: Coustard, sans-serif;
 
   h1, h2, h3 {
     padding-right: 10%;
     margin: 1% 0;
-    font-family: Coustard, sans-serif;
-    text-shadow: -3px 2px 0 black;
+    text-shadow: -2px 1px 0 black;
   }
 
   h1 { padding-top: 10%;
@@ -16,7 +16,8 @@ header.search-form {
   h3 { font-size: 100%; 
     a { 
       color: white;
-      text-decoration: undelrine;
+      text-decoration: none;
+      &:hover { color: rgb(100, 200, 100); }
     }
   }
   
@@ -26,16 +27,22 @@ header.search-form {
     
     select, input {
       padding: .25em 0.5em;
+      font-size: 1.05em;
       border-radius: .5em;
       background: rgba(0,0,0,.25);
       border: 0;
       outline: 0;
       color: white;
-      option { background: rgba(0,0,0,.75); 
+      option { text-align: right;
+               background: rgba(0,0,0,.75); 
                &:checked { background: transparent; } }
     }
     
-    .search-view-div { padding: 3em 10%; }
+    .search-view-div { 
+      padding: 3em 10%; 
+      >div { padding-bottom: .5em; }
+      span { padding-right: .5em; }
+    }
     .search-view-spacer { padding: 5% 0; }
     
     .search-button {
@@ -44,7 +51,7 @@ header.search-form {
       right: 5%;
       bottom: -1em;
       font-weight: bold;
-      width: 3em;
+      width: 3.5em;
       text-align: center;
       color: black;
       padding: 0 .5em 5px .5em;

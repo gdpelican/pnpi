@@ -4,10 +4,14 @@
 	<h3 data-bind="appear: $root.initialView"><a href="javascript:;" class="about-link">(Here's how.)</a></h3>
 	<div data-bind="appear: type() == 'filter' || type() == 'all'" class="search-view">
 		<div class="search-view-div">
-			<span   data-bind="text: $root.leadText" class="lead-text"></span>
-			<select data-bind="value: resource, options: $root.resources, optionsText: 'name', optionsValue: 'value', optionsCaption: '', event: { change: $root.fetchCategories } " class="resource"></select>
-			<span 	data-bind="visible: showPredicate, text: predicate" class="predicate"></span>
-			<select data-bind="visible: showPredicate, value: category, options: $root.categories, optionsText: 'name',  optionsValue: 'value', optionCaption: ''" class="category"></select>
+			<div>
+				<span   data-bind="text: $root.leadText" class="lead-text"></span>
+				<select data-bind="value: resource, options: $root.resources, optionsText: 'name', optionsValue: 'value', optionsCaption: '', event: { change: $root.fetchCategories } " class="resource" dir="rtl"></select>
+			</div>
+			<div>
+				<span 	data-bind="visible: showPredicate, text: predicate" class="predicate"></span>
+				<select data-bind="visible: showPredicate, value: category, options: $root.categories, optionsText: 'name',  optionsValue: 'value', optionCaption: ''" class="category" dir="rtl"></select>
+			</div>
 		</div>
 		<div data-bind="appear: $root.initialView()" class="search-view-spacer"></div>
 		<a   data-bind="appear: canSearch, click: $root.fetchResults" class="search-button texture-background">Search</a>
