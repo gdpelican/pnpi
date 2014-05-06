@@ -24,12 +24,12 @@ class Search
       page:       (page || 1).to_i,
       max_page:   max_page } : {})
   end
-  
+
+  private
+    
   def max_page
     [((Resource.count(search_hash) - 1) / PAGE_SIZE) + 1, 1].max
   end
-
-  private
   
   def search_hash
     { search: type.to_sym, 

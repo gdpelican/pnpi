@@ -4,14 +4,13 @@ describe Resource do
   
   before :each do
     @resource = build :place, :resource
-    #@resource = Resource.new name: 'Test name', preview: 'Preview', description: 'description', type: 'Place'
   end
   
   it "has a name, type, preview, and description" do
-    @resource.name.should == 'test name'
-    @resource.preview.should == 'preview'
-    @resource.description.should == 'description'
-    @resource.type.should == 'Place'
+    @resource.name.should =~ /test name/
+    @resource.preview.should eq 'preview'
+    @resource.description.should eq 'description'
+    @resource.type.should eq 'Place'
     @resource.should be_valid
   end
   

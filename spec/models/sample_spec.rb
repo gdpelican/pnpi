@@ -8,16 +8,16 @@ describe Sample do
   end
   
   it "should have an attachment" do
-    @sample.picture_file_name.should == 'missing_person.png'
+    @sample.picture_file_name.should eq 'missing_person.png'
     @sample.should be_valid
   end
   
   
   it "should have owners" do
     build(:person, samples: [@sample]).save
-    @sample.owners.size.should == 1
-    @sample.owners.first.name.should == 'test person'
-    @sample.owners.first.type.should == 'Person'
+    @sample.owners.should have(1).items
+    @sample.owners.first.name.should eq 'test person'
+    @sample.owners.first.type.should eq 'Person'
   end
   
 end

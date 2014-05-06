@@ -5,6 +5,7 @@ FactoryGirl.define do
     email 'test@email.com'
     website 'www.example.com'
     phone '555 555 5555'
+    resource
   end
   
   factory :place do
@@ -20,8 +21,9 @@ FactoryGirl.define do
     picture File.open 'public/images/missing_person.png'
   end
   
+  sequence(:name) { |n| 'test name #{n}' }
   trait :resource do
-    name 'test name'
+    name
     preview 'preview'
     description 'description'  
   end
@@ -33,6 +35,28 @@ FactoryGirl.define do
   
   factory :tag_type do
     name 'test type'
+  end
+  
+  factory :search do
+    
+  end
+  
+  trait :filter do
+    type 'filter'
+    resource 'Person'
+  end
+  
+  trait :text do
+    type 'text'
+    term '5'
+  end
+  
+  trait :category do
+    type 'categories'
+  end
+  
+  trait :all do
+    type 'all'
   end
   
 end

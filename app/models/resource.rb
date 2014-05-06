@@ -22,10 +22,11 @@ class Resource < ActiveRecord::Base
   
   scope :include_children, -> { includes([:tags, :categories]) }
   
-  scope :filter_search, ->(resource = '', category = '') {  
-    joins(:categories)
+  scope :filter_search, ->(resource, category) {  
+    joins('LEFT OUTER JOIN "categories_resources" on "categories_resources"."resource_id" = "resources"."id"')
+   .joins('LEFT OUTER JOIN "categories" on "categories_resources"."category_id" = "categories"."id"')
    .where(type: resource.humanize)
-   .where('categories.name = ?', category.humanize).references(:categories) }  
+   .where('? or categories.name = ?', (category.blank?) ? "TRUE" : "FALSE", category.humanize).references(:categories) }  
       
   scope :text_search, ->(term = '%') { 
     where('name ilike ? OR description ilike ?', "%#{term}%", "%#{term}%") }
@@ -99,14 +100,14 @@ class Resource < ActiveRecord::Base
     Resource.retrieve(options).paging(options)
   end
   
-  def self.count(options = {})
+  def self.count(options = { search: :all })
     Resource.retrieve(options).count
   end
   
   def self.retrieve(options = {})
     options[:term] = '' if options[:term] == '*'
     results = case options[:search].to_sym
-              when :filter then filter_search options[:resource], options[:category]
+              when :filter then filter_search options[:resource] || '', options[:category] || ''
               when :text   then text_search options[:term]
               when :all    then all
               else              none end

@@ -7,7 +7,7 @@ describe Person do
   end
   
   it "should have an email" do
-    @person.email.should == 'test@email.com'
+    @person.email.should eq 'test@email.com'
     @person.should be_valid
   end
   
@@ -17,19 +17,19 @@ describe Person do
   end
   
   it "can have a phone number" do
-    @person.phone.should == '555 555 5555'
+    @person.phone.should eq '555 555 5555'
     @person.phone = nil
     @person.should be_valid
   end
   
   it "should construct a name when it is saved" do
     @person.save!
-    @person.name.should == 'test person'
+    @person.name.should eq 'test person'
   end
     
   it "should append http:// to its website when saved" do
     @person.save!
-    @person.reload.website.should == 'http://www.example.com'
+    @person.reload.website.should eq 'http://www.example.com'
   end
   
   it "should have jobs" do
@@ -49,7 +49,7 @@ describe Person do
   end
   
   it "can generate a signup token" do
-    @person.generate_signup_token.length.should == 10
+    @person.generate_signup_token.should have(10).characters
   end
   
 end
