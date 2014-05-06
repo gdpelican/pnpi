@@ -9,9 +9,6 @@ class @KnockoutResource
     @tags = json.tags.slice(0,4)
     @previewClass = @type + '-wrapper resource-wrapper'
     @showUrl = json.show_url
-    @filtered = ko.observable(false)
+    @user = user
     @previewText = ko.computed =>
       @preview || @description.substring(0, 100) + (if @description.length > 100 then '...' else '')
-    @showResource = ->
-      if user
-        window.location.href = @showUrl
