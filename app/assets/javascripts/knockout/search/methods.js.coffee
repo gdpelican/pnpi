@@ -15,17 +15,20 @@ class @KnockoutSearchMethods
       @fetch("tags_#{id}", "tags/#{id}", null, (json) -> json.tag)
     
     @fetchDirect = (cacheKey, success, failure) =>
+      tagRegex = /\[(.*)\]/g
+      tags = tagRegex.exec cacheKey
       data =
-        tags:       cacheKey.substring(cacheKey.lastIndexOf('['), cacheKey.length).match(/(\d+)/g)
+        tags:       if tags? then tags[1].split(',') else []
         cache_key:  cacheKey
         format:     'json'
-      @fetch cacheKey, cacheKey.replace(/_/g, '/').replace(/\[\d*\]/g, ''), data, success, failure
+      @fetch cacheKey, cacheKey.replace(/_/g, '/').replace(tagRegex, ''), data, success, failure
     
-    @fetch = (cacheKey, postUrl, data, success, failure) =>
+    @fetch = (cacheKey, postUrl, data, success, failure, repeat = true) =>
       if @cache[cacheKey]
         success($.parseJSON @cache[cacheKey])
       else
-        @handle data, postUrl, success, failure
+        @handle(data, postUrl, success, failure).then =>
+          @fetch cacheKey, postUrl, data, success, failure, false if repeat
     
     @store = (json) =>
       @cache[@getCacheKey json] = JSON.stringify json
