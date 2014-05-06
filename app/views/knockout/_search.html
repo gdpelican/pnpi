@@ -1,7 +1,12 @@
 <script type="text/html" id="search">
+	<div data-bind="appear: $root.showAbout" class="modal about">
+		<div class="overlay"></div>
+		<div class="content about texture-background">ABOUT PNPI</div>
+		<div data-bind="click: $root.toggleAbout" class="exit"></div>
+	</div>
 	<h1 data-bind="appear: $root.initialView">You want to make theater?</h1>
 	<h2 data-bind="appear: $root.initialView">We want to help.</h2>
-	<h3 data-bind="appear: $root.initialView"><a href="javascript:;" class="about-link">(Here's how.)</a></h3>
+	<h3 data-bind="appear: $root.initialView"><a data-bind="click: $root.toggleAbout" href="javascript:;" class="about-link">(Here's how.)</a></h3>
 	<div data-bind="appear: type() == 'filter' || type() == 'all'" class="search-view">
 		<div class="search-view-div">
 			<div>

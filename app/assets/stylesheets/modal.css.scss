@@ -1,0 +1,47 @@
+
+.modal {
+  z-index: 5000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  .exit {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
+    &:after {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      font-family: FontAwesome;
+      font-size: 2em;
+      content: "\f00d";
+    }
+    &:hover:after { color: rgb(200, 100, 100); }
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.7);
+  }
+  .content {
+    box-sizing: border-box;
+    padding: 2em;
+    position: absolute;
+    width: 50%;
+    margin: auto 25%;
+    text-align: center;
+    box-shadow: 0 0 10px 5px black;
+    color: black;
+    top: 7em;
+    border-radius: .5em;
+  }
+}

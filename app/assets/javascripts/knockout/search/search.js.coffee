@@ -4,7 +4,9 @@ class @KnockoutSearch
     @methods =     methods
     
     @initialView = ko.observable(!json.results)
-  
+    @showAbout =   ko.observable(false)
+    @toggleAbout = => @showAbout !@showAbout()
+      
     @resources =   ko.observableArray(json.resources or [])
     @categories =  ko.observableArray(json.categories or [])
     @tagList =     ko.observableArray([])
@@ -75,7 +77,7 @@ class @KnockoutSearch
           @search().update(json)
           @populateTags(json.tag_list)
           @initialView(false)
-
+    
     @failure = (json) =>
       @canHandle true
       @errors json.errors
