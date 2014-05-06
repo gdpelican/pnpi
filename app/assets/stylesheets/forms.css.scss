@@ -98,6 +98,7 @@ form.resource {
     
     &.styled-inputs {
       label {
+        transition: .1s all;
         pointer-events: none;
         &.open {
           top: .4em;
@@ -135,6 +136,7 @@ form.resource {
       .file>label,
       textarea,
       select {
+        font-family: Arial;
         display: inline-block;
         width: 100%; 
         outline: 0;
