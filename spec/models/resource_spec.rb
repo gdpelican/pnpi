@@ -28,13 +28,12 @@ describe Resource do
   end
   
   it "has a maximum number of categories" do
-    @resource.categories = (Resource.max_categories + 1).times.map { Category.new }
+    @resource.categories = (ResourceValidator::MAX_CATEGORIES + 1).times.map { Category.new }
     @resource.should_not be_valid
   end
   
   it "has a maximum number of tags" do
-    max_tags = Resource.max_tags
-    @resource.tags = (Resource.max_tags + 1).times.map { Tag.new }
+    @resource.tags = (ResourceValidator::MAX_TAGS + 1).times.map { Tag.new }
     @resource.should_not be_valid
   end
   
