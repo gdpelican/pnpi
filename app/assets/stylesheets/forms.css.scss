@@ -1,7 +1,7 @@
 @import "compass/layout/stretching";
 
 form.resource {
-  
+  font-family: Coustard, sans-serif;
   ul, li, ol { list-style-type: none; padding: 0; margin: 0; }
   
   .fifth {             width: 20%; }
@@ -11,8 +11,8 @@ form.resource {
   .full {              width: 100%; }
   .upload-with-file {  width: 89%; position: relative; left: 2.5%; }
   .select-full {       width: 104%; }
-  .select-four-fifth { width: 78%; position: relative; left: 5%; }
-  
+  .select-four-fifth { width: 78%; position: relative; left: 14%; }
+    
   fieldset { margin: 0; padding: 0; border: 0; }
   
   input[type=file],
@@ -97,6 +97,36 @@ form.resource {
     }
     
     &.styled-inputs {
+      label {
+        pointer-events: none;
+        &.open {
+          top: .4em;
+          padding: .7em;
+          font-size: .75em;
+          i { display: none }
+          padding-right: 1.5em;
+          border-radius: .5em;
+        }
+        &.closed {
+          width: 1em;
+          border-radius: .5em 0 0 .5em;
+          &.text { border-radius: .5em 0 0 0; }
+          &::first-letter {
+            padding-right: 50em;
+          }
+        }
+        box-shadow: 0 0 2px black;
+        position: absolute;
+        padding: .5em;
+        background: rgba(187, 187, 119, .5);
+        height: 1em;
+        overflow: hidden;
+        left: 0;
+        top: .2em;
+      }
+      
+      .text label.closed { border-radius: .5em 0 0 0; }
+      
       input[type=text], 
       input[type=number],
       input[type=email],
@@ -109,7 +139,7 @@ form.resource {
         width: 100%; 
         outline: 0;
         border-radius: .5em;
-        padding: .5em;
+        padding: .5em .5em .5em 2.75em;
         margin: .25em 0;
         background: rgba(255,255,255,.75);
         border: 1px inset;
@@ -130,7 +160,7 @@ form.resource {
     }
     
     .file > label { 
-      padding: .5em 0 !important;
+      padding: .75em 0 !important;
       position: relative;
       text-align: center; 
       &:before {

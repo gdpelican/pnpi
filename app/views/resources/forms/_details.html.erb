@@ -9,20 +9,19 @@
 	<%= f.input :signup_token, as: :hidden, input_html: { value: f.object.signup_token } %>
 	<%= string_input f, :first_name, :string, 'half-pad' %>
 	<%= string_input f, :last_name, :string, 'half' %>
-	<%= string_input f, :email, :email %>
-	<%= string_input f, :phone, :phone, 'full', css: 'phone' %>
-	<%= string_input f, :website, :url %>
-	<%= string_input f, :preview, :string, 'full', placeholder: '140 character blurb about yourself. . .' %>
+	<%= string_input f, :email, :email, 'full', icon: 'envelope-o' %>
+	<%= string_input f, :phone, :phone, 'full', css: 'phone', icon: 'phone' %>
+	<%= string_input f, :website, :url, 'full', icon: 'laptop' %>
+	<%= string_input f, :description, :text, 'full', icon: 'comment', prompt: 'Biography' %>
+	<%= string_input f, :preview, :string, 'full', icon: 'heart', prompt: 'What do you love most about theater?' %>
 <% when :place %>
-	<%= string_input f, :address, :string %>
-	<%= string_input f, :preview, :string, 'full', placeholder: '140 character description. . .' %>
+	<%= string_input f, :address, :string, 'full', icon: 'map-marker' %>
+	<%= string_input f, :description, :text, 'full', icon: 'comment' %>
 <% when :thing %>
-	<%= string_input f, :price, :string, 'fifth', placeholder: 'Rental price. . .', css: 'currency' %>
-	<%= select_input f, :period, @periods, placeholder: 'Rental period. . .', field_size: 'select-four-fifth', value: f.object.selected_period %>
-	<%= string_input f, :preview, :string, 'full', placeholder: '140 character description. . .' %>
+	<%= string_input f, :price, :string, 'fifth', css: 'currency', icon: 'dollar' %>
+	<%= select_input f, :period, @periods, field_size: 'select-four-fifth', value: f.object.selected_period, icon: 'clock-o' %>
+	<%= string_input f, :description, :text, 'full', icon: 'comment' %>
 <% when :sample %>
 <% end %>
-
-<%= string_input f, :description, :text, 'full', placeholder: 'Enter description. . .' %>
 
 <%= render partial: 'resources/forms/possessions', locals: { f: f } if f.object.person? && f.object.id.present? %>

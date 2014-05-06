@@ -15,6 +15,17 @@
       
       form = $('form.resource')
       if form?
+        form.find('.basic.styled-inputs').on 'mouseenter focus', 'input, textarea, select', ->
+          $(@).siblings('label').addClass('closed').removeClass('open')
+        form.on 'mouseleave blur', '.basic.styled-inputs input, .basic.styled-inputs textarea', ->
+          if not $(@).val()
+            $(@).siblings('label').addClass('open').removeClass('closed')
+        form.find('.basic.styled-inputs').find('label').each ->
+          if $(@).siblings('input, textarea, select').val()
+            $(@).addClass('closed')
+          else
+            $(@).addClass('open')
+        
         form.find('li.tag').each ->
           if $(@).find('input[checked=checked]').length > 0
             $(@).addClass 'selected'
