@@ -44,6 +44,10 @@ nav {
       border-radius: .25em;
       border: none;
     }
+    a {
+      text-decoration: none;
+      i { padding: 0 .5em; }
+    }
     i { cursor: pointer }
     
     >.dashboard {
