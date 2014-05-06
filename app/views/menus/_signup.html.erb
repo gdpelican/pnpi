@@ -1,1 +1,4 @@
-<%= content_tag :div, link_to(font_icon('plus'), new_person_path), class: 'nav-item link tuck-link', title: 'Sign Up!' %>
+<%= content_tag :div, '', class: 'nav-item link tuck-link', title: 'Sign up!' do %>
+ <%= link_to font_icon('plus'), new_person_path %>
+ <%= content_tag :span, 'Sign up' %>
+<% end %>

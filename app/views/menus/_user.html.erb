@@ -1,5 +1,6 @@
-<%= content_tag :div, '', class: 'nav-item menu menu-down', title: 'Account options' do %>
+<%= content_tag :div, '', class: 'nav-item menu user-menu menu-down', title: 'Account options' do %>
 	<%= link_to user_avatar || font_icon('user'), person_path(current_user.person) %>
+	<%= content_tag :span, 'Profile' if user_avatar.blank?%>
 	<%= content_tag :ul, class: 'dashboard dashboard-down user-dashboard' do %>
 		<%= content_tag :li, "#{current_user.person.name}" %>
 		<%= content_tag :li, current_user.person.email %>

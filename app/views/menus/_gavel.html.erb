@@ -1,5 +1,6 @@
 <%= content_tag :div, '', class: 'nav-item menu menu-down', title: 'Admin functions' do %>
 	<%= font_icon 'gavel' %>
+	<%= content_tag :span, 'Admin' %>
 	<%= content_tag :ul, class: 'dashboard dashboard-down admin-dashboard' do %>
 		<%= menu_link 'Manage People', scoped_resources_path(:people, :all) do %>
 			<%= submenu_link 'Awaiting approval', scoped_resources_path(:people, :unapproved) %>

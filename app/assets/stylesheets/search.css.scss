@@ -3,22 +3,21 @@ header.search-form {
   padding: .5em 2.5%;
   text-align: right;
 
-  h1 { 
-    font-family: Arial black; 
-    padding: 10% 10% 0 0;
-    font-size: 250%;
+  h1, h2, h3 {
+    padding-right: 10%;
+    margin: 1% 0;
+    font-family: Coustard, sans-serif;
     text-shadow: -3px 2px 0 black;
   }
-  h2 { 
-    font-family: Arial; margin: 0; 
-    padding: 0 10% 5% 0;
-    font-size: 175%;
-    text-shadow: -3px 2px 0 black;
-  }
-  h3 {
-    margin: 0;
-    text-decoration: underline;
-    font-size: 100%;
+
+  h1 { padding-top: 10%;
+       font-size: 250%; }
+  h2 { font-size: 175%; }
+  h3 { font-size: 100%; 
+    a { 
+      color: white;
+      text-decoration: undelrine;
+    }
   }
   
   .search-view {

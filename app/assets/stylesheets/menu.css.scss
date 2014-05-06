@@ -23,18 +23,22 @@ nav {
   top: 0;
   padding: .5em 1em;
 
-  .nav-item { 
-    padding: .75em;
+  .nav-item {
+    font-family: Coustard, sans-serif;
+    font-size: .9em;
     display: inline-block;
-    
+
+    padding: .75em;
+    cursor: pointer;
     z-index: 3;
     vertical-align: top;
-    display: inline-block; 
     position: relative;
 
+    &.user-menu { z-index: 10; }     
+    span { padding-left: .5em; }
     img { 
-      width: 5em;
-      height: 5em; 
+      width: 6em;
+      height: 6em; 
       cursor: pointer; 
       margin: -.25em -.25em -.55em;
       border-radius: .25em;
@@ -115,4 +119,29 @@ nav {
     }
   }
   
+  form.new_user {
+   
+    label { padding-left: .5em; }
+    input[type=email],
+    input[type=password] {
+      background: rgba(100,100,100,.5);
+      border: 0;
+      padding: .5em;
+      border-radius: .5em;
+      color: white;
+      margin-bottom: 1em;
+    } 
+    
+    input[type=submit] {
+      width: 100%;
+      color: white;
+      border: 0;
+      background: rgb(100,200,100);
+      padding: .5em;
+      border-radius: .5em;
+      font-size: 1.1em;
+      margin-top: .5em;
+      cursor: pointer;
+    }  
+  } 
 }
