@@ -1,0 +1,24 @@
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 700px) {
+
+  .logo img { 
+    width: 4.5em !important;
+    height: 4.5em !important; 
+  }
+
+  header.search-form {
+    padding-top: 4em !important;
+    h1, h2, h3 { padding-right: 0% !important; }
+    h1 { font-size: 150% !important; }
+    h2 { font-size: 125% !important; }
+    input[type=text] { width: 10em; }
+    .search-view-div { padding: 3em 2.5% !important; }
+  }
+  
+  .modal .content {
+    width: 90% !important;
+    margin: auto 5% !important;
+  }
+  
+}
