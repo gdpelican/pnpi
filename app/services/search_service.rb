@@ -3,7 +3,7 @@ class SearchService
   @@model = Resource
   
   def self.search(params, paging = true)
-    options[:term] = '' if params[:term] == '*'
+    params[:term] = '' if params[:term] == '*'
     
     results = case params[:search].to_sym
     when :filter then filter_search resource: params[:resource], category: params[:category]
