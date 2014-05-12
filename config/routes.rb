@@ -35,6 +35,7 @@ PNPI::Application.routes.draw do
   post '/search/filter/:resource/:category(/:page)' => 'search#filter'
   post '/search/text/:term(/:page)' => 'search#text'
   post '/search/all(/:page)' => 'search#all'
+  post '/search/touch/:cache_key' => 'search#touch'
   
   get '/search/filter/:resource/:category(/:page)' => 'search#filter'
   get '/search/text/:term(/:page)' => 'search#text'

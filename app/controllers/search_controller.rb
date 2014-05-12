@@ -1,13 +1,16 @@
 class SearchController < ApplicationController
   respond_to :html, :json
   SEARCHES = [:categories, :filter, :text, :all]
-  before_action :populate_types
-  before_action :populate_search, except: :new
+  before_action :populate_search, except: :touch
   
   def new
-    @search = Search.new type: :new
   end
   
+  def touch
+    set_last_search_cookie
+    render nothing: true
+  end
+    
   protected
   
   def initialize
@@ -29,17 +32,21 @@ class SearchController < ApplicationController
   
   private
 
-  def populate_types
-    @types = Resource.types
-  end
-
   def populate_search
-    cookies[:last_search] = { value: params[:cache_key], expires: 1.hour.from_now }
+    @types = Resource.types
     @search = Search.new search_params
   end
   
   def search_params
-    params.except(:controller, :action, :format, :cache_key).merge({ type: action_name })
+    if action_name == 'new'
+      { type: :new }
+    else
+      params.except(:controller, :action, :format, :cache_key).merge({ type: action_name })      
+    end
+  end
+  
+  def set_last_search_cookie
+    cookies[:last_search] = { value: params[:cache_key], expires: 1.hour.from_now } if params[:cache_key]
   end
   
 end

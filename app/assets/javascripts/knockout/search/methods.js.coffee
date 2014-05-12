@@ -26,6 +26,7 @@ class @KnockoutSearchMethods
     @fetch = (cacheKey, postUrl, data, success, failure, repeat = true) =>
       if @cache[cacheKey]
         success($.parseJSON @cache[cacheKey])
+        $.post("/search/touch/#{cacheKey}")
       else
         @handle(data, postUrl, success, failure).then =>
           @fetch cacheKey, postUrl, data, success, failure, false if repeat
