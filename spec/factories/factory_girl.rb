@@ -8,13 +8,19 @@ FactoryGirl.define do
     resource
   end
   
+  factory :user do
+    password 'password'
+  end
+  
   factory :place do
     address '555 Any Street, Springfield, USA'
+    resource
   end
   
   factory :thing do
     price '5.00'
     period 'week'
+    resource
   end
   
   factory :sample do
@@ -25,8 +31,13 @@ FactoryGirl.define do
   trait :resource do
     name
     preview 'preview'
-    description 'description'  
+    description 'description'
+    active true
   end
+  
+  factory :job  
+  factory :event
+  factory :price
   
   factory :tag do
     name 'test tag'

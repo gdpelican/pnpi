@@ -13,16 +13,32 @@ class Search
   
   def as_json(options = {})
     { type:       type,
-      resources:  Resource.types, 
-      categories: Category.search(resource) }.merge(doing_search? ? 
-    { results:    SearchService.search(search_hash),
-      tag_list:   TagType.search(resource, category),
+      resources:  resources, 
+      categories: categories }.merge(doing_search? ? 
+    { results:    results,
+      tag_list:   tag_list,
       tags:       tags || [],
       term:       term,
       resource:   resource, 
       category:   category,
       page:       (page || 1).to_i,
       max_page:   max_page } : {})
+  end
+  
+  def resources
+    Resource.types
+  end
+  
+  def categories
+    Category.search resource
+  end
+  
+  def results
+    SearchService.search search_hash
+  end
+  
+  def tag_list
+    TagType.search resource, category
   end
 
   private
