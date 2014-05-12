@@ -45,6 +45,10 @@ group :test, :development do
   gem 'factory_girl_rails', '~> 4.0'
 end
 
+group :test do
+  gem 'codeclimate-test-reporter'
+end
+
 gem 'paperclip', '~> 3.5.3'
 gem 'geocoder'
 gem 'formtastic'
