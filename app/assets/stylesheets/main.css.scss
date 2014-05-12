@@ -20,6 +20,7 @@ body:not(.search) { padding-top: 7em; }
   text-align: center;
   color: white;
   z-index: 9999;
+  pointer-events: none;
   &.notice { background: rgba(0, 255, 0, .5); }
   &.alert { background: rgba(255, 0, 0, .5); } 
 }
