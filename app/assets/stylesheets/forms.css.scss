@@ -165,14 +165,18 @@ form.resource {
       padding: .75em 0 !important;
       position: relative;
       text-align: center; 
+      color: transparent;
+      cursor: pointer;
       &:before {
+        line-height: 1.5em;
         background: #CCC;
-        background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+        background: rgba(187, 187, 119, .5);
+        color: black;
         border-radius: .25em;
         @include stretch(.5em, .5em, .5em, .5em);
         border: 1px solid #999;
-        cursor: pointer;
         content: 'Upload picture';
+        pointer-events: auto;
       }
       &.is-ready:before { content: 'File chosen' !important; }
     }
