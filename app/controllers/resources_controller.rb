@@ -7,6 +7,7 @@ class ResourcesController < ApplicationController
   before_action :set_collections,     only: [:new, :edit, :show]
   before_action :require_admin,       only: [:index, :destroy]
   before_action :require_owner,       only: [:edit, :update]
+  before_action :require_non_user,    only: [:new]
   before_action :require_user,        only: [:show]
   before_action :set_last_search,     only: [:show]
     

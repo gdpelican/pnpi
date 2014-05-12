@@ -30,6 +30,10 @@ class ApplicationController < ActionController::Base
     handle_auth current_user.present?, 'You must be logged in to complete this action'
   end
   
+  def require_non_user
+    handle_auth current_user.blank?, 'You are already logged in'
+  end
+  
   protected
 
   def set_background

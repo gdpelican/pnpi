@@ -1,13 +1,109 @@
 require 'spec_helper'
-require 'pry'
 
 describe ResourcesController do
  
   let(:app_controller) { controller }
+  let(:user) {  create :user, person_id: create(:person, :resource).id }
+  let(:admin) { create :user, person_id: create(:person, :resource).id, admin: true }
+ 
+  before do
+    Paperclip::Attachment.any_instance.stub(:save).and_return true    
+    WelcomeMailer.any_instance.stub(:welcome_email).and_return true
+  end
+        
+  context "admin authentication" do
+    before do
+      app_controller.stub(:current_user).and_return admin
+    end
+    
+    it "can access the create route" do
+      post :create, type: 'Person', person: { name: 'test', description: 'description', email: 'wark@wark.com', website: 'http://www.example.com' }
+      resource = assigns(:resource)
+      resource.should be_valid
+      response.should redirect_to person_url resource      
+    end
+    
+    it "can access the index route" do
+      get :index, type: 'Place'
+      response.should render_template :index
+    end
+    
+    it "can access the update route" do
+      person = create :person, :resource
+      post :update, id: person.id, type: 'Person', person: { website: 'http://www.wark.com' }
+      person.reload.website.should eq 'http://www.wark.com'
+      resource = assigns(:resource)
+      response.should redirect_to edit_person_path resource  
+    end
+    
+    it "can access the destroy route" do
+      sample = create :sample, :resource
+      post :destroy, type: 'Sample', id: sample.id
+      response.should redirect_to samples_path      
+    end
+    
+  end
+  
+  context "user authentication" do
+    before do
+      app_controller.stub(:current_user).and_return user
+    end
+    
+    it "can access the show route" do
+      thing = create :thing, :resource
+      get :show, type: 'Thing', id: thing.id
+      response.should render_template :show
+    end
+    
+    it "can access its own edit route" do
+      get :edit, type: 'Person', id: user.person.id
+      response.should render_template :edit
+    end
+    
+    it "cannot access another's edit route" do
+      person = create :person, :resource
+      get :edit, type: 'Person', id: person.id
+      response.should redirect_to root_url
+    end
+    
+    it "cannot access the new route" do
+      get :new, type: 'Person'
+      response.should redirect_to root_url
+    end
+    
+  end
+  
+  context "non-user authentication" do
+    before do
+      app_controller.stub(:current_user).and_return nil
+    end
+    
+    it "cannot access the show route" do
+      thing = create :thing, :resource
+      get :show, type: 'Thing', id: thing.id
+      response.should redirect_to root_url
+    end
+    
+    it "cannot access the edit route" do
+      place = create :place, :resource
+      get :edit, type: 'Place', id: place.id
+      response.should redirect_to root_url
+    end
+    
+    it "can access the new person route" do
+      get :new, type: 'Person'
+      response.should render_template :new
+    end
+    
+    it "cannot access the new thing route" do
+      get :new, type: 'Thing'
+      response.should redirect_to root_url
+    end
+    
+  end
   
   context "skip authentication" do
     before do
-      Paperclip::Attachment.any_instance.stub(:save).and_return true
       app_controller.stub(:handle_auth).and_return true
       app_controller.stub(:current_user).and_return User.new
     end
@@ -96,10 +192,10 @@ describe ResourcesController do
         thing.reload.name.should eq 'New thing name'
       end
       
-      it "can deactivate a place" do
-        place = create :place, :resource
-        post :update, id: place.id, type: 'Place', place: { active: false }
-        place.active.should eq false
+      it "can activate a place" do
+        place = create :place, :resource, active: false
+        post :update, id: place.id, type: 'Place', place: { active: true }
+        place.reload.active.should eq true
       end
       
       it "does not update an invalid sample" do
