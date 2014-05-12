@@ -1,28 +1,11 @@
 == README
+{<img src="https://codeclimate.com/github/gdpelican/pnpi.png" />}[https://codeclimate.com/github/gdpelican/pnpi]
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+PNPI is a database application for the Philadelphia New Play Initiative,
+designed to allow theater artists to easily connect with one another.
 
-Things you may want to cover:
+It's written in Ruby 2.0, Rails 4.0, and Knockout.
 
-* Ruby version
+You can view it online here[http://pnpi.herokuapp.com]
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Any issues feel free to contact james.kiesel@gmail.com[mailto:james.kiesel@gmail.com]
