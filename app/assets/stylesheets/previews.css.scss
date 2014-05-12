@@ -34,6 +34,8 @@ div.preview {
 }
  
 .resource-title { 
+  font-size: .9em;
+  margin: .25em 0;
   font-weight: bold;
   a {
     color: black;
@@ -44,8 +46,12 @@ div.preview {
 
 .resource-subtitle {
   font-size: .85em;
-  padding: .3em;
+  padding: 0 .3em;
   font-style: italic;
+}
+
+.resource-body {
+  padding-top: .25em;
 }
 
 .resource-image {
@@ -61,8 +67,13 @@ div.preview {
 
 .resource-info {
   text-align: left;
+  font-size: .9em;
   float: right;
   width: 75%;
 }
 
-.resource-tags { clear: both; }
+.resource-tags { 
+  font-size: 1.1em;
+  padding-top: .5em;
+  clear: both; 
+}

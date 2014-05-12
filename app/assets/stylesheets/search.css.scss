@@ -121,7 +121,10 @@ main.results {
     background: rgba(200, 200, 150, 0.3);
     ul, li { list-style-type: none; }
     > li {
-      h3 { margin-bottom: .25em; }
+      h3 { 
+        font-size: .8em;
+        margin-bottom: .25em; 
+      }
       text-align: left;
       display: inline-block;
       vertical-align: top;
@@ -135,12 +138,12 @@ main.results {
   }
   
   .page { 
+    font-family: Coustard;
     border-radius: .5em;
     font-weight: bold;
     border: none;
     background: rgba(200, 200, 150, 0.5);
     text-shadow: -1px -1px 0px white;
-    font-variant: small-caps;
     margin: .5em;
     padding: .5em;
     cursor: pointer;

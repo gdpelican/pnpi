@@ -1,7 +1,6 @@
 @import "compass/layout/stretching";
 
 form.resource {
-  font-family: Coustard, sans-serif;
   ul, li, ol { list-style-type: none; padding: 0; margin: 0; }
   
   .fifth {             width: 20%; }
@@ -123,7 +122,7 @@ form.resource {
         height: 1em;
         overflow: hidden;
         left: 0;
-        top: .2em;
+        top: .25em;
       }
       
       .text label.closed { border-radius: .5em 0 0 0; }
@@ -136,7 +135,8 @@ form.resource {
       .file>label,
       textarea,
       select {
-        font-family: Arial;
+        font-family: Rokkitt;
+        font-size: 1em;
         display: inline-block;
         width: 100%; 
         outline: 0;
