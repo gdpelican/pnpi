@@ -66,7 +66,12 @@ describe ResourcesController do
       response.should redirect_to root_url
     end
     
-    it "cannot access the new route" do
+    it "can access the new thing route" do
+      get :new, type: 'Thing'
+      response.should render_template :new
+    end
+    
+    it "cannot access the new person route" do
       get :new, type: 'Person'
       response.should redirect_to root_url
     end
