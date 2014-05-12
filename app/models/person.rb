@@ -33,7 +33,7 @@ class Person < Resource
   
   def prepare_for_save
     self.name = "#{first_name} #{last_name}" if first_name.present? and last_name.present?
-    self.email = self.email.downcase
+    self.email = self.email.downcase if self.email
     self.website = "http://#{self.website}" unless self.website.blank? || self.website[/^https?/]
   end
   

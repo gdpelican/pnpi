@@ -37,7 +37,7 @@ class Resource < ActiveRecord::Base
   
   def assign_attributes(attr, options={})
     self.class.details.each do |detail|
-      self.details[detail] = attr.delete detail
+      self.details[detail] = attr.delete detail unless attr[detail].nil?
     end
     super(attr)
   end
@@ -63,7 +63,7 @@ class Resource < ActiveRecord::Base
   end
   
   def self.mass_fields
-    [:id, :name, :preview, :description, :picture, :active, :_destroy, tag_ids: [], category_ids: []] | self.details
+    [:id, :name, :preview, :description, :picture, :active, :_destroy, owner_ids: [], tag_ids: [], category_ids: []] | self.details
   end
   
   def self.details

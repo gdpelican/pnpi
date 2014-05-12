@@ -15,8 +15,8 @@ class Thing < Resource
   end
  
   def set_price_per_period
-    return if id.nil? and price_per_period.present? #to allow seeding
-    self.price.gsub! '$', '' unless self.price.nil?
+    return if id.nil? and price_per_period.present? # to allow seeding
+    self.price.to_s.gsub! '$', '' if self.price
     if self.price.to_f > 0 && self.period.present? then self.price_per_period = "#{self.price.to_f} / #{self.period}"
     else                                                self.price_per_period = nil end
   end

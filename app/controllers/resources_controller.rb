@@ -101,9 +101,9 @@ class ResourcesController < ApplicationController
   end
   
   def owner_array
-    if    params[:person_id] then { owners: [Person.find(params[:person_id])] }
-    elsif current_user then       { owners: [current_user.person] }
-    else                          {} end
+    if    params[:person_id] then                  { owners: [Person.find(params[:person_id])] }
+    elsif current_user && current_user.person then { owners: [current_user.person] }
+    else                                           {} end
   end
   
   def model
