@@ -49,11 +49,11 @@ group :test do
   gem 'codeclimate-test-reporter'
 end
 
-gem 'paperclip', '~> 3.5.3'
+gem 'paperclip', '~> 3.5.2'
+gem 'aws-sdk', '~> 1.5.7'
 gem 'geocoder'
 gem 'formtastic'
 gem 'draper', '~> 1.3'
-gem 'aws-sdk' 
 gem 'arel'
 gem 'devise'
 gem 'font-awesome-rails'

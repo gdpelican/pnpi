@@ -32,8 +32,8 @@ class Resource < ActiveRecord::Base
      :storage => :s3,
      :default_url => :default_url,
      :s3_credentials => "#{Rails.root}/config/s3.yml",
-     :path => "/:style/:id/:filename",
-     :bucket => 'PNPI-Resource'  
+     :path => ":id/:style/:filename.:extension",
+     :bucket => "pnpi_#{Rails.env}"
   
   def assign_attributes(attr, options={})
     self.class.details.each do |detail|
