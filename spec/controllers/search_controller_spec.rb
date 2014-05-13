@@ -4,9 +4,10 @@ describe SearchController do
   
   before :each do
     Paperclip::Attachment.any_instance.stub(:save).and_return true
+    @tag1 = create :tag
     @actor = create :job, name: 'Actor'
     @director = create :job, name: 'Director'
-    @person1 = create :person, :resource, jobs: [@actor]
+    @person1 = create :person, :resource, jobs: [@actor], tags: [@tag1]
     @person2 = create :person, :resource, jobs: [@actor, @director], description: 'wark desc'
     @person3 = create :person, :resource, jobs: [@director]
     @thing1 = create :thing, :resource, name: 'wark title'
@@ -82,6 +83,39 @@ describe SearchController do
       search.results.should include(@person1)
       search.results.should include(@thing1)
     end
+  end
+    
+  context "tag searching" do
+    it "can search for records with tags" do
+      get :all, tags: [@tag1.id]
+      search = assigns(:search)
+      search.results.should include(@person1)
+    end
+    
+    it "does not return results which do not have tags" do
+      get :all, tags: [@tag1.id]
+      search = assigns(:search)
+      search.results.should_not include(@person2)    
+    end
+  end
+  
+  context "last search storage" do
+    it "stores the last performed search" do
+      get :filter, resource: 'Person', category: :actor
+      cookies[:last_search].should eq 'filter_person_actor_1'
+      
+      get :text, term: 'wark'
+      cookies[:last_search].should eq 'text_wark_1'
+      
+      get :all
+      cookies[:last_search].should eq 'all_1'
+    end
+    
+    it "stores the last performed search with tags" do
+      get :filter, resource: 'Person', category: :actor, tags: [@tag1]
+      cookies[:last_search].should eq "filter_person_actor_1_[#{@tag1.id}]"
+    end
+    
   end
   
 end

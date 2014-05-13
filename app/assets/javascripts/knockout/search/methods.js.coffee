@@ -7,7 +7,6 @@ class @KnockoutSearchMethods
       postUrl = @getPostUrl json
       data =
         tags:      json.tags
-        cache_key: cacheKey
         format:    'json'
       @fetch cacheKey, postUrl, data, success, failure
       

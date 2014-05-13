@@ -14,7 +14,7 @@ class Search
   def as_json(options = {})
     { type:       type,
       resources:  resources, 
-      categories: categories }.merge(doing_search? ? 
+      categories: categories }.merge(resource_search? ? 
     { results:    results,
       tag_list:   tag_list,
       tags:       tags || [],
@@ -40,6 +40,21 @@ class Search
   def tag_list
     TagType.search resource, category
   end
+  
+  def resource_search?
+    [:filter, :text, :all].include? type.to_sym
+  end
+  
+  def cache_key
+    return unless resource_search?
+    result = "#{type}_"
+    result += case type.to_sym
+      when :filter then "#{resource}_#{category}_"
+      when :text then "#{term}_"
+      else "" end
+    result += "#{page || 1}#{"_[#{tags.join(',')}]" if tags.present?}"
+    result.downcase
+  end
 
   private
     
@@ -55,10 +70,6 @@ class Search
       tags: tags,
       page_size: PAGE_SIZE, 
       page: page }
-  end
-
-  def doing_search?
-    [:filter, :text, :all].include? type.to_sym
   end
   
 end

@@ -1,14 +1,11 @@
 class SearchController < ApplicationController
   respond_to :html, :json
   SEARCHES = [:categories, :filter, :text, :all]
-  before_action :populate_search, except: :touch
+  before_action :populate_search
+  before_action :set_last_search_cookie, only: [:filter, :text, :all]
+  
   
   def new
-  end
-  
-  def touch
-    set_last_search_cookie
-    render nothing: true
   end
     
   protected
@@ -46,7 +43,7 @@ class SearchController < ApplicationController
   end
   
   def set_last_search_cookie
-    cookies[:last_search] = { value: params[:cache_key], expires: 1.hour.from_now } if params[:cache_key]
+    cookies[:last_search] = { value: @search.cache_key, expires: 1.hour.from_now } if @search.cache_key
   end
   
 end
