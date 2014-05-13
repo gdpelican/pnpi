@@ -12,6 +12,11 @@
   i { padding-right: .5em; }
   
   &:hover { color: #222; }
+  
+  &.back-link {
+    background: rgb(100, 200, 200);
+    &:hover { background: rgb(50, 150, 150); }
+  }
  
   &.submit-link { 
     background: rgb(100, 200, 100); 
