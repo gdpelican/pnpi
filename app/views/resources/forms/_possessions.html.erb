@@ -10,11 +10,17 @@
 	<%= content_tag :ul, '', class: 'nested-panel' do %>
 		<% f.object.possessions.each do |field| %>
 			<%= content_tag :li, '', class: 'nested-resources', data: { 'resource-type' => field } do %>
-				<%= content_tag :ul do %>
+				<%= content_tag :ul, '', class: 'nested-resource-list' do %>
 					<% f.object.send(field, true).each do |child| %>
-						<%= link_to nested_image(child), resource_by_owner_path(f.object, child), 
-							class: 'nested-resource-link',
-							title: child.name %>						
+						<%= content_tag :li, '', class: 'nested-resource-list-item' do %>
+							<%= link_to nested_image(child), 
+								resource_by_owner_path(f.object, child), 
+								class: 'nested-resource-link',
+								title: child.name %>
+							<%= link_to child.name || "Add a new #{child.type}", 
+								resource_by_owner_path(f.object, child), 
+								class: 'nested-resource-title' %>
+						<% end %>					
 					<% end %>
 				<% end %>		
 			<% end %>
