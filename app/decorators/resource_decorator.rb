@@ -52,6 +52,12 @@ class ResourceDecorator < Draper::Decorator
   def category_type
     object.class.category_type.pluralize
   end
+
+  def error_messages
+    'Please correct the following errors:<ul>' + 
+      errors.map { |key, value| "<li>#{key.to_s.humanize} #{value}</li>" }.uniq.join + 
+    '</ul>'
+  end
   
   def description_header
     'Description'

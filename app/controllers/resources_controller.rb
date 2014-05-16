@@ -42,8 +42,8 @@ class ResourcesController < ApplicationController
         data = handle_successful_creation
         format.html { redirect_to data[:url], notice: data[:notice] }
       else
-        set_collections
-        format.html { render action: 'new' }
+        handle_invalid
+        format.html { render :new }
       end
     end
   end
@@ -56,9 +56,8 @@ class ResourcesController < ApplicationController
         handle_successful_update
         format.html { redirect_to resource_path(@resource, :edit), notice: 'Changes successfully saved.' }
       else
-        set_collections
-        flash.now[:alert] = @resource.errors.to_json
-        format.html { render action: :edit }
+        handle_invalid
+        format.html { render :edit }
       end
     end
   end
@@ -131,7 +130,7 @@ class ResourcesController < ApplicationController
     if @resource.person? && !admin? then 
       { url: root_url, notice: "Thanks for submitting! You'll be hearing from us soon, at the email address provided." }
     else                  
-      { url: resource_path(@resource, :show), notice: "#{@type} was successfully created" }
+      { url: resource_path(@resource, :edit), notice: "#{@type} was successfully created" }
     end 
   end
   
@@ -139,6 +138,11 @@ class ResourcesController < ApplicationController
     if @resource.person? && admin? && !User.exists_for?(@resource)
       WelcomeMailer.welcome_email(@resource).deliver
     end  
+  end
+
+  def handle_invalid
+    set_collections
+    flash[:alert] = @resource.error_messages
   end
 
 end

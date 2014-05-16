@@ -24,6 +24,11 @@ module ApplicationHelper
     image_tag current_user.person.picture.url(:tiny) if current_user && current_user.person.picture.present?
   end
   
+  def flash
+    if    alert then alert.html_safe
+    elsif notice then notice.html_safe end
+  end
+
   def flash_type
     if    alert then 'alert'
     elsif notice then 'notice' end
