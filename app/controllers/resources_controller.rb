@@ -52,6 +52,7 @@ class ResourcesController < ApplicationController
   # PATCH/PUT /resources/1.json
   def update
     respond_to do |format|
+      handle_sample_swap if @resource.sample?
       if @resource.update strong_type params, @type, @type.downcase
         handle_successful_update
         format.html { redirect_to resource_path(@resource, :edit), notice: 'Changes successfully saved.' }
@@ -143,6 +144,11 @@ class ResourcesController < ApplicationController
   def handle_invalid
     set_collections
     flash[:alert] = @resource.error_messages
+  end
+
+  def handle_sample_swap
+    @resource.link = nil if params[:sample][:picture]
+    @resource.picture.clear if params[:sample][:link]
   end
 
 end

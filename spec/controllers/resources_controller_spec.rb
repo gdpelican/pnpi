@@ -181,13 +181,22 @@ describe ResourcesController do
         resource.should be_valid
         response.should redirect_to edit_thing_url(resource)
       end
+
+      it "can create a sample with a link" do
+        post :create, type: 'Sample', sample: { name: 'new sample link', link: 'www.example.com' }
+        resource = assigns(:resource)
+        flash[:notice].should =~ /successfully created/i
+        resource.should be_valid
+        response.should redirect_to edit_sample_url(resource)
+      end
       
       it "does not create an invalid place" do
         post :create, type: 'Place', place: { description: 'description' }
         assigns(:resource).should_not be_valid
-        flash[:alert].should =~ /name is too short/i
+        flash[:alert].should =~ /cannot have a name less than/i
         response.should render_template :new
       end
+
     end
     
     describe "update route" do
@@ -218,8 +227,28 @@ describe ResourcesController do
       it "does not update an invalid sample" do
         sample = create :sample, :resource
         post :update, id: sample.id, type: 'Sample', sample: { name: 'bo' }
-        flash[:alert].should =~ /name is too short/i
+        flash[:alert].should =~ /cannot have a name less than/i
         response.should render_template :edit
+      end
+
+      it "can swap a file for a link on a sample" do
+        sample = create :sample, :resource, link: 'www.example.com', picture: nil
+        post :update, id: sample.id, type: 'Sample', sample: { picture: fixture_file_upload('pdf.png') }
+        resource = assigns(:resource)
+        resource.picture_file_name.should eq 'pdf.png'
+        resource.link.should be_nil
+        resource.should be_valid
+        response.should redirect_to edit_sample_url sample
+      end
+
+      it "can swap a link for a file on a sample" do
+        sample = create :sample, :resource, picture: fixture_file_upload('pdf.png')
+        post :update, id: sample.id, type: 'Sample', sample: { link: 'www.example.com' }
+        resource = assigns(:resource)
+        resource.link.should eq 'www.example.com'
+        resource.picture_file_name.should be_nil
+        resource.should be_valid 
+        response.should redirect_to edit_sample_url sample     
       end
     end
     

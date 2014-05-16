@@ -1,7 +1,5 @@
 <% update = f.object.id.present? %>
 
-<%= link_to image_tag('/images/pdf.png'), f.object.sample_url, target: :_blank, title: f.object.picture_file_name, class: 'view-file' if f.object.sample? && f.object.picture_file_name %>
-<%= string_input f, :picture, :file, (update ? 'upload-with-file' : 'select-full' ), label: true if f.object.sample? %>
 <%= string_input f, :name, :string unless f.object.person? %>
 
 <% case type %>
@@ -22,6 +20,15 @@
 	<%= select_input f, :period, @periods, field_size: 'select-four-fifth', value: f.object.selected_period, icon: 'clock-o' %>
 	<%= string_input f, :description, :text, 'full', icon: 'comment' %>
 <% when :sample %>
+	<%= content_tag :div, '', class: 'sample-input upload-sample-input' do %>
+		<%= link_to image_tag('/images/pdf.png'), f.object.sample_url, target: :_blank, title: f.object.picture_file_name, class: 'view-file' if f.object.picture_file_name %>
+		<%= string_input f, :picture, :file, (update ? 'upload-with-file' : 'select-full' ), label: true %>
+		<%= link_to 'or, link to a web address', 'javascript:;', class: 'toggle-sample-input' %>
+	<% end %>
+	<%= content_tag :div, '', class: 'sample-input url-sample-input' do %>
+		<%= string_input f, :link, :string, 'full', icon: 'link' %>
+		<%= link_to 'or, upload a file', 'javascript:;', class: 'toggle-sample-input' %>
+	<% end %>
 <% end %>
 
 <%= render partial: 'resources/forms/possessions', locals: { f: f } if f.object.person? && f.object.id.present? %>
