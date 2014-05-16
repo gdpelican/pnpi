@@ -1,34 +1,40 @@
-.action-link {  
-  border-radius: .5em;
-  font-family: Coustard;
-  padding: .75em;
-  color: black;
-  display: block;
+.actions {
+  margin-bottom: 1em;
   text-align: center;
-  width: 90%;
-  margin: .5em auto;
-  text-decoration: none;
-  font-size: .85em;
-  i { padding-right: .5em; }
-  
-  &:hover { color: #222; }
-  
-  &.back-link {
-    background: rgb(100, 200, 200);
-    &:hover { background: rgb(50, 150, 150); }
+
+  .action-link {  
+    border-radius: .5em;
+    font-family: Coustard;
+    padding: .75em;
+    color: black;
+    display: inline-block;
+    text-align: center;
+    margin: 1em .5em;
+    text-decoration: none;
+    font-size: .85em;
+    width: 11em;
+
+    i { padding-right: .5em; }
+    
+    &:hover { color: #222; }
+    
+    &.back-link {
+      background: rgb(100, 200, 200);
+      &:hover { background: rgb(50, 150, 150); }
+    }
+   
+    &.submit-link { 
+      background: rgb(100, 200, 100); 
+      &:hover { background: rgb(50, 150, 50); }
+    }
+    &.delete-link { 
+      background: rgb(200, 100, 100);
+      &:hover { background: rgb(150, 50, 50); } 
+    }
+    &.deactivate-link { 
+      background: rgb(200, 200, 100); 
+      &:hover { background: rgb(150, 150, 100); }
+    }
+    
   }
- 
-  &.submit-link { 
-    background: rgb(100, 200, 100); 
-    &:hover { background: rgb(50, 150, 50); }
-  }
-  &.delete-link { 
-    background: rgb(200, 100, 100);
-    &:hover { background: rgb(150, 50, 50); } 
-  }
-  &.deactivate-link { 
-    background: rgb(200, 200, 100); 
-    &:hover { background: rgb(150, 150, 100); }
-  }
-  
 }
