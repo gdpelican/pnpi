@@ -72,5 +72,9 @@ module ResourceHelper
   def form_action_confirm_text(action, type, message)
     "Are you sure you want to #{action} this #{type}? #{message}" if message.present?
   end
-  
+
+  def no_siblings?(resource)
+    current_user.nil? || resource.type != 'Person' && current_user.person.send(resource.type.to_s.pluralize.downcase).empty?
+  end
+
 end

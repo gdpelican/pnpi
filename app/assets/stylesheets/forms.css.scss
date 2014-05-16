@@ -17,6 +17,13 @@ form.resource {
   input[type=file],
   input[type=submit] { display: none; }
   
+  .new-resource-blurb {
+    margin: 0 5% 1em;
+    padding: 1em;
+    background: rgba(187, 187, 119, 0.5);
+    border-radius: .5em;
+  }
+
   .view-file {
     display: inline-block;
     width: 2em;

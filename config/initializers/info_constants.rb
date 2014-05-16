@@ -17,6 +17,14 @@ markdown_description =
     
 INFO = {          
   person: {
+    new:
+      "Thanks for joining us! Please take a little time to tell us some basic information about yourself,
+including your name, bio, and a quick quote to give us a feel for who are as an artist. A recent photograph is also highly recommended. 
+
+Once you've been approved, you'll be able to search our database for fellow collaborators, as well as contribute work samples and/or props or venues 
+you'd like to make available to the community. 
+
+We look forward to hearing from you!",
     description:
       "1. This is a more detailed description of yourself and your work. Feel free to type up a resume, or a longer artistic statement,
           or otherwise let us know what you want us to know about you.
@@ -37,6 +45,12 @@ INFO = {
   },
   
   place: {
+    new:
+      "Have a space you're interested in sharing or renting out to the community? 
+
+Take a little time to provide a name, address, and description of the place, as well as any other relevant details.
+
+You will be listed as the point of contact for this space.",
     description:
     "1. Please provide any relevant details about your venue, including square footage, floor plans, contact info, pricing info, 
         etc.
@@ -49,6 +63,12 @@ INFO = {
   },
   
   thing: {
+    new:
+    "Is there a prop you'd be interested in making available? Let us know about it! 
+
+Be sure to describe a short description and a photograph. Is it new or used? For rent? Is there a production the reader might recognize it from?
+        
+You can also either specify a rental rate (in $ per time period), or leave it blank if you're willing to lend it freely.",
     description:
     "1. Provide additional details about this item.
     
@@ -56,10 +76,13 @@ INFO = {
 
     preview:
     "Provide a short description of your item; is it new or used? For rent? Is there a production the reader might recognize it from?"
-  
   },
   
   sample: {
-    
+    new:
+    "If you have a resume or work samples of some kind you'd like to share with potential collaborators, upload them here.
+We accept documents, videos, pictures, pdfs, or you can simply give us a link to an existing site.
+
+Currently supported upload file formats are .txt, .doc, .mp4, .docx, .jpeg, .jpg, and .pdf"
   }
 }
