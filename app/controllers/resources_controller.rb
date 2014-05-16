@@ -147,8 +147,8 @@ class ResourcesController < ApplicationController
   end
 
   def handle_sample_swap
-    @resource.link = nil if params[:sample][:picture]
-    @resource.picture.clear if params[:sample][:link]
+    @resource.link = nil if params[:sample][:picture].present?
+    @resource.picture.clear if params[:sample][:link].present?
   end
 
 end
