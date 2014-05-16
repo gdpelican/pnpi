@@ -20,7 +20,8 @@ describe ResourcesController do
       post :create, type: 'Person', person: { name: 'test', description: 'description', email: 'wark@wark.com', website: 'http://www.example.com' }
       resource = assigns(:resource)
       resource.should be_valid
-      response.should redirect_to person_url resource      
+      flash[:notice].should =~ /successfully created/i
+      response.should redirect_to edit_person_url resource
     end
     
     it "can access the index route" do
@@ -33,12 +34,14 @@ describe ResourcesController do
       post :update, id: person.id, type: 'Person', person: { website: 'http://www.wark.com' }
       person.reload.website.should eq 'http://www.wark.com'
       resource = assigns(:resource)
+      flash[:notice].should =~ /successfully saved/i
       response.should redirect_to edit_person_path resource  
     end
     
     it "can access the destroy route" do
       sample = create :sample, :resource
       post :destroy, type: 'Sample', id: sample.id
+      flash[:notice].should =~ /successfully deleted/i
       response.should redirect_to samples_path      
     end
     
@@ -166,6 +169,7 @@ describe ResourcesController do
       it "can create a person" do
         post :create, type: 'Person', person: { name: 'test', description: 'description', email: 'wark@wark.com', website: 'http://www.example.com' }
         assigns(:resource).should be_valid
+        flash[:notice].should =~ /thanks for submitting/i
         response.should redirect_to root_url  
       end
       
@@ -173,13 +177,15 @@ describe ResourcesController do
         owner = create :person, :resource
         post :create, type: 'Thing', thing: { name: 'thing', description: 'description', owner_ids: [owner.id] }
         resource = assigns(:resource)
+        flash[:notice].should =~ /successfully created/i
         resource.should be_valid
-        response.should redirect_to thing_url(resource)
+        response.should redirect_to edit_thing_url(resource)
       end
       
       it "does not create an invalid place" do
         post :create, type: 'Place', place: { description: 'description' }
         assigns(:resource).should_not be_valid
+        flash[:alert].should =~ /name is too short/i
         response.should render_template :new
       end
     end
@@ -189,24 +195,31 @@ describe ResourcesController do
         person = create :person, :resource
         post :update, id: person.id, type: 'Person', person: { website: 'http://www.wark.com' }
         person.reload.website.should eq 'http://www.wark.com'
+        flash[:notice].should =~ /successfully saved/i
+        response.should redirect_to edit_person_url person
       end
         
       it "can update a thing" do
         thing = create :thing, :resource
         post :update, id: thing.id, type: 'Thing', thing: { name: 'New thing name' }
         thing.reload.name.should eq 'New thing name'
+        flash[:notice].should =~ /successfully saved/i
+        response.should redirect_to edit_thing_url thing
       end
       
       it "can activate a place" do
         place = create :place, :resource, active: false
         post :update, id: place.id, type: 'Place', place: { active: true }
         place.reload.active.should eq true
+        flash[:notice].should =~ /successfully saved/i
+        response.should redirect_to edit_place_url place
       end
       
       it "does not update an invalid sample" do
         sample = create :sample, :resource
         post :update, id: sample.id, type: 'Sample', sample: { name: 'bo' }
-        response.should render_template :edit
+        flash[:alert].should =~ /name is too short/i
+        response.should redirect_to edit_sample_url sample
       end
     end
     
@@ -215,6 +228,7 @@ describe ResourcesController do
         person = create :person, :resource
         post :destroy, id: person.id, type: 'Person'
         resource = assigns(:resource).should eq person
+        flash[:notice].should =~ /successfully deleted/i
         response.should redirect_to people_path
       end
     end
