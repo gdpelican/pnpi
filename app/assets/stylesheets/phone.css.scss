@@ -2,10 +2,12 @@
 and (min-width : 320px) 
 and (max-width : 700px) {
 
-  .logo img { 
+  .logo img, .user-menu img { 
     width: 4.5em !important;
     height: 4.5em !important; 
   }
+
+  .nav-item .fa { font-size: .9em !important; }
 
   header.search-form {
     padding-top: 4em !important;
@@ -19,6 +21,32 @@ and (max-width : 700px) {
   .modal .content {
     width: 90% !important;
     margin: auto 5% !important;
+  }
+
+  form.resource {
+    fieldset { 
+      display: block !important;
+      width: 100% !important;
+      .block-padding {
+        .block {
+          width: 85% !important;
+          padding: .25em;
+          display: block !important;
+        }
+        text-align: center;
+        img { width: auto; }
+      }
+      &.styled-inputs label {
+        &.open { 
+          left: .5em !important;
+          top: .75em !important;
+        }
+        &.closed {
+          left: .25em !important;
+          top: .5em !important;
+        }
+      }
+    }
   }
   
 }
