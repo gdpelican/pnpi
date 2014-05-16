@@ -219,7 +219,7 @@ describe ResourcesController do
         sample = create :sample, :resource
         post :update, id: sample.id, type: 'Sample', sample: { name: 'bo' }
         flash[:alert].should =~ /name is too short/i
-        response.should redirect_to edit_sample_url sample
+        response.should render_template :edit
       end
     end
     
