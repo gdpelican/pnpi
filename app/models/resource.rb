@@ -7,8 +7,6 @@ class Resource < ActiveRecord::Base
     association_foreign_key: :owner_id,
     foreign_key:             :possession_id
   
-  validates :name, length: { minimum: 3 }
-  validates :preview, length: { maximum: 140 }
   validates_associated :tags
   validates_associated :categories
   validates :type, inclusion: { in: ['Person', 'Place', 'Thing', 'Sample'] }

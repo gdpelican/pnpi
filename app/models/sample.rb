@@ -1,10 +1,8 @@
 class Sample < Resource
   
-  validates :name, length: { minimum: 3 }
-  
   alias :sample :picture
 
-  validates :sample, presence: true
+  validates_with SampleValidator
   
   def sample_file_extension
     File.extname(picture_file_name || 'missing.pdf').gsub('.', '')
@@ -19,11 +17,11 @@ class Sample < Resource
   end
   
   def self.details
-    []
+    [:link]
   end
      
   def self.mass_fields
     super | [:sample]
   end
-  
+
 end
