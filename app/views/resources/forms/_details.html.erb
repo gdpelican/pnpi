@@ -21,7 +21,7 @@
 	<%= string_input f, :description, :text, 'full', icon: 'comment' %>
 <% when :sample %>
 	<%= content_tag :div, '', class: 'sample-input upload-sample-input' do %>
-		<%= link_to image_tag('/images/pdf.png'), f.object.sample_url, target: :_blank, title: f.object.picture_file_name, class: 'view-file' if f.object.picture_file_name %>
+		<%= link_to image_tag(f.object.file_url), f.object.sample_url, target: :_blank, title: f.object.picture_file_name, class: 'view-file' if f.object.picture_file_name %>
 		<%= string_input f, :picture, :file, (update ? 'upload-with-file' : 'select-full' ), label: true %>
 		<%= link_to 'or, link to a web address', 'javascript:;', class: 'toggle-sample-input' %>
 	<% end %>

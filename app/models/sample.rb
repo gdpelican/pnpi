@@ -5,7 +5,7 @@ class Sample < Resource
   validates_with SampleValidator
   
   def sample_file_extension
-    File.extname(picture_file_name || 'missing.pdf').gsub('.', '')
+    self.link.present? ? '.html' : File.extname(picture_file_name || 'missing.pdf').gsub('.', '')
   end
   
   def asset?
