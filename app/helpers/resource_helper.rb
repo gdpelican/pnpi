@@ -8,9 +8,10 @@ module ResourceHelper
   def resource_action(action, resource, admin)
     data = case action
     when :back then
+      return if current_user.blank?
       { icon: 'user',
         text: 'Back to my profile',
-        show: current_user.present? && resource.owners.include?(current_user.person),
+        show: resource.owners.include?(current_user.person),
         href: edit_person_path(current_user.person) }
     when :submit then
       submit_action(resource, admin).merge({ show: true })
