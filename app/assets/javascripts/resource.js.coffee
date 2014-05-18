@@ -15,22 +15,27 @@
       
       form = $('form.resource')
       if form?
+
+        form.find('.basic.styled-inputs').on 'mouseenter', 'label.open', ->
+          $(@).siblings('input, textarea, select').focus()
+
         form.find('.basic.styled-inputs').on 'mouseenter focus', 'input, textarea, select', ->
           $(@).siblings('label').addClass('closed').removeClass('open')
 
-        if form.find('.url-sample-input').find('input[type=text]').val()
-          form.find('.upload-sample-input').hide()
-        else
-          form.find('.url-sample-input').hide()
-
-        form.on 'mouseleave blur', '.basic.styled-inputs input, .basic.styled-inputs textarea', ->
-          if not $(@).val()
+        form.find('.basic.styled-inputs').on 'mouseleave blur', 'input, textarea, select', ->
+          if (!$(@).val() || $(@).val() == '(___) ___ ____') && !$(@).is(':hover')
             $(@).siblings('label').addClass('open').removeClass('closed')
+        
         form.find('.basic.styled-inputs').find('label').each ->
           if $(@).siblings('input, textarea, select').val()
             $(@).addClass('closed')
           else
             $(@).addClass('open')
+
+        if form.find('.url-sample-input').find('input[type=text]').val()
+          form.find('.upload-sample-input').hide()
+        else
+          form.find('.url-sample-input').hide()
         
         form.find('li.tag').each ->
           if $(@).find('input[checked=checked]').length > 0
@@ -70,6 +75,10 @@
           sibling.find('input').val('')
           sibling.find('label').removeClass('is-ready')
           form.find('.sample-input').slideToggle()
+
+        form.find('.has-tooltip').on 'click', 'label', (e) ->
+          $(@).siblings('.tooltip').addClass('fading').fadeToggle ->
+            $(@).removeClass('fading')
 
         showSelection = (self, event, parent, classname, datafield, target) ->
           event.stopPropagation()
