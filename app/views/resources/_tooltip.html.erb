@@ -2,6 +2,6 @@
 <% info ||= nil %>
 
 <%= content_tag :span, label if label %>
-<%=	content_tag :div, '', class: 'tooltip' do %>
+<%=	content_tag :div, '', class: 'non-input-help tooltip' do %>
 	<%= content_tag :div, info.markdown, class: 'tooltip-text' %>
 <% end if info %>

@@ -1,0 +1,4 @@
+<%= f.input symbol, wrapper_html: { class: "block #{options[:field_size] || 'full'} #{options[:css]}" }, 
+    label: input_label(symbol, options[:prompt], options[:icon]), 
+    hint: (content_tag :div, options[:tooltip].markdown, class: 'input-help tooltip' if options[:tooltip]),
+    as: type %>

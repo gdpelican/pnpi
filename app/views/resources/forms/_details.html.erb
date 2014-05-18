@@ -1,32 +1,32 @@
 <% update = f.object.id.present? %>
 
-<%= string_input f, :name, :string unless f.object.person? %>
+<%= string_input f, 	:name, 			:string unless f.object.person? %>
 
 <% case type %>
 <% when :person %>
 	<%= f.input :signup_token, as: :hidden, input_html: { value: f.object.signup_token } %>
-	<%= string_input f, :first_name, :string, 'half-pad' %>
-	<%= string_input f, :last_name, :string, 'half' %>
-	<%= string_input f, :email, :email, 'full', icon: 'envelope-o' %>
-	<%= string_input f, :phone, :phone, 'full', css: 'phone', icon: 'phone' %>
-	<%= string_input f, :website, :url, 'full', icon: 'laptop' %>
-	<%= string_input f, :description, :text, 'full', icon: 'comment', prompt: 'Biography' %>
-	<%= string_input f, :preview, :string, 'full', icon: 'quote-right', prompt: 'A quick sentence about you as an artist' %>
+	<%= string_input f, :first_name, 	:string, 	field_size: 'half-pad' %>
+	<%= string_input f, :last_name, 	:string, 	field_size: 'half' %>
+	<%= string_input f, :email, 		:email, 	icon: 'envelope-o' %>
+	<%= string_input f, :phone, 		:phone, 	css: 'phone', icon: 'phone' %>
+	<%= string_input f, :website, 		:url, 		icon: 'laptop' %>
+	<%= string_input f, :description, 	:text, 		icon: 'comment', prompt: 'Biography' %>
+	<%= string_input f, :preview, 		:string, 	icon: 'quote-right', prompt: 'A quick sentence about you as an artist' %>
 <% when :place %>
-	<%= string_input f, :address, :string, 'full', icon: 'map-marker' %>
-	<%= string_input f, :description, :text, 'full', icon: 'comment' %>
+	<%= string_input f, :address, 		:string, 	icon: 'map-marker' %>
+	<%= string_input f, :description, 	:text, 		icon: 'comment' %>
 <% when :thing %>
-	<%= string_input f, :price, :string, 'fifth', css: 'currency', icon: 'dollar' %>
+	<%= string_input f, :price, 		:string, 	field_size: 'fifth', css: 'currency', icon: 'dollar' %>
 	<%= select_input f, :period, @periods, field_size: 'select-four-fifth', value: f.object.selected_period, icon: 'clock-o' %>
-	<%= string_input f, :description, :text, 'full', icon: 'comment' %>
+	<%= string_input f, :description, 	:text, 		icon: 'comment' %>
 <% when :sample %>
 	<%= content_tag :div, '', class: 'sample-input upload-sample-input' do %>
 		<%= link_to image_tag(f.object.file_url), f.object.sample_url, target: :_blank, title: f.object.picture_file_name, class: 'view-file' if f.object.picture_file_name %>
-		<%= string_input f, :picture, :file, (update ? 'upload-with-file' : 'select-full' ), label: true %>
+		<%= string_input f, :picture, 	:file, 		field_size: (update ? 'upload-with-file' : 'select-full' ), label: true %>
 		<%= link_to 'or, link to a web address', 'javascript:;', class: 'toggle-sample-input' %>
 	<% end %>
 	<%= content_tag :div, '', class: 'sample-input url-sample-input' do %>
-		<%= string_input f, :link, :string, 'full', icon: 'link' %>
+		<%= string_input f, :link, 		:string, 	icon: 'link' %>
 		<%= link_to 'or, upload a file', 'javascript:;', class: 'toggle-sample-input' %>
 	<% end %>
 <% end %>

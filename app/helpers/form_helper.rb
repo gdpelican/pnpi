@@ -3,11 +3,14 @@ module FormHelper
   def form_title
     content_tag :h1, action_name == 'show' ? @resource.name : action_name.humanize + ' ' + @type
   end
-  
-  def string_input(form, symbol, type, field_size = 'full', options = {})
-    form.input symbol, wrapper_html: { class: "block #{field_size} #{options[:css]}" }, 
-                       label: input_label(symbol, options[:prompt], options[:icon]),
-                       as: type
+
+  def string_input(form, symbol, type, options = {})
+    options[:tooltip] ||= INFO[form.object.type.downcase.to_sym][symbol]
+    render partial: 'resources/input', 
+           locals: { f: form, 
+                     symbol: symbol, 
+                     type: type, 
+                     options: options }
   end
     
   def tag_collection(resource)
