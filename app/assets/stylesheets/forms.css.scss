@@ -45,9 +45,12 @@ form.resource {
     }
     
     &.styled-inputs {
-      .has-tooltip label:hover {
-        cursor: pointer;
-        i:before { content: '\f059'; }
+      .has-tooltip {
+        > p { display: none; }
+        label:hover {
+          cursor: pointer;
+          i:before { content: '\f059'; }
+        }
       }
       label {
         transition: .1s all;

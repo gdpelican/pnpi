@@ -25,6 +25,9 @@ Once you've been approved, you'll be able to search our database for fellow coll
 you'd like to make available to the community. 
 
 We look forward to hearing from you!",
+    email: "Please enter your email address (you'll need this to sign up)",
+    phone: "You may enter a contact number if you'd like people to be able to reach you by phone",
+    website: "If you have a web home, enter it here.",
     description:
       "1. This is a more detailed description of yourself and your work. Feel free to type up a resume, or a longer artistic statement,
           or otherwise let us know what you want us to know about you.
@@ -51,15 +54,13 @@ We look forward to hearing from you!",
 Take a little time to provide a name, address, and description of the place, as well as any other relevant details.
 
 You will be listed as the point of contact for this space.",
+    name: "The name of your venue or event space. Please be descriptive! (Especially if you are listing multiple spaces within the same building.",
+    address: "The phsyical address of your venue.",
     description:
     "1. Please provide any relevant details about your venue, including square footage, floor plans, contact info, pricing info, 
         etc.
     
     #{markdown_description}",
-    
-    preview:
-    "This should be a short \"at a glance\" blurb about your space. What kind of events are you looking to host? Is there a resident company
-     associated with your space? What else should a renter know right off the bat about this place?"
   },
   
   thing: {
@@ -69,6 +70,8 @@ You will be listed as the point of contact for this space.",
 Be sure to describe a short description and a photograph. Is it new or used? For rent? Is there a production the reader might recognize it from?
         
 You can also either specify a rental rate (in $ per time period), or leave it blank if you're willing to lend it freely.",
+    price: "The cost (in dollars) for renting this prop / set over the given time period",
+    period: "The time period this prop / set piece is available is available for rental (ie a day? A month?)",
     description:
     "1. Provide additional details about this item.
     
@@ -83,6 +86,7 @@ You can also either specify a rental rate (in $ per time period), or leave it bl
     "If you have a resume or work samples of some kind you'd like to share with potential collaborators, upload them here.
 We accept documents, videos, pictures, pdfs, or you can simply give us a link to an existing site.
 
-Currently supported upload file formats are .txt, .doc, .mp4, .docx, .jpeg, .jpg, and .pdf"
+Currently supported upload file formats are .txt, .doc, .mp4, .docx, .jpeg, .jpg, and .pdf",
+    link: "Please enter a web address to link to"
   }
 }
