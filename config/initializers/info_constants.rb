@@ -15,7 +15,18 @@ markdown_description =
       
     Happy typing!"
     
-INFO = {          
+INFO = {     
+  about:
+"This database is a volunteer-led project of the [Philadelphia New Play Initiative](https://www.facebook.com/groups/587651131331743/), which is a campaign to improve the climate for new work in the city of Philadelphia. 
+
+We are devoted to encouraging productions of new plays (with an emphasis on local writers), and fostering an inclusive and accessible environment for artists and audiences. 
+
+Joining us will give you access to:
+
+* Regular networking and social events, 
+* Professional development opportunities 
+* This database of professional contacts
+* A bimonthly newsletter.",
   person: {
     new:
       "Thanks for joining us! Please take a little time to tell us some basic information about yourself,

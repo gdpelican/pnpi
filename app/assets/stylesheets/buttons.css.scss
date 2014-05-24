@@ -6,7 +6,7 @@
     border-radius: .5em;
     font-family: Coustard;
     padding: .75em;
-    color: black;
+    color: black !important;
     display: inline-block;
     text-align: center;
     margin: 1em .5em;
@@ -23,13 +23,17 @@
       &:hover { background: rgb(50, 150, 150); }
     }
    
-    &.submit-link { 
+    &.submit-link {
       background: rgb(100, 200, 100); 
       &:hover { background: rgb(50, 150, 50); }
     }
     &.delete-link { 
       background: rgb(200, 100, 100);
       &:hover { background: rgb(150, 50, 50); } 
+    }
+    &.facebook-link {
+      background: rgb(50, 50, 200);
+      &:hover { background: rgb(25, 25, 150); }
     }
     &.deactivate-link { 
       background: rgb(200, 200, 100); 

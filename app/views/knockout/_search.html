@@ -1,7 +1,14 @@
 <script type="text/html" id="search">
 	<div data-bind="appear: $root.showAbout" class="modal about">
 		<div class="overlay"></div>
-		<div class="content about texture-background">ABOUT PNPI</div>
+		<div class="content about texture-background">
+			<%= INFO[:about].markdown %>
+			<div class="actions">
+			  <a class="action-link submit-link" href="people/new/">Sign me up!</a>
+			  <a class="action-link deactivate-link" target="_blank" href="mailto:phillynewplayinitiative@gmail.com?subject=\"I'd like to join the mailing list!">Keep in touch</a>
+			  <a class="action-link facebook-link" target="_blank" href="https://www.facebook.com/groups/587651131331743/">Let's be friends</a>
+			</div>
+		</div>
 		<div data-bind="click: $root.toggleAbout" class="exit"></div>
 	</div>
 	<h1 data-bind="appear: $root.initialView">You want to make theater?</h1>
